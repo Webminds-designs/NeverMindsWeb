@@ -6,36 +6,36 @@ const quizRoutes = express.Router();
 
 quizRoutes.post(
     "/", 
-    // authenticate, 
-    // authorize("admin"), 
+    authenticate, 
+    authorize("admin"), 
     createQuiz
 );
 
 quizRoutes.get(
     "/", 
-    // authenticate, 
-    // authorize("admin", "student", "teacher"), 
+    authenticate, 
+    authorize("admin", "student", "teacher"), 
     getAllQuizzes
 );
 
 quizRoutes.get(
     "/:id", 
-    // authenticate, 
-    // authorize("admin"), 
+    authenticate, 
+    authorize("admin"), 
     getQuizById
 );
 
 quizRoutes.put(
     "/:id", 
-    // authenticate, 
-    // authorize("admin"), 
+    authenticate, 
+    authorize("admin"), 
     updateQuiz
 );
 
 quizRoutes.delete(
     "/:id", 
-    // authenticate, 
-    // authorize("admin"), 
+    authenticate, 
+    authorize("admin"), 
     deleteQuiz
 );
 
