@@ -47,7 +47,7 @@ const quizSchema = new mongoose.Schema({
         required: false,
     },
     guidlines: {
-        type: String,
+        type: [mongoose.Schema.Types.Mixed],
         required: false,
     },
     type: {
@@ -58,6 +58,10 @@ const quizSchema = new mongoose.Schema({
     banner: {
         type: String,
         required: false,
+    },
+    imageVector: {
+        type: String,
+        required: true,
     },
     tutor: {
         type: String,
@@ -70,9 +74,14 @@ const quizSchema = new mongoose.Schema({
         },
         validate: {
             validator: function(value) {
-                return this.type === 'private' || !value;
+                // Validation for 'private' type quiz: 6 characters with alphanumeric values
+                return this.type === 'private' ? /^[a-zA-Z0-9]{6}$/.test(value) : !value;
             },
-            message: 'Verification code can only be added to private quizzes.',
+            message: 'Verification code must be 6 characters long and contain both letters and numbers.',
+        },
+        default: function() {
+            // Auto-generate the verification code (6 characters, alphanumeric)
+            return this.type === 'private' ? generateVerificationCode() : undefined;
         },
     },
     quizTags: {
@@ -80,15 +89,35 @@ const quizSchema = new mongoose.Schema({
         required: false,
     },
     timeDuration: {
-        type: Number,
+        type: String,
         required: true,
-        min: [1, "Time duration must be at least 1 minute."],
+        validate: {
+            validator: function(value) {
+                // Validate time format HH:MM:SS
+                return /^([0-1]?[0-9]|2[0-3]):([0-5]?[0-9]):([0-5]?[0-9])$/.test(value);
+            },
+            message: 'Time must be in the format HH:MM:SS.',
+        },
     },
     questions: [{ 
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Question',
     }],
 }, {timestamps: true});
+
+
+
+// Function to generate a 6-character alphanumeric code
+function generateVerificationCode() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < 6; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+}
+
+
 
 const Quiz = mongoose.model('Quiz', quizSchema);
 
