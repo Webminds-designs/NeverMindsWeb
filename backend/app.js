@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import userRoutes from "./Routes/userRoute.js";
 import authRoute from "./Routes/authRoutes.js";
+import quizRoutes from "./Routes/QuizRoutes.js";
+import studentAnswerRouter from "./Routes/StudentAnswerRoutes.js";
 
 dotenv.config();
 
@@ -11,5 +13,7 @@ app.use(bodyParser.json());
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/auth", authRoute);
+app.use("/api/quizzes", quizRoutes);
+app.use("/api/answers", studentAnswerRouter);
 
-export default app; // Use default export
+export default app;
