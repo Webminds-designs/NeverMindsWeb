@@ -1,4 +1,13 @@
-import { createQuiz, getAllQuizzes, getQuizById, updateQuiz, deleteQuiz } from "../Controllers/QuizController.js";
+import { 
+    createQuiz, 
+    getAllQuizzes, 
+    getQuizById, 
+    updateQuiz, 
+    deleteQuiz,
+    getAllQuizzesByStudentId,
+    getAllQuizzesByTeacherId,
+    getAllMarksByTeacherIdQuizId, 
+} from "../Controllers/QuizController.js";
 import { addFavouriteQuiz, viewFavouriteByUserId, removeFavouriteQuiz, clearAllFavouritesByUserId } from "../Controllers/FavouriteQuizController.js"
 import { authenticate, authorize } from "../middleware/authenticate.js";
 import express from "express";
@@ -38,6 +47,27 @@ quizRoutes.delete(
     authenticate, 
     authorize("admin"), 
     deleteQuiz
+);
+
+quizRoutes.get(
+    "/student/:studentId", 
+    authenticate,
+    authorize("admin", "student"), 
+    getAllQuizzesByStudentId
+);
+
+quizRoutes.get(
+    "/teacher/:teacherId", 
+    authenticate,
+    authorize("admin", "teacher"),
+    getAllQuizzesByTeacherId
+);
+
+quizRoutes.get(
+    "/teacher/:teacherId/:quizId",
+    authenticate,
+    authorize("admin", "teacher"),
+    getAllMarksByTeacherIdQuizId
 );
 
 

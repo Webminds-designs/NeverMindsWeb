@@ -1,6 +1,9 @@
 import Quiz, { Answer, Question } from "../Model/Quiz.js";
 
-// CREATE QUIZ
+
+// ----------------------- CREATE QUIZ -----------------------
+
+
 export const createQuiz = async (req, res) => {
     const { title, description, guidlines, type, banner, tutor, verificationCode, quizTags, timeDuration, questions } = req.body;
 
@@ -46,9 +49,12 @@ export const createQuiz = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 
-}
+};
 
-// GET ALL QUIZZES
+
+// ----------------------- GET ALL QUIZZES -----------------------
+
+
 export const getAllQuizzes = async (req, res) => {
     try {
         const quizzes = await Quiz.find().populate({
@@ -62,9 +68,12 @@ export const getAllQuizzes = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
 
-// GET QUIZ BY ID
+
+// ----------------------- GET QUIZ BY ID -----------------------
+
+
 export const getQuizById = async (req, res) => {
     const { id } = req.params;
 
@@ -84,9 +93,12 @@ export const getQuizById = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
 
-// UPDATE QUIZ
+
+// ----------------------- UPDATE QUIZ -----------------------
+
+
 export const updateQuiz = async (req, res) => {
     const { id } = req.params;
     const { title, description, guidlines, type, banner, tutor, verificationCode, quizTags, timeDuration, questions } = req.body;
@@ -168,7 +180,10 @@ export const updateQuiz = async (req, res) => {
     }
 }
 
-// DELETE QUIZ
+
+// ----------------------- DELETE QUIZ -----------------------
+
+
 export const deleteQuiz = async (req, res) => {
     const { id } = req.params;
 
@@ -194,4 +209,97 @@ export const deleteQuiz = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
+
+// ----------------------- GET ALL QUIZZES BY STUDENT ID -----------------------
+
+
+export const getAllQuizzesByStudentId = async (req, res) => {
+    
+    const { studentId } = req.params;
+
+    try {
+        // find all quizzes attempted by the student
+        const quizzes = await StudentAnswer.find({ student: studentId })
+            .distinct("quiz");  // this returns only the unique quiz ids
+
+        return res.status(200).json({ data: quizzes });
+        
+    } catch (error) {
+        console.error("Error while fetching student quizzes:", error);
+        return res.status(500).json({ message: "Server error while fetching quizzes." });
+    }
+
+};
+
+
+// ----------------------- GET ALL QUIZZES BY TEACHER ID -----------------------
+
+
+export const getAllQuizzesByTeacherId = async (req, res) => {
+    
+    const { teacherId } = req.params;
+
+    try {
+        // find all quizzes created by the teacher
+        const quizzes = await Quiz.find({ tutor: teacherId });
+
+        return res.status(200).json({ quizzes });
+        
+    } catch (error) {
+        console.error("Error while fetching teacher quizzes:", error);
+        return res.status(500).json({ message: "Server error while fetching quizzes." });
+    }
+
+};
+
+
+// ----------------------- GET ALL MARKS BY TEACHER ID AND QUIZ ID -----------------------
+
+
+export const getAllMarksByTeacherIdQuizId = async (req, res) => {
+    
+    const { teacherId, quizId } = req.params;
+
+    try {
+        // verify if the quiz is belong to the teacher
+        const quiz = await Quiz.findOne({ _id: quizId, tutor: teacherId });
+        if (!quiz) {
+            return res.status(404).json({ message: "Quiz not found or not associated with the teacher" });
+        }
+
+        // find all student answers for the quiz
+        const studentAnswers = await StudentAnswer.find({ quiz: quizId })
+            .populate("student")
+            .populate("question");
+
+        // calculate scores by student
+        const scoresByStudent = {};
+
+        studentAnswers.forEach((answer) => {
+            if(!scoresByStudent[answer.student._id]) {
+                scoresByStudent[answer.student._id] = {
+                    student: answer.student,
+                    totalScore: 0,
+                    totalQuestions: 0,
+                };
+            }
+
+            scoresByStudent[answer.student._id].totalScore += answer.score;
+            scoresByStudent[answer.student._id].totalQuestions += 1;
+        });
+
+        const results = Object.values(scoresByStudent).map((entry) => ({
+            student: entry.student,
+            totalScore: entry.totalScore,
+            averageScore: (entry.totalScore / entry.totalQuestions) * 100,
+        }));
+
+        return res.status(200).json({ results });
+        
+    } catch (error) {
+        console.error("Error while fetching teacher quizzes:", error);
+        return res.status(500).json({ message: "Server error while fetching quizzes." });
+    }
+
+};
