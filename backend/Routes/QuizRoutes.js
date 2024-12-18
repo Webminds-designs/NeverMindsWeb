@@ -1,4 +1,5 @@
 import { createQuiz, getAllQuizzes, getQuizById, updateQuiz, deleteQuiz } from "../Controllers/QuizController.js";
+import { addFavouriteQuiz, viewFavouriteByUserId, removeFavouriteQuiz, clearAllFavouritesByUserId } from "../Controllers/FavouriteQuizController.js"
 import { authenticate, authorize } from "../middleware/authenticate.js";
 import express from "express";
 
@@ -37,6 +38,38 @@ quizRoutes.delete(
     authenticate, 
     authorize("admin"), 
     deleteQuiz
+);
+
+
+// ----------------------- FAVOURITE QUIZ -----------------------
+
+
+quizRoutes.post(
+    "/favorite", 
+    authenticate,
+    authorize("student"), 
+    addFavouriteQuiz
+);
+
+quizRoutes.get(
+    "/favorite/:userId", 
+    authenticate, 
+    authorize("student"),
+    viewFavouriteByUserId
+);
+
+quizRoutes.delete(
+    "/favorite/:userId/:quizId", 
+    authenticate,
+    authorize("student"), 
+    removeFavouriteQuiz
+);
+
+quizRoutes.delete(
+    "/favorite/:userId", 
+    authenticate, 
+    authorize("student"),
+    clearAllFavouritesByUserId
 );
 
 export default quizRoutes;
