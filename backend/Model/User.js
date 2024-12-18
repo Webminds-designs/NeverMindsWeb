@@ -61,6 +61,14 @@ const userSchema = new mongoose.Schema(
       enum: ["admin", "teacher", "student"],
       required: true,
     },
+    studentDetails: {
+      type: studentSchema,
+      required: false, // Optional field
+    },
+    teacherDetails: {
+      type: teacherSchema,
+      required: false, // Optional field
+    },
   },
   { timestamps: true }
 );

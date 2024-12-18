@@ -5,6 +5,7 @@ import {
   updateStudentProfile,
   updateTeacherProfile,
   deleteUser,
+  getUserProfile,
 } from "../Controllers/userController.js";
 import { authenticate, authorize } from "../middleware/authenticate.js";
 
@@ -25,5 +26,5 @@ router.put(
   updateTeacherProfile
 );
 router.delete("/:id", authenticate, authorize("admin"), deleteUser);
-
+router.get("/:id", authenticate, authorize("admin", "student"), getUserProfile);
 export default router;
