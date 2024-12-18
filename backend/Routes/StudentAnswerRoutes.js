@@ -1,4 +1,10 @@
-import { submitStudentAnswers, getStudentAnswers } from "../Controllers/StudentAnswerController-2.js";
+import { 
+    submitStudentAnswers, 
+    getStudentAnswers,
+    getAllQuizzesByStudentId,
+    getAllQuizzesByTeacherId,
+    getAllMarksByTeacherIdQuizId
+ } from "../Controllers/StudentAnswerController-2.js";
 import { authenticate, authorize } from "../middleware/authenticate.js";
 import express from "express";
 
@@ -12,10 +18,31 @@ studentAnswerRouter.post(
 );
 
 studentAnswerRouter.get(
-    "/:studentId/:quizId", 
+    "/student/:studentId/:quizId", 
     authenticate,
     authorize("admin", "student"), 
     getStudentAnswers
+);
+
+studentAnswerRouter.get(
+    "/student/:studentId", 
+    authenticate,
+    authorize("admin", "student"), 
+    getAllQuizzesByStudentId
+);
+
+studentAnswerRouter.get(
+    "/teacher/:teacherId", 
+    authenticate,
+    authorize("admin", "teacher"),
+    getAllQuizzesByTeacherId
+);
+
+studentAnswerRouter.get(
+    "/teacher/:teacherId/:quizId",
+    authenticate,
+    authorize("admin", "teacher"),
+    getAllMarksByTeacherIdQuizId
 );
 
 export default studentAnswerRouter;
