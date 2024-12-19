@@ -6,7 +6,7 @@ import StudentAnswer from "../Model/StudentAnswer.js";
 
 
 export const createQuiz = async (req, res) => {
-    const { title, description, guidlines, type, banner, tutor, verificationCode, quizTags, timeDuration, questions } = req.body;
+    const { title, description, guidlines, type, banner, imageVector, tutor, verificationCode, quizTags, timeDuration, questions } = req.body;
 
     try {
         // create answers first
@@ -35,6 +35,7 @@ export const createQuiz = async (req, res) => {
             guidlines,
             type,
             banner,
+            imageVector,
             tutor,
             verificationCode,
             quizTags,
@@ -102,7 +103,7 @@ export const getQuizById = async (req, res) => {
 
 export const updateQuiz = async (req, res) => {
     const { id } = req.params;
-    const { title, description, guidlines, type, banner, tutor, verificationCode, quizTags, timeDuration, questions } = req.body;
+    const { title, description, guidlines, type, banner, imageVector, tutor, verificationCode, quizTags, timeDuration, questions } = req.body;
 
     try {
         const quiz = await Quiz.findById(id);
@@ -166,6 +167,7 @@ export const updateQuiz = async (req, res) => {
         quiz.guidlines = guidlines;
         quiz.type = type;
         quiz.banner = banner;
+        quiz.imageVector = imageVector;
         quiz.tutor = tutor;
         quiz.verificationCode = verificationCode;
         quiz.quizTags = quizTags;
@@ -211,6 +213,7 @@ export const deleteQuiz = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 // ----------------------- GET ALL QUIZZES BY STUDENT ID -----------------------
 
