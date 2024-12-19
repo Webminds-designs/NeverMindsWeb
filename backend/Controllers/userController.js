@@ -42,6 +42,11 @@ export const updateStudentProfile = async (req, res) => {
       return res.status(403).json({ message: "Access denied." });
     }
 
+    // Ensure studentDetails exists
+    if (!user.studentDetails) {
+      user.studentDetails = {};
+    }
+
     // Update student-specific fields
     if (interestTags) user.studentDetails.interestTags = interestTags;
     if (grade) user.studentDetails.grade = grade;
@@ -58,6 +63,24 @@ export const updateStudentProfile = async (req, res) => {
     res
       .status(500)
       .json({ message: "Internal server error", error: error.message });
+  }
+};
+
+//get user profile
+export const getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    res
+      .status(500)
+      .json({ message: "Server error while fetching user profile" });
   }
 };
 
