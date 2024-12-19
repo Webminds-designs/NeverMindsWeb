@@ -1,6 +1,8 @@
 import Quiz, { Question } from "../Model/Quiz.js";
 import StudentAnswer from "../Model/StudentAnswer.js";
 
+// ----------------------- SUBMIT STUDENT ANSWERS -----------------------
+
 export const submitStudentAnswers = async (req, res) => {
 
     const { studentId, quizId, studentAnswers } = req.body;
@@ -47,13 +49,25 @@ export const submitStudentAnswers = async (req, res) => {
     }
 };
 
+
+// ----------------------- GET STUDENT ANSWERS -----------------------
+
+
 export const getStudentAnswers = async (req, res) => {
 
     const { studentId, quizId } = req.params;
 
     try {
         // Find all answers submitted by the student for the quiz
-        const studentAnswers = await StudentAnswer.find({ student: studentId, quiz: quizId });
+        const studentAnswers = await StudentAnswer.find({ student: studentId, quiz: quizId })
+            .populate("quiz")
+            .populate({
+                path: "question",
+                populate: {
+                    path: "answers",
+                }
+            })
+            .populate("selectedAnswers");
 
         // Calculate total score as the average of the individual question scores
         const totalScore = studentAnswers.reduce((acc, answer) => acc + answer.score, 0);

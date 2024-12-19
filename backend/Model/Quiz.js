@@ -24,6 +24,11 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    answerType: {
+        type: String,
+        enum: ['single', 'multiple'],
+        required: true,
+    },
     image: {
         type: String,
         required: false,
@@ -56,7 +61,7 @@ const quizSchema = new mongoose.Schema({
         required: true,
     },
     banner: {
-        type: String,
+        type: mongoose.Schema.Types.Mixed,
         required: false,
     },
     imageVector: {
@@ -64,7 +69,8 @@ const quizSchema = new mongoose.Schema({
         required: true,
     },
     tutor: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
     },
     verificationCode: {

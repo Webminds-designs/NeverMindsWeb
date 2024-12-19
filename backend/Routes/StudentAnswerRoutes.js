@@ -1,4 +1,7 @@
-import { submitStudentAnswers, getStudentAnswers } from "../Controllers/StudentAnswerController-2.js";
+import { 
+    submitStudentAnswers, 
+    getStudentAnswers,
+ } from "../Controllers/StudentAnswerController-2.js";
 import { authenticate, authorize } from "../middleware/authenticate.js";
 import express from "express";
 
@@ -12,7 +15,7 @@ studentAnswerRouter.post(
 );
 
 studentAnswerRouter.get(
-    "/:studentId/:quizId", 
+    "/student/:studentId/:quizId", 
     authenticate,
     authorize("admin", "student"), 
     getStudentAnswers
