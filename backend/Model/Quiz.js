@@ -61,7 +61,7 @@ const quizSchema = new mongoose.Schema({
         required: true,
     },
     banner: {
-        type: String,
+        type: mongoose.Schema.Types.Mixed,
         required: false,
     },
     imageVector: {

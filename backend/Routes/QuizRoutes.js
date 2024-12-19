@@ -10,6 +10,7 @@ import {
 } from "../Controllers/QuizController.js";
 import { addFavouriteQuiz, viewFavouriteByUserId, removeFavouriteQuiz, clearAllFavouritesByUserId } from "../Controllers/FavouriteQuizController.js"
 import { authenticate, authorize } from "../middleware/authenticate.js";
+import upload from "../middleware/multer.js";
 import express from "express";
 
 const quizRoutes = express.Router();
@@ -18,6 +19,7 @@ quizRoutes.post(
     "/", 
     authenticate, 
     authorize("admin"), 
+    upload.single('banner'),
     createQuiz
 );
 
@@ -39,6 +41,7 @@ quizRoutes.put(
     "/:id", 
     authenticate, 
     authorize("admin"), 
+    upload.single('banner'),
     updateQuiz
 );
 
