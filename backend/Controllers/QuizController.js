@@ -29,7 +29,7 @@ export const createQuiz = async (req, res) => {
 
         try {
             // Create answers and questions
-            const createdQuestions = await Promise.all(questions.map(async (question) => {
+            const createdQuestions = await Promise.all(JSON.parse(questions).map(async (question) => {
                 const createdAnswers = await Promise.all(question.answers.map(async (answer) => {
                     const newAnswer = new Answer(answer);
                     await newAnswer.save();
@@ -38,6 +38,7 @@ export const createQuiz = async (req, res) => {
 
                 const newQuestion = new Question({
                     question: question.question,
+                    answerType: question.answerType,
                     image: question.image,
                     answers: createdAnswers,
                 });
@@ -172,7 +173,7 @@ export const updateQuiz = async (req, res) => {
 
         try {
             // Update questions and answers
-            const updatedQuestions = await Promise.all(questions.map(async (question) => {
+            const updatedQuestions = await Promise.all(JSON.parse(questions).map(async (question) => {
                 if (question._id) {
                     const existingQuestion = await Question.findById(question._id);
                     if (!existingQuestion) {
@@ -190,6 +191,7 @@ export const updateQuiz = async (req, res) => {
                     }));
 
                     existingQuestion.question = question.question;
+                    existingQuestion.answerType = question.answerType;
                     existingQuestion.image = question.image;
                     existingQuestion.answers = updatedAnswers;
 
@@ -204,6 +206,7 @@ export const updateQuiz = async (req, res) => {
 
                     const newQuestion = new Question({
                         question: question.question,
+                        answerType: question.answerType,
                         image: question.image,
                         answers: createdAnswers,
                     });
