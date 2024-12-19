@@ -24,6 +24,11 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    answerType: {
+        type: String,
+        enum: ['single', 'multiple'],
+        required: true,
+    },
     image: {
         type: String,
         required: false,

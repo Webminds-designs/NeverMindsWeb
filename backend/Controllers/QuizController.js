@@ -1,4 +1,5 @@
 import Quiz, { Answer, Question } from "../Model/Quiz.js";
+import StudentAnswer from "../Model/StudentAnswer.js";
 
 
 // ----------------------- CREATE QUIZ -----------------------
