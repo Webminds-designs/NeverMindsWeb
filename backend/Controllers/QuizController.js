@@ -11,21 +11,21 @@ export const createQuiz = async (req, res) => {
     try {
         const { title, description, guidlines, type, imageVector, tutor, verificationCode, quizTags, timeDuration, questions } = req.body;
 
-        if (!req.file) {
-            return res.status(400).json({ message: "No banner uploaded" });
+        let uploadedBanner;
+
+        if (req.file) {
+            // Upload banner to Cloudinary and store the URL and public ID
+            uploadedBanner = await cloudinary.uploader.upload(
+                req.file.path,
+                { 
+                    public_id: req.file.filename,
+                    folder: "quiz-banners",
+                }
+            );
+
+            // After uploading to Cloudinary, delete the file from the server
+            fs.unlinkSync(req.file.path);
         }
-
-        // Upload banner to Cloudinary and store the URL and public ID
-        const uploadedBanner = await cloudinary.uploader.upload(
-            req.file.path,
-            { 
-                public_id: req.file.filename,
-                folder: "quiz-banners",
-            }
-        );
-
-        // After uploading to Cloudinary, delete the file from the server
-        fs.unlinkSync(req.file.path);
 
         try {
             // Create answers and questions
@@ -53,7 +53,7 @@ export const createQuiz = async (req, res) => {
                 description,
                 guidlines,
                 type,
-                banner: { url: uploadedBanner.secure_url, public_id: uploadedBanner.public_id },
+                banner: uploadedBanner ? { url: uploadedBanner.secure_url, public_id: uploadedBanner.public_id } : '',
                 imageVector,
                 tutor,
                 verificationCode,
@@ -67,9 +67,11 @@ export const createQuiz = async (req, res) => {
 
         } catch (error) {
             // Delete the uploaded banner from Cloudinary if an error occurs
-            await cloudinary.uploader.destroy(uploadedBanner.public_id).catch(err => {
-                console.error("Failed to delete banner from Cloudinary:", err.message);
-            });
+            if (uploadedBanner && uploadedBanner.public_id) {
+                await cloudinary.uploader.destroy(uploadedBanner.public_id).catch(err => {
+                    console.error("Failed to delete banner from Cloudinary:", err.message);
+                });
+            }
             throw error; // Rethrow the error to propagate it to the outer catch
         }
 
