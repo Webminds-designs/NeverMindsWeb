@@ -11,25 +11,25 @@ export const createQuiz = async (req, res) => {
     try {
         const { title, description, guidlines, type, imageVector, tutor, verificationCode, quizTags, timeDuration, questions } = req.body;
 
-        if (!req.file) {
-            return res.status(400).json({ message: "No banner uploaded" });
+        let uploadedBanner;
+
+        if (req.file) {
+            // Upload banner to Cloudinary and store the URL and public ID
+            uploadedBanner = await cloudinary.uploader.upload(
+                req.file.path,
+                { 
+                    public_id: req.file.filename,
+                    folder: "quiz-banners",
+                }
+            );
+
+            // After uploading to Cloudinary, delete the file from the server
+            fs.unlinkSync(req.file.path);
         }
-
-        // Upload banner to Cloudinary and store the URL and public ID
-        const uploadedBanner = await cloudinary.uploader.upload(
-            req.file.path,
-            { 
-                public_id: req.file.filename,
-                folder: "quiz-banners",
-            }
-        );
-
-        // After uploading to Cloudinary, delete the file from the server
-        fs.unlinkSync(req.file.path);
 
         try {
             // Create answers and questions
-            const createdQuestions = await Promise.all(questions.map(async (question) => {
+            const createdQuestions = await Promise.all(JSON.parse(questions).map(async (question) => {
                 const createdAnswers = await Promise.all(question.answers.map(async (answer) => {
                     const newAnswer = new Answer(answer);
                     await newAnswer.save();
@@ -38,6 +38,7 @@ export const createQuiz = async (req, res) => {
 
                 const newQuestion = new Question({
                     question: question.question,
+                    answerType: question.answerType,
                     image: question.image,
                     answers: createdAnswers,
                 });
@@ -52,7 +53,7 @@ export const createQuiz = async (req, res) => {
                 description,
                 guidlines,
                 type,
-                banner: { url: uploadedBanner.secure_url, public_id: uploadedBanner.public_id },
+                banner: uploadedBanner ? { url: uploadedBanner.secure_url, public_id: uploadedBanner.public_id } : '',
                 imageVector,
                 tutor,
                 verificationCode,
@@ -66,9 +67,11 @@ export const createQuiz = async (req, res) => {
 
         } catch (error) {
             // Delete the uploaded banner from Cloudinary if an error occurs
-            await cloudinary.uploader.destroy(uploadedBanner.public_id).catch(err => {
-                console.error("Failed to delete banner from Cloudinary:", err.message);
-            });
+            if (uploadedBanner && uploadedBanner.public_id) {
+                await cloudinary.uploader.destroy(uploadedBanner.public_id).catch(err => {
+                    console.error("Failed to delete banner from Cloudinary:", err.message);
+                });
+            }
             throw error; // Rethrow the error to propagate it to the outer catch
         }
 
@@ -172,7 +175,7 @@ export const updateQuiz = async (req, res) => {
 
         try {
             // Update questions and answers
-            const updatedQuestions = await Promise.all(questions.map(async (question) => {
+            const updatedQuestions = await Promise.all(JSON.parse(questions).map(async (question) => {
                 if (question._id) {
                     const existingQuestion = await Question.findById(question._id);
                     if (!existingQuestion) {
@@ -190,6 +193,7 @@ export const updateQuiz = async (req, res) => {
                     }));
 
                     existingQuestion.question = question.question;
+                    existingQuestion.answerType = question.answerType;
                     existingQuestion.image = question.image;
                     existingQuestion.answers = updatedAnswers;
 
@@ -204,6 +208,7 @@ export const updateQuiz = async (req, res) => {
 
                     const newQuestion = new Question({
                         question: question.question,
+                        answerType: question.answerType,
                         image: question.image,
                         answers: createdAnswers,
                     });
