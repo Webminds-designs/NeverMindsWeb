@@ -3,6 +3,8 @@ import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Services from "../components/Services"
 import Footer from "../components/Footer";
+import { Contributors } from "../components/Contributors";
+
 
 export default function Home() {
     const [overlayVisible, setOverlayVisible] = useState(false);
@@ -22,6 +24,10 @@ export default function Home() {
             <main>
                 <section id="hero">
                     <Hero />
+                </section>
+
+                <section id="contributors">
+                    <Contributors />
                 </section>
 
                 <section id="services">
