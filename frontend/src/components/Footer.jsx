@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-10 mt-20 mx-20">
-      <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+    <footer className="bg-[#1B191C] text-white py-10 mt-20 mx-20 rounded-t-lg">
+      {/* Main Content */}
+      <div className="flex flex-col md:flex-row md:justify-end gap-10 md:gap-20 mt-8 md:mt-0 text-center md:text-right mx-20 pr-20">
         {/* Resources Section */}
-        <div className="space-y-2 ">
+        <div className="space-y-2">
           <h3 className="font-bold text-xl">Resources</h3>
           <ul className="space-y-1">
             <li className="hover:text-[#FFD448] cursor-pointer transition-colors">Quizzes</li>
@@ -51,8 +52,12 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="text-center mt-10 text-sm">
-        <p>© NeverMinds 2025, All Rights Reserved. Developed By WebMinds</p>
+      {/* Footer Bottom */}
+      <div className="mt-10 text-center">
+        <hr className="border-t-2 border-gray-300 w-1/2 mx-auto mb-6" />
+        <p className="text-sm text-[#FFD448]">
+          © NeverMinds 2025, All Rights Reserved. Developed By WebMinds
+        </p>
       </div>
     </footer>
   );

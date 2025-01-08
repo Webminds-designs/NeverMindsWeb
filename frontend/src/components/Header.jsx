@@ -3,10 +3,10 @@ import nlogo from "../assets/nlogo.png"; // Correct relative path to the logo
 
 const Header = () => {
   return (
-    <header className="bg-white shadow-lg p-10">
-      <div className="max-w-screen-xl flex items-center justify-between">
+    <header className="bg-white shadow-lg p-20">
+      <div className="max-w-screen flex items-center justify-between">
         {/* Logo Section */}
-        <div className="flex items-start space-x-4">
+        <div className="flex items-start">
           <img src={nlogo} alt="NeverMinds Logo" className="h-15 w-12" /> 
         </div>
 
