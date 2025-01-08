@@ -1,29 +1,13 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Footer from './components/Footer'; // Import Footer component
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
 
-const App = () => {
-  return (
-    <Router>
-      <div className="font-sans bg-gray-50">
-        {/* Header Component */}
-        <Header />
-        
-        {/* Hero Section */}
-        <Hero />
-        
-        {/* Routes for different pages */}
+function App() {
+    return (
         <Routes>
-          {/* Add more routes for other pages */}
+            <Route path="/" element={<Home />} />
         </Routes>
-
-        {/* Footer Component */}
-        <Footer />
-      </div>
-    </Router>
-  );
-};
+    );
+}
 
 export default App;
