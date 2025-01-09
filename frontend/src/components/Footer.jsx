@@ -2,9 +2,9 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1B191C] text-white py-10 mt-20 mx-5 md:mx-20 rounded-t-lg">
+    <footer className="bg-[#1B191C] text-white py-20 mt-20 mx-5 md:mx-20 rounded-t-3xl">
       {/* Main Content */}
-      <div className="flex flex-col md:flex-row md:justify-end gap-10 md:gap-20 mt-8 md:mt-0 text-center md:text-right">
+      <div className="flex flex-col md:flex-row md:justify-end mx-5 md:mx-20 gap-10 md:gap-20 mt-8 md:mt-0 text-center md:text-right">
         {/* Resources Section */}
         <div className="space-y-2">
           <h3 className="font-bold text-lg md:text-xl">Resources</h3>
@@ -54,7 +54,7 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="mt-10 text-center">
-        <hr className="border-t border-gray-600 w-3/4 mx-auto mb-6" />
+        <hr className="border-t-4 border-white w-3/4 mx-auto mb-6" />
         <p className="text-sm text-[#FFD448]">
           © NeverMinds 2025, All Rights Reserved. Developed By WebMinds
         </p>

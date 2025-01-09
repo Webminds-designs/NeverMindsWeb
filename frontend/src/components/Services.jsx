@@ -1,58 +1,13 @@
 import React from "react";
+import { BentoGrid, BentoGridItem } from "./ui/servise-Bentogrid";
 
-// Utility function for conditional class names
-const cn = (...classes) => classes.filter(Boolean).join(" ");
-
-// BentoGrid Component
-const BentoGrid = ({ className, children }) => {
-  return (
-    <div
-      className={cn(
-        // Define grid layout for different screen sizes
-        "grid gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
-        // Responsive grid configuration
-        "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
-        "auto-rows-auto lg:auto-rows-[18rem]",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
-};
-
-// BentoGridItem Component
-const BentoGridItem = ({ className, title, description }) => {
-  return (
-    <div
-      className={cn(
-        "row-span-1 rounded-2xl overflow-hidden hover:shadow-2xl transition duration-300 shadow-lg p-6 bg-[#FFD448] flex flex-col items-center space-y-4",
-        className
-      )}
-    >
-      {/* Title */}
-      <div className="font-sans font-bold text-xl text-[#1B191C] mb-2 text-center">
-        {title}
-      </div>
-
-      {/* Description */}
-      <div className="font-sans font-normal text-[#1B191C] text-sm text-center">
-        {description}
-      </div>
-    </div>
-  );
-};
-
-// Services Component
 const Services = () => {
   return (
     <section className="bg-white py-16">
       <div className="max-w-screen-xl mx-auto text-center px-6">
         {/* Section Title */}
-        <h2 className="text-[48px] font-medium text-[#1B191C] mb-6">
-          Our Services
-        </h2>
-        <p className="text-[#1B191C] text-[20px] mb-12 max-w-2xl mx-auto leading-relaxed text-center">
+        <h2 className="text-[96px] font-regular text-black mb-6">Our Services</h2>
+        <p className="text-black text-[20px] mb-12 max-w-2xl mx-auto leading-relaxed">
           At NeverMinds, we offer a wide range of interactive quizzes designed
           to entertain and educate. Whether you're looking to test your
           knowledge, explore new topics, or challenge friends, our quizzes
@@ -60,36 +15,79 @@ const Services = () => {
           that are fun, engaging, and packed with learning opportunities!
         </p>
 
-        {/* Services Grid */}
-        <BentoGrid>
-          <BentoGridItem
-            title="Quiz Creation"
-            description="Easily create interactive quizzes for fun or learning."
-          />
-          <BentoGridItem
-            title="Analytics"
-            description="Analyze performance and gain valuable insights."
-          />
-          <BentoGridItem
-            title="Collaborations"
-            description="Work together with friends on shared quizzes."
-          />
-          <BentoGridItem
-            title="Customization"
-            description="Customize quizzes to match your preferences."
-          />
-          <BentoGridItem
-            title="Progress Tracking"
-            description="Monitor progress and track your improvement over time."
-          />
-          <BentoGridItem
-            title="Quiz Library"
-            description="Explore a vast library of quizzes across various topics."
-          />
+        {/* BentoGrid Section */}
+        <BentoGrid className="max-w-7xl px-4 md:px-0 mx-auto">
+          {serviceItems.map((item, i) => {
+            let gridClass = "";
+
+            // Assign row and column spans based on the desired grid structure
+            switch (i) {
+              case 0:
+                gridClass = "md:row-span-2 md:col-span-3";
+                break;
+              case 1:
+                gridClass = "md:row-span-1 md:col-span-3";
+                break;
+              case 2:
+                gridClass = "md:row-span-1 md:col-span-3";
+                break;
+              case 3:
+                gridClass = "md:row-span-2 md:col-span-6";
+                break;
+              case 4:
+                gridClass = "md:row-span-1 md:col-span-3";
+                break;
+              case 5:
+                gridClass = "md:row-span-2 md:col-span-6";
+                break;
+              case 6:
+                gridClass = "md:row-span-1 md:col-span-3";
+                break;
+              case 7:
+                gridClass = "md:row-span-2 md:col-span-3";
+                break;
+              case 8:
+                gridClass = "md:row-span-1 md:col-span-3";
+                break;
+              case 9:
+                gridClass = "md:row-span-1 md:col-span-3";
+                break;
+              default:
+                gridClass = "";
+            }
+
+            return (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                header={item.header}
+                className={gridClass}
+              />
+            );
+          })}
         </BentoGrid>
       </div>
     </section>
   );
 };
+
+// Skeleton Component
+const Skeleton = () => (
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#f9c226]"></div>
+);
+
+// Service Items Data
+const serviceItems = [
+  { title: "Custom Quizzes", header: <Skeleton /> },
+  { title: "Data Analytics", header: <Skeleton /> },
+  { title: "Creative Design", header: <Skeleton /> },
+  { title: "Collaborative Tools", header: <Skeleton /> },
+  { title: "Knowledge Tracking", header: <Skeleton /> },
+  { title: "Interactive Experiences", header: <Skeleton /> },
+  { title: "Performance Insights", header: <Skeleton /> },
+  { title: "Educational Resources", header: <Skeleton /> },
+  { title: "Gamified Learning", header: <Skeleton /> },
+  { title: "Community Engagement", header: <Skeleton /> },
+];
 
 export default Services;
