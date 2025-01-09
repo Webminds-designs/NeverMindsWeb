@@ -40,3 +40,13 @@
 .read-the-docs {
   color: #888;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Kulim+Park:wght@600&family=Parkin+Sans:wght@400&display=swap');
+
+.font-kulim-park {
+  font-family: 'Kulim Park', sans-serif;
+}
+
+.font-parkin-sans {
+  font-family: 'Parkin Sans', sans-serif;
+}
