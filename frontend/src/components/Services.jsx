@@ -1,10 +1,48 @@
 import React from "react";
-import { BentoGrid, BentoGridItem } from "./BentoGrid"; // Import the BentoGrid and BentoGridItem components
-import { IconBook, IconChartBar, IconUsers, IconPalette, IconTrendingUp, IconArchive } from "@tabler/icons-react"; // Import icons
 
+// Utility function for conditional class names
+const cn = (...classes) => classes.filter(Boolean).join(" ");
+
+// BentoGrid Component
+const BentoGrid = ({ className, children }) => {
+  return (
+    <div
+      className={cn(
+        "grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+};
+
+// BentoGridItem Component
+const BentoGridItem = ({ className, title, description }) => {
+  return (
+    <div
+      className={cn(
+        "row-span-1 rounded-2xl overflow-hidden hover:shadow-2xl transition duration-300 shadow-lg p-6 bg-[#FFD448] flex flex-col items-center space-y-4",
+        className
+      )}
+    >
+      {/* Title */}
+      <div className="font-sans font-bold text-xl text-neutral-800 dark:text-neutral-100 mb-2 text-center">
+        {title}
+      </div>
+
+      {/* Description */}
+      <div className="font-sans font-normal text-neutral-700 text-sm dark:text-neutral-300 text-center">
+        {description}
+      </div>
+    </div>
+  );
+};
+
+// Services Component
 const Services = () => {
   return (
-    <section className="bg-gray-50 py-16">
+    <section className="bg-white py-16">
       <div className="max-w-screen-xl mx-auto text-center px-6">
         {/* Section Title */}
         <h2 className="text-4xl font-extrabold text-gray-800 mb-6">Our Services</h2>
@@ -16,44 +54,38 @@ const Services = () => {
         <BentoGrid>
           {/* Left Column Items */}
           <BentoGridItem
-            className="bg-gradient-to-r from-yellow-200 to-yellow-100 shadow-md"
+            className="shadow-md"
             title="Quiz Creation"
             description="Easily create interactive quizzes for fun or learning."
-            icon={<IconBook size={32} />}
           />
           <BentoGridItem
-            className="bg-gradient-to-r from-blue-200 to-blue-100 shadow-md"
+            className="shadow-md"
             title="Analytics"
             description="Analyze performance and gain valuable insights."
-            icon={<IconChartBar size={32} />}
           />
 
           {/* Center Grid Items */}
           <BentoGridItem
-            className="bg-gradient-to-r from-green-200 to-green-100 shadow-md"
+            className="shadow-md"
             title="Collaborations"
             description="Work together with friends on shared quizzes."
-            icon={<IconUsers size={32} />}
           />
           <BentoGridItem
-            className="bg-gradient-to-r from-pink-200 to-pink-100 shadow-md"
+            className="shadow-md"
             title="Customization"
             description="Customize quizzes to match your preferences."
-            icon={<IconPalette size={32} />}
           />
           <BentoGridItem
-            className="bg-gradient-to-r from-purple-200 to-purple-100 shadow-md col-span-2"
+            className="shadow-md col-span-2"
             title="Progress Tracking"
             description="Monitor progress and track your improvement over time."
-            icon={<IconTrendingUp size={32} />}
           />
 
           {/* Right Column Item */}
           <BentoGridItem
-            className="bg-gradient-to-r from-teal-200 to-teal-100 shadow-md"
+            className="shadow-md"
             title="Quiz Library"
             description="Explore a vast library of quizzes across various topics."
-            icon={<IconArchive size={32} />}
           />
         </BentoGrid>
       </div>
