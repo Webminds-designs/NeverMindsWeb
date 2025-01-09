@@ -15,7 +15,7 @@ studentAnswerRouter.post(
 );
 
 studentAnswerRouter.get(
-    "/student/:studentId/:quizId", 
+    "/:studentId/:quizId", 
     authenticate,
     authorize("admin", "student"), 
     getStudentAnswers
