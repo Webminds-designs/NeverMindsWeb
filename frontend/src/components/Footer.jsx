@@ -1,12 +1,13 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-10 mt-20 mx-20">
-      <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+    <footer className="bg-[#1B191C] text-white py-20 mt-20 mx-5 md:mx-20 rounded-t-3xl">
+      {/* Main Content */}
+      <div className="flex flex-col md:flex-row md:justify-end mx-5 md:mx-20 gap-10 md:gap-20 mt-8 md:mt-0 text-center md:text-right">
         {/* Resources Section */}
-        <div className="space-y-2 ">
-          <h3 className="font-bold text-xl">Resources</h3>
+        <div className="space-y-2">
+          <h3 className="font-bold text-lg md:text-xl">Resources</h3>
           <ul className="space-y-1">
             <li className="hover:text-[#FFD448] cursor-pointer transition-colors">Quizzes</li>
             <li className="hover:text-[#FFD448] cursor-pointer transition-colors">Notes</li>
@@ -18,7 +19,7 @@ const Footer = () => {
 
         {/* About Us Section */}
         <div className="space-y-2">
-          <h3 className="font-bold text-xl">About Us</h3>
+          <h3 className="font-bold text-lg md:text-xl">About Us</h3>
           <ul className="space-y-1">
             <li className="hover:text-[#FFD448] cursor-pointer transition-colors">Glimpse</li>
             <li className="hover:text-[#FFD448] cursor-pointer transition-colors">Careers</li>
@@ -29,7 +30,7 @@ const Footer = () => {
 
         {/* Socials Section */}
         <div className="space-y-2">
-          <h3 className="font-bold text-xl">Socials</h3>
+          <h3 className="font-bold text-lg md:text-xl">Socials</h3>
           <ul className="space-y-1">
             <li className="hover:text-[#FFD448] cursor-pointer transition-colors">Facebook</li>
             <li className="hover:text-[#FFD448] cursor-pointer transition-colors">Instagram</li>
@@ -41,7 +42,7 @@ const Footer = () => {
 
         {/* Legal Section */}
         <div className="space-y-2">
-          <h3 className="font-bold text-xl">Legal</h3>
+          <h3 className="font-bold text-lg md:text-xl">Legal</h3>
           <ul className="space-y-1">
             <li className="hover:text-[#FFD448] cursor-pointer transition-colors">Terms</li>
             <li className="hover:text-[#FFD448] cursor-pointer transition-colors">Privacy</li>
@@ -51,8 +52,12 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="text-center mt-10 text-sm">
-        <p>© NeverMinds 2025, All Rights Reserved. Developed By WebMinds</p>
+      {/* Footer Bottom */}
+      <div className="mt-10 text-center">
+        <hr className="border-t-4 border-white w-3/4 mx-auto mb-6" />
+        <p className="text-sm text-[#FFD448]">
+          © NeverMinds 2025, All Rights Reserved. Developed By WebMinds
+        </p>
       </div>
     </footer>
   );
