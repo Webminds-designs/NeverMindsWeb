@@ -41,7 +41,7 @@ const Header = () => {
 
         {/* Navigation Links */}
         <nav className={`flex-1 ml-20 ${isMenuOpen ? 'block' : 'hidden'} md:block`}>
-          <ul className="md:flex hidden space-y-4 md:space-y-0 md:space-x-6 text-lg font-medium text-gray-700">
+          <ul className="md:flex hidden space-y-4 md:space-y-0 md:space-x-6 text-[22px] font-medium text-gray-700">
             <li>
               <a href="#home" className="hover:text-[#FFD448] transition-colors">
                 Home
@@ -66,7 +66,7 @@ const Header = () => {
         </nav>
 
         {/* Login and Sign-Up Buttons */}
-        <div className="md:flex hidden items-center space-x-4 ml-auto">
+        <div className="md:flex hidden text-[22px] items-center space-x-4 ml-auto">
           <button className=" text-black font-bold py-2 px-6 rounded-2xl hover:bg-yellow-300 transition duration-200">
             Login
           </button>
@@ -106,10 +106,10 @@ const Header = () => {
           >
             Quizzes
           </a>
-          <button className="bg-[#FFD448] text-white py-2 px-6 rounded-lg hover:bg-yellow-500 transition duration-200">
+          <button className="text-black font-bold py-2 px-6 rounded-2xl hover:bg-yellow-300 transition duration-200">
             Login
           </button>
-          <button className="bg-white text-[#FFD448] py-2 px-6 rounded-lg border border-[#FFD448] hover:bg-yellow-100 transition duration-200">
+          <button className="bg-yellow-300 text-black font-bold py-2 px-6 rounded-2xl border border-[#FFD448] hover:bg-yellow-100 transition duration-200">
             Sign Up
           </button>
         </div>
