@@ -54,7 +54,7 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="mt-10 text-center">
-        <hr className="border-t-4 border-white w-3/4 mx-auto mb-6" />
+        <hr className="border-t-4 border-white w-11/12 mx-auto mb-6" />
         <p className="text-sm text-[#FFD448]">
           © NeverMinds 2025, All Rights Reserved. Developed By WebMinds
         </p>

@@ -5,6 +5,7 @@ import exclamation from '../assets/!!.png';
 import group10 from '../assets/Group 10.png';
 import group101 from '../assets/Group 10-1.png';
 import heropic from '../assets/heropic.png';
+import arrow from '../assets/arrow2.png'; // Import the arrow icon
 
 const Hero = () => {
   return (
@@ -26,13 +27,13 @@ const Hero = () => {
             <img
               src={nlogo}
               alt="nlogo"
-              className="h-8 w-auto md:h-10 lg:h-12 align-middle"
+              className="h-10 w-auto md:h-12 lg:h-14 align-middle"
             />
             everMinds
             <img
               src={exclamation}
               alt="Exclamation"
-              className="h-6 w-auto md:h-8 lg:h-10"
+              className="h-8 w-auto md:h-10 lg:h-12"
             />
           </span>
         </h1>
@@ -59,8 +60,13 @@ const Hero = () => {
         </blockquote>
 
         <Link to="/quizzes">
-          <button className="bg-[#FFD448] text-white py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-lg hover:bg-yellow-600 transition duration-200 transform hover:scale-105 font-parkin-sans">
+          <button className="bg-white text-black border border-black font-bold text-[20px] py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-3xl hover:bg-yellow-300 transition duration-200 transform hover:scale-105 font-parkin-sans flex items-center gap-2">
             Try Quizzes
+            <img
+              src={arrow}
+              alt="Arrow Icon"
+              className="h-4 w-auto sm:h-5 md:h-6"
+            />
           </button>
         </Link>
       </div>
