@@ -23,34 +23,34 @@ const Services = () => {
             // Assign row and column spans based on the desired grid structure
             switch (i) {
               case 0:
-                gridClass = "md:row-span-2 md:col-span-3";
+                gridClass = "md:row-span-2 md:col-span-3 rounded-3xl";
                 break;
               case 1:
-                gridClass = "md:row-span-1 md:col-span-3";
+                gridClass = "md:row-span-1 md:col-span-3 rounded-3xl";
                 break;
               case 2:
-                gridClass = "md:row-span-1 md:col-span-3";
+                gridClass = "md:row-span-1 md:col-span-3 rounded-3xl";
                 break;
               case 3:
-                gridClass = "md:row-span-2 md:col-span-6";
+                gridClass = "md:row-span-2 md:col-span-6 rounded-3xl";
                 break;
               case 4:
-                gridClass = "md:row-span-1 md:col-span-3";
+                gridClass = "md:row-span-1 md:col-span-3 rounded-3xl";
                 break;
               case 5:
-                gridClass = "md:row-span-2 md:col-span-6";
+                gridClass = "md:row-span-2 md:col-span-6 rounded-3xl";
                 break;
               case 6:
-                gridClass = "md:row-span-1 md:col-span-3";
+                gridClass = "md:row-span-1 md:col-span-3 rounded-3xl";
                 break;
               case 7:
-                gridClass = "md:row-span-2 md:col-span-3";
+                gridClass = "md:row-span-2 md:col-span-3 rounded-3xl";
                 break;
               case 8:
-                gridClass = "md:row-span-1 md:col-span-3";
+                gridClass = "md:row-span-1 md:col-span-3 rounded-3xl";
                 break;
               case 9:
-                gridClass = "md:row-span-1 md:col-span-3";
+                gridClass = "md:row-span-1 md:col-span-3 rounded-3xl";
                 break;
               default:
                 gridClass = "";

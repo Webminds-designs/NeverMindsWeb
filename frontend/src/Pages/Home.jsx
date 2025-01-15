@@ -4,6 +4,7 @@ import Hero from "../components/Hero";
 import Services from "../components/Services"
 import Footer from "../components/Footer";
 import { Contributors } from "../components/Contributors";
+import ContactTeam from "../components/ContactTeam";
 
 
 export default function Home() {
@@ -32,6 +33,10 @@ export default function Home() {
 
                 <section id="services">
                     <Services />
+                </section>
+
+                <section id="contactteam">
+                    <ContactTeam />
                 </section>
 
                 <footer>
