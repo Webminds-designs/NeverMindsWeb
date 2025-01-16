@@ -6,7 +6,7 @@ const Services = () => {
     <section className="bg-white py-16">
       <div className="max-w-screen-xl mx-auto text-center px-6">
         {/* Section Title */}
-        <h2 className="text-[55px] sm:text-[96px] font-regular text-black mb-6">Our Services</h2>
+        <h2 className="text-[40px] sm:text-[96px] font-regular text-black mb-6">Our Services</h2>
         <p className="text-black text-[20px] mb-12 max-w-2xl mx-auto leading-relaxed">
           At NeverMinds, we offer a wide range of interactive quizzes designed
           to entertain and educate. Whether you're looking to test your
