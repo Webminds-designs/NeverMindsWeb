@@ -15,7 +15,7 @@ export const createQuiz = async (req, res) => {
 
         if (req.file) {
             // Upload banner to Cloudinary and store the URL and public ID
-            uploadedBanner = await cloudinary.uploader.upload(
+            uploadedBanner = await cloudinary.upload(
                 req.file.path,
                 { 
                     public_id: req.file.filename,
