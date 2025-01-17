@@ -9,7 +9,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-lg p-5">
+    <header className="bg-white p-5">
       <div className="max-w-screen flex items-center justify-between">
         {/* Logo Section */}
         <div className="flex items-start">
