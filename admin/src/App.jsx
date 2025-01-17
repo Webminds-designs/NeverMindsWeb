@@ -1,13 +1,15 @@
 
 import './App.css'
+import { Routes, Route } from "react-router-dom";
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
 
 
   return (
-    <>
-     <div className="text-3xl bg-black text-green-400 p-6">Lest's develop admin pannel</div>
-    </>
+   
+        <AdminDashboard />
+    
   )
 }
 
