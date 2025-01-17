@@ -6,11 +6,6 @@ import person from "../assets/person.png";
 const Hero = () => {
   return (
     <>
-      <div className="block md:hidden">
-        <h1 className="text-[36px] text-center md:text-[48px] lg:text-[60px] font-bold leading-tight mb-4">
-          Challenge Your <br /> Knowledge Beyond <br /> Limits
-        </h1>
-      </div>
       <div
         className="relative bg-cover bg-center md:h-screen w-full"
         style={{
@@ -19,21 +14,22 @@ const Hero = () => {
       >
         {/* Overlay for content */}
         <div className="md:absolute relative inset-0 bg-gradient-to-r via-white/80 to-transparent flex flex-col md:flex-row p-8 md:p-16">
-          
+
           {/* Left Section - Text Content */}
-          <div className="w-full md:w-1/2 text-black flex items-center text-center">
-            <div>
-              <h1 className="text-[36px] md:text-[48px] lg:text-[60px] hidden md:block font-bold leading-tight mb-4">
-                Challenge Your <br /> Knowledge Beyond <br /> Limits
-              </h1>
-              <p className="text-[18px] md:text-[20px] lg:text-[24px] sm:text-center md:text-left mb-6">
-                Dive into a variety of quizzes tailored to your<br className="hidden md:block"></br>interests and skill
-                levels. Ready to test your<br className="hidden md:block"></br>limits?
-              </p>
-              <button className="bg-[#fbc72e] text-black text-[15px] md:text-[22px] font-medium px-6 py-3 rounded-full hover:bg-yellow-500 transition">
-                Get Started
-              </button>
-            </div>
+          <div className="w-full text-black flex flex-col items-start lg:gap-y-7 lg:mt-32">
+            <h1 className="lg:text-[50px] md:block font-semibold leading-tight mb-4">
+              <p>Challenge Your</p>
+              <p>Knowledge Beyond</p>
+              <p>Limits</p>
+            </h1>
+            <span className="text-[18px] md:text-[20px] lg:text-[24px] sm:text-center md:text-left mb-6">
+              <p>Dive into a variety of quizzes tailored to your</p>
+              <p>interests and skill levels. Ready to test your</p>
+              <p>limits?</p>
+            </span>
+            <button className="bg-[#fbc72e] text-black text-[15px] md:text-[22px] font-medium px-6 py-3 rounded-full hover:bg-yellow-500 transition">
+              Get Started
+            </button>
           </div>
 
           {/* Right Section */}
