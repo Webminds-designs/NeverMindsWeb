@@ -9,7 +9,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-lg p-5 md:p-10">
+    <header className="bg-white shadow-lg p-5">
       <div className="max-w-screen flex items-center justify-between">
         {/* Logo Section */}
         <div className="flex items-start">
@@ -60,6 +60,11 @@ const Header = () => {
             <li>
               <a href="#quizzes" className="hover:text-[#FFD448] transition-colors">
                 Quizzes
+              </a>
+            </li>
+            <li>
+              <a href="#quizzes" className="hover:text-[#FFD448] transition-colors">
+                Dashboard
               </a>
             </li>
           </ul>

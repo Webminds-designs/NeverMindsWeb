@@ -5,6 +5,9 @@ import Services from "../components/Services"
 import Footer from "../components/Footer";
 import { Contributors } from "../components/Contributors";
 import ContactTeam from "../components/ContactTeam";
+import LatestQuizzes from "../components/LatestQuizzes";
+import HowtoStart from "../components/HowtoStart";
+import ProfileDashboard from "../components/ProfileDashboard";
 
 
 export default function Home() {
@@ -35,10 +38,18 @@ export default function Home() {
                     <Services />
                 </section>
 
+                <section id="howtostart">
+                    <HowtoStart />
+                </section> 
+
                 <section id="contactteam">
                     <ContactTeam />
                 </section>
 
+                <section id="latestquizzes">
+                    <LatestQuizzes  />
+                </section>
+                
                 <footer>
                     <Footer />
                 </footer>
