@@ -6,7 +6,7 @@ import person from "../assets/person.png";
 const Hero = () => {
   return (
     <div
-      className="bg-cover relative bg-center h-full min-h-screen w-full"
+      className="bg-cover bg-fixed relative bg-center h-full min-h-screen w-full"
       style={{
         backgroundImage: `url(${landing})`,
       }}
