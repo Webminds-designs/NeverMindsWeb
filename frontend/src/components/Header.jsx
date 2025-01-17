@@ -10,10 +10,10 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-lg p-5 md:p-10">
-      <div className="max-w-screen-xl mx-auto flex items-center justify-between">
+      <div className="max-w-screen flex items-center justify-between">
         {/* Logo Section */}
-        <div className="flex items-center">
-          <img src={nlogo} alt="NeverMinds Logo" className="h-10 w-auto" />
+        <div className="flex items-start">
+          <img src={nlogo} alt="NeverMinds Logo" className="h-15 w-12" />
         </div>
 
         {/* Hamburger Menu Icon */}
@@ -39,28 +39,38 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex md:space-x-6 text-lg font-medium text-gray-700">
-          <a href="#home" className="hover:text-[#FFD448] transition-colors">
-            Home
-          </a>
-          <a href="#about-us" className="hover:text-[#FFD448] transition-colors">
-            About Us
-          </a>
-          <a href="#services" className="hover:text-[#FFD448] transition-colors">
-            Services
-          </a>
-          <a href="#quizzes" className="hover:text-[#FFD448] transition-colors">
-            Quizzes
-          </a>
+        {/* Navigation Links */}
+        <nav className={`flex-1 ml-20 ${isMenuOpen ? 'block' : 'hidden'} md:block`}>
+          <ul className="md:flex hidden space-y-4 md:space-y-0 md:space-x-6 text-[22px] font-medium text-gray-700">
+            <li>
+              <a href="#home" className="hover:text-[#FFD448] transition-colors">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#about-us" className="hover:text-[#FFD448] transition-colors">
+                About Us
+              </a>
+            </li>
+            <li>
+              <a href="#services" className="hover:text-[#FFD448] transition-colors">
+                Services
+              </a>
+            </li>
+            <li>
+              <a href="#quizzes" className="hover:text-[#FFD448] transition-colors">
+                Quizzes
+              </a>
+            </li>
+          </ul>
         </nav>
 
-        {/* Desktop Buttons */}
-        <div className="hidden md:flex space-x-4">
-          <button className="bg-[#FFD448] text-white py-2 px-6 rounded-lg hover:bg-yellow-500 transition duration-200">
+        {/* Login and Sign-Up Buttons */}
+        <div className="md:flex hidden text-[22px] items-center space-x-4 ml-auto">
+          <button className=" text-black font-bold py-2 px-6 rounded-2xl hover:bg-yellow-300 transition duration-200">
             Login
           </button>
-          <button className="bg-white text-[#FFD448] py-2 px-6 rounded-lg border border-[#FFD448] hover:bg-yellow-100 transition duration-200">
+          <button className="bg-yellow-300 text-black font-bold py-2 px-6 rounded-2xl border border-[#FFD448] hover:bg-yellow-100 transition duration-200">
             Sign Up
           </button>
         </div>
@@ -69,6 +79,9 @@ const Header = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden flex flex-col items-center mt-4 space-y-4 bg-gray-100 py-4 px-6 rounded-lg shadow-md">
+          <button onClick={toggleMenu} className="self-end text-gray-700">
+            Close
+          </button>
           <a
             href="#home"
             className="text-gray-700 text-lg font-medium hover:text-[#FFD448] transition-colors"
@@ -93,10 +106,10 @@ const Header = () => {
           >
             Quizzes
           </a>
-          <button className="bg-[#FFD448] text-white py-2 px-6 rounded-lg hover:bg-yellow-500 transition duration-200">
+          <button className="text-black font-bold py-2 px-6 rounded-2xl hover:bg-yellow-300 transition duration-200">
             Login
           </button>
-          <button className="bg-white text-[#FFD448] py-2 px-6 rounded-lg border border-[#FFD448] hover:bg-yellow-100 transition duration-200">
+          <button className="bg-yellow-300 text-black font-bold py-2 px-6 rounded-2xl border border-[#FFD448] hover:bg-yellow-100 transition duration-200">
             Sign Up
           </button>
         </div>

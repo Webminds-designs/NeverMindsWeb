@@ -14,10 +14,10 @@ export function Contributors() {
 
           <div className="flex flex-col items-center md:items-start mb-1 ml-6 md:ml-0">
 
-            <h1 className="text-5xl md:text-7xl font-medium left-0 mb-4">Meet the Minds</h1>
+            <h1 className="text-3xl md:text-7xl font-medium left-0 mb-4">Meet the Minds</h1>
 
             <div className="flex flex-row gap-5 mb-6 ">
-                <h1 className="text-5xl md:text-7xl font-medium">Behind the</h1>
+                <h1 className="text-3xl md:text-7xl font-medium">Behind the</h1>
 
                 <img src={logo} alt="Logo" className="w-16 h-12 md:w-32 md:h-auto mt-3" />
 
