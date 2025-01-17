@@ -17,7 +17,7 @@ const Header = () => {
         </div>
 
         {/* Hamburger Menu Icon */}
-        <div className="md:hidden flex items-center">
+        <div className="lg:hidden flex items-center">
           <button
             onClick={toggleMenu}
             className="text-gray-700 focus:outline-none"
@@ -40,8 +40,8 @@ const Header = () => {
         </div>
 
         {/* Navigation Links */}
-        <nav className={`flex-1 ml-20 ${isMenuOpen ? 'block' : 'hidden'} md:block`}>
-          <ul className="md:flex hidden space-y-4 md:space-y-0 md:space-x-6 text-[22px] font-medium text-gray-700">
+        <nav className={`flex-1 ml-20 ${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
+          <ul className="lg:flex hidden space-y-4 lg:space-y-0 lg:space-x-6 text-[22px] font-medium text-gray-700">
             <li>
               <a href="#home" className="hover:text-[#FFD448] transition-colors">
                 Home
@@ -71,7 +71,7 @@ const Header = () => {
         </nav>
 
         {/* Login and Sign-Up Buttons */}
-        <div className="md:flex hidden text-[22px] items-center space-x-4 ml-auto">
+        <div className="lg:flex hidden text-[22px] items-center space-x-4 ml-auto">
           <button className=" text-black font-bold py-2 px-6 rounded-2xl hover:bg-yellow-300 transition duration-200">
             Login
           </button>
@@ -83,7 +83,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden flex flex-col items-center mt-4 space-y-4 bg-gray-100 py-4 px-6 rounded-lg shadow-md">
+        <div className="lg:hidden flex flex-col items-center mt-4 space-y-4 bg-gray-100 py-4 px-6 rounded-lg shadow-lg">
           <button onClick={toggleMenu} className="self-end text-gray-700">
             Close
           </button>
