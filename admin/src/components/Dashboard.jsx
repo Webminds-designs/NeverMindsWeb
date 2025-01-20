@@ -43,7 +43,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-
+  {/* New Users */}
         <h2 className="text-xl font-semibold mb-4">New Users</h2>
         <div className="flex space-x-4 mb-8">
           {["Jananga Yasith", "Deneth Kavindu", "Pawara Hasamal"].map(
@@ -61,7 +61,7 @@ const Dashboard = () => {
             )
           )}
         </div>
-
+ {/* All Users */}
         <h2 className="text-xl font-semibold mb-4">All Users</h2>
         <div className="bg-white p-4 rounded-lg shadow-md">
           {["Pawara Hasamal", "Jananga Yasith", "Deneth Kavindu"].map(
