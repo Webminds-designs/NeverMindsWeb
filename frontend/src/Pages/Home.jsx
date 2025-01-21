@@ -7,7 +7,7 @@ import { Contributors } from "../components/Contributors";
 import ContactTeam from "../components/ContactTeam";
 import LatestQuizzes from "../components/LatestQuizzes";
 import HowtoStart from "../components/HowtoStart";
-import ProfileDashboard from "../components/ProfileDashboard";
+
 
 
 export default function Home() {
@@ -48,7 +48,7 @@ export default function Home() {
 
                 <section id="latestquizzes">
                     <LatestQuizzes  />
-                </section>
+                </section> 
                 
                 <footer>
                     <Footer />

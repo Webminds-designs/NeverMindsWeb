@@ -1,115 +1,259 @@
-import React from 'react';
+import React, { useState } from "react";
+import logo from "../assets/logo.png";
+import L from "../assets/L.png";
+import R from "../assets/R.png";
+import { IonIcon } from "@ionic/react";
+import {
+  homeOutline,
+  heartOutline,
+  trophyOutline,
+  barChartOutline,
+  personOutline,
+  settingsOutline,
+  logOutOutline,
+  mailOutline,
+  notificationsOutline,
+} from "ionicons/icons";
 
 const ProfileDashboard = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
   return (
     <div className="flex bg-gray-50 min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 bg-yellow-50 p-5">
-        <div className="mb-10">
-          <h1 className="text-2xl font-bold text-gray-800">NeverMinds</h1>
+      <div className="fixed top-0 left-0 h-screen z-50">
+        <div
+          className={`absolute top-0 left-0 h-screen bg-[#fefae7] text-black overflow-hidden transition-all duration-500 ease-in-out ${
+            isSidebarOpen ? "w-72 shadow-2xl" : "w-0"
+          }`}
+        >
+          {isSidebarOpen && (
+            <div className="flex flex-col h-full">
+              {/* Sidebar Header */}
+              <div className="flex items-center justify-between px-6 py-4">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={logo}
+                    alt="Logo"
+                    className="w-7 h-5 cursor-pointer hover:scale-110 transition-transform"
+                  />
+                  <span
+                    className="text-lg font-bold tracking-wide text-black"
+                    style={{
+                      fontFamily: "'Courgette', cursive",
+                      fontSize: "24px",
+                    }}
+                  >
+                    Neverminds
+                  </span>
+                </div>
+                <img
+                  src={R}
+                  alt="Close Sidebar"
+                  className="w-8 h-8 cursor-pointer hover:scale-110 transition-transform"
+                  onClick={toggleSidebar}
+                />
+              </div>
+
+              {/* Overview Section */}
+              <ul className="mt-6 px-6 space-y-4">
+                <li className="text-gray-700 text-sm uppercase font-bold tracking-wide">
+                  Overview
+                </li>
+                <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
+                  <IonIcon icon={homeOutline} size="large" />
+                  <span className="text-lg font-medium">Dashboard</span>
+                </li>
+                <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
+                  <IonIcon icon={heartOutline} size="large" />
+                  <span className="text-lg font-medium">Favourites</span>
+                </li>
+                <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
+                  <IonIcon icon={trophyOutline} size="large" />
+                  <span className="text-lg font-medium">Badges</span>
+                </li>
+                <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
+                  <IonIcon icon={barChartOutline} size="large" />
+                  <span className="text-lg font-medium">Progress</span>
+                </li>
+                <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
+                  <IonIcon icon={personOutline} size="large" />
+                  <span className="text-lg font-medium">Account</span>
+                </li>
+              </ul>
+
+
+              {/* Logout Button */}
+              <div className="mt-auto px-6 py-4">
+              {/* Settings Section */}
+              <ul className="mt-6 space-y-4">
+                <li className="text-gray-700 text-sm uppercase font-bold tracking-wide">
+                  Settings
+                </li>
+                <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
+                  <IonIcon icon={settingsOutline} size="large" />
+                  <span className="text-lg font-medium">Settings</span>
+                </li>
+              </ul>
+                <button className="flex items-center gap-4 w-full text-lg font-medium text-red-600 hover:text-red-800 hover:bg-gray-100 rounded-lg py-3 px-3 transition-all duration-300">
+                  <IonIcon icon={logOutOutline} size="large" />
+                  <span>Logout</span>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
-        <nav className="space-y-4">
-          <a href="#" className="block text-lg font-semibold text-yellow-600">Dashboard</a>
-          <a href="#" className="block text-lg text-gray-600">Favourites</a>
-          <a href="#" className="block text-lg text-gray-600">Badges</a>
-          <a href="#" className="block text-lg text-gray-600">Progress</a>
-          <a href="#" className="block text-lg text-gray-600">Account</a>
-        </nav>
-        <div className="absolute bottom-5">
-          <a href="#" className="block text-red-600">Settings</a>
-          <a href="#" className="block text-red-600">Logout</a>
+
+        {/* Menu Icon */}
+        <div
+          className="w-16 h-16 flex items-center justify-center text-black cursor-pointer hover:scale-110 transition-transform duration-300"
+          onClick={toggleSidebar}
+        >
+          {!isSidebarOpen && (
+            <img
+              src={L}
+              alt="Open Sidebar"
+              className="w-10 h-10 hover:rotate-12 transition-transform"
+            />
+          )}
         </div>
-      </aside>
+      </div>
+
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
-        {/* Header */}
-        <header className="flex justify-between items-center mb-8">
-          <input
-            type="text"
-            placeholder="Search your course..."
-            className="px-4 py-2 w-1/2 border border-gray-300 rounded-lg"
-          />
-          <div className="flex items-center space-x-4">
-            <img
-              src="/path/to/avatar.jpg"
-              alt="User avatar"
-              className="w-10 h-10 rounded-full"
+      <main className="flex flex-1">
+        {/* Left Section */}
+        <div className="w-8/12 p-8">
+          {/* Search Bar */}
+          <div className="mb-6 w-auto">
+            <input
+              type="text"
+              placeholder="Search your course..."
+              className="w-full p-4 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
-            <div>
-              <p className="text-sm font-medium">Dulsi Ratnayake</p>
-              <span className="text-xs text-gray-500">Good Morning Dulsi</span>
+          </div>
+          {/* Showcard */}
+          <div className="flex bg-yellow-100 p-6 rounded-lg shadow-lg mb-6">
+            <div className="flex-1">
+              <h2 className="text-xl font-bold mb-2">Online Quizzes</h2>
+              <p className="text-3xl font-semibold mb-4">Master your skills with<br />Quizzes that pack a punch</p>
+              <button className="flex items-center text-lg font-medium text-yellow-600 hover:text-yellow-800">
+                Try now
+                <IonIcon icon={homeOutline} className="ml-2" />
+              </button>
+            </div>
+            <div className="w-1/3">
+              <img src={R} alt="Banner" className="w-full h-auto rounded-lg" />
             </div>
           </div>
-        </header>
-
-        {/* Online Quizzes */}
-        <div className="bg-yellow-100 p-6 rounded-lg mb-8 flex justify-between items-center">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">
-              Master your skills with quizzes that pack a punch!
-            </h2>
-            <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg">Try now</button>
+          {/* Favourite Quizzes Slider */}
+          <div className="mb-6">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-bold">Favourite Quizzes</h3>
+              <div className="flex gap-2">
+                <button className="p-2 bg-gray-300 rounded-full hover:bg-gray-400">
+                  &lt;
+                </button>
+                <button className="p-2 bg-gray-300 rounded-full hover:bg-gray-400">
+                  &gt;
+                </button>
+              </div>
+            </div>
+            <div className="flex gap-4 overflow-x-auto">
+              {[...Array(5)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-1/3 min-w-[200px] bg-blue-100 p-4 rounded-lg shadow-md"
+                >
+                  Quiz {i + 1}
+                </div>
+              ))}
+            </div>
           </div>
-          <img src="/path/to/star-character.png" alt="Character" className="w-24 h-24" />
+          {/* Overall Progress */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 bg-green-100 rounded-lg shadow-md">
+              <h4 className="font-bold">Attempted Quizzes</h4>
+              <p>20</p>
+            </div>
+            <div className="p-4 bg-green-100 rounded-lg shadow-md">
+              <h4 className="font-bold">Completed Quizzes</h4>
+              <p>20</p>
+            </div>
+            <div className="p-4 bg-green-100 rounded-lg shadow-md">
+              <h4 className="font-bold">Number of Favourites</h4>
+              <p>5</p>
+            </div>
+            <div className="p-4 bg-green-100 rounded-lg shadow-md">
+              <h4 className="font-bold">Score Points</h4>
+              <p>200</p>
+            </div>
+          </div>
         </div>
 
-        {/* Favourite Quizzes */}
-        <section>
-          <h3 className="text-xl font-bold mb-4">Favourite Quizzes</h3>
-          <div className="grid grid-cols-3 gap-6">
-            {[1, 2, 3].map((quiz) => (
-              <div key={quiz} className="bg-white shadow rounded-lg p-4">
-                <img
-                  src={`/path/to/quiz-${quiz}.png`}
-                  alt="Quiz illustration"
-                  className="w-full h-32 object-cover mb-4"
-                />
-                <h4 className="text-lg font-semibold text-gray-800">Quiz Title</h4>
-                <p className="text-sm text-gray-500">By Dr. Charitha Munasinghe</p>
-                <button className="bg-yellow-500 text-white mt-4 px-4 py-2 rounded-lg">Try</button>
+        {/* Right Section */}
+        <div className="w-4/12 bg-gray-100 p-8">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-6">
+            <div className="flex gap-4">
+              <IonIcon icon={mailOutline} size="large" />
+              <IonIcon icon={notificationsOutline} size="large" />
+            </div>
+            <div className="flex items-center gap-4">
+              <span>Dulsi Rathnayake</span>
+            </div>
+          </div>
+          {/* Profile Card */}
+          <div className="p-4 bg-white rounded-lg shadow-md mb-6">
+            <div className="flex justify-between mb-4">
+              <span>...</span>
+              <button className="text-blue-600">Edit</button>
+            </div>
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
+              <div>
+                <p className="text-lg font-bold">Hellow</p>
+                <p>Dulsi Rathnayake</p>
+                <p>email@example.com</p>
               </div>
-            ))}
+            </div>
           </div>
-        </section>
-
-        {/* Overall Progress */}
-        <section className="mt-8">
-          <h3 className="text-xl font-bold mb-4">Your Overall Progress</h3>
-          <div className="grid grid-cols-4 gap-6">
-            {[
-              { label: 'Attempted Quizzes', value: '20' },
-              { label: 'Completed Quizzes', value: '20' },
-              { label: 'Number of Favourites', value: '5' },
-              { label: 'Score Points', value: '200' },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="bg-white shadow rounded-lg p-6 text-center"
-              >
-                <h4 className="text-2xl font-bold text-gray-800 mb-2">
-                  {stat.value}
-                </h4>
-                <p className="text-sm text-gray-500">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Statistics and Tutors */}
-        <section className="mt-8 grid grid-cols-3 gap-6">
-          <div className="col-span-2 bg-white shadow rounded-lg p-6">
-            <h3 className="text-lg font-bold mb-4">Statistic</h3>
-            <p className="text-gray-500">Continue quizzing to achieve your target!</p>
-            <div className="mt-4">{/* Bar Chart placeholder */}</div>
-          </div>
-          <div className="bg-white shadow rounded-lg p-6">
+          {/* Static Table */}
+          <table className="w-full mb-6">
+            <thead>
+              <tr>
+                <th>20</th>
+                <th>40</th>
+                <th>60</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1-10 Jan</td>
+                <td>11-20 Jan</td>
+                <td>21-30 Jan</td>
+              </tr>
+            </tbody>
+          </table>
+          {/* Tutors */}
+          <div>
             <h3 className="text-lg font-bold mb-4">Your Tutors</h3>
-            {["Biology", "Law", "Business Studies"].map((tutor, index) => (
-              <p key={index} className="text-sm text-gray-600">Dr. Tutor {tutor}</p>
+            {[...Array(3)].map((_, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-md mb-4"
+              >
+                <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
+                <div>
+                  <p className="font-bold">Tutor {i + 1}</p>
+                  <p>Subject {i + 1}</p>
+                </div>
+              </div>
             ))}
           </div>
-        </section>
+        </div>
       </main>
     </div>
   );

@@ -21,22 +21,22 @@ const Header = () => {
         <nav className={`flex-1 ml-20 ${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
           <ul className="lg:flex hidden space-y-4 lg:space-y-0 lg:space-x-6 text-[22px] font-medium text-gray-700">
             <li>
-              <a href="#home" className="hover:text-[#FFD448] transition-colors">
+              <a href="/home" className="hover:text-[#FFD448] transition-colors">
                 Home
               </a>
             </li>
             <li>
-              <a href="#about-us" className="hover:text-[#FFD448] transition-colors">
+              <a href="/quizzes" className="hover:text-[#FFD448] transition-colors">
                 Quizzes
               </a>
             </li>
             <li>
-              <a href="#quizzes" className="hover:text-[#FFD448] transition-colors">
+              <a href="/dashboard" className="hover:text-[#FFD448] transition-colors">
                 Dashboard
               </a>
             </li>
             <li>
-              <a href="#dashboard" className="hover:text-[#FFD448] transition-colors">
+              <a href="/aboutus" className="hover:text-[#FFD448] transition-colors">
                 About Us
               </a>
             </li>

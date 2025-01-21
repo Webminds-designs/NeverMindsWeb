@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ionic/react": "^8.4.1",
     "@tabler/icons-react": "^3.28.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.16.0",
