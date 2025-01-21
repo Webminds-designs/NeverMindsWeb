@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import DashboardNavigater from "./components/DashboardNavigater";
-import Dashboard from "./components/Dashboard";
-import Users from "./components/Users";
-import Quizzes from "./components/Quizzes";
-import Statistics from "./components/Statistics";
+import Dashboard from "./pages/Dashboard";
+import Users from "./pages/Users";
+import Quizzes from "./pages/Quizzes";
+import Statistics from "./pages/Statistics";
 
 function App() {
   return (
@@ -20,6 +20,8 @@ function App() {
             <Route path="/users" element={<Users />} />
             <Route path="/quizzes" element={< Quizzes/>} />
             <Route path="/statistics" element={<Statistics />} />
+            
+           
           </Routes>
           </div>
     </Router>

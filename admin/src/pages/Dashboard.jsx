@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardNavigater from "./DashboardNavigater";
+import DashboardNavigater from "../components/DashboardNavigater";
 
 const Dashboard = () => {
   return (
