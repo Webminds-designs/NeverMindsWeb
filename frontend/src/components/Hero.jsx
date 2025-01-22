@@ -6,7 +6,7 @@ import person from "../assets/person.png";
 const Hero = () => {
   return (
     <>
-      <div className="md:hidden block">
+      <div className="md:hidden block p-12">
         <h1 className="lg:text-[50px] text-3xl font-semibold leading-tight mb-4 flex flex-col text-center lg:text-left">
           <p>
             Challenge Your<br></br>Knowledge Beyond<br></br>Limits
