@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for React Router v6
 import pen from '../assets/pen.svg';
 import close from '../assets/close.png';
 import Questions from './Questions';
@@ -17,6 +18,8 @@ const NewQuiz = ({ closeModal }) => {
     const [quizData, setQuizData] = useState(null);
     const [filteredSubjects, setFilteredSubjects] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
+
+    const navigate = useNavigate(); // Initialize useNavigate hook
 
     const handleInstructionsAdd = () => {
         if (instructionsInput && !instructions.includes(instructionsInput)) {
@@ -41,6 +44,7 @@ const NewQuiz = ({ closeModal }) => {
     const handleTagDelete = (tagToDelete) => {
         setTags(tags.filter((tag) => tag !== tagToDelete));
     };
+
     const subjects = [
         'Biology',
         'Physics',
@@ -71,6 +75,7 @@ const NewQuiz = ({ closeModal }) => {
         setSubject(selectedSubject);
         setDropdownVisible(false);
     };
+
     const handleSave = () => {
         const quizDetails = {
             title,
@@ -83,15 +88,15 @@ const NewQuiz = ({ closeModal }) => {
         };
         setQuizData(quizDetails);
         setQuizSaved(true);
+
+      
+        navigate('/question',{ state: { quizDetails } });
     };
 
     const handleCancel = () => {
         closeModal();
     };
 
-    if (quizSaved) {
-        return <Questions quizDetails={quizData} />;
-    }
 
     return (
         <div className="flex items-center justify-center min-h-screen">
@@ -268,11 +273,9 @@ const NewQuiz = ({ closeModal }) => {
                             {tags.map((tag, index) => (
                                 <div
                                     key={index}
-                                    className="bg-yellow-200 px-1 text-gray-700 rounded-full flex items-center space-x-2"
+                                    className="bg-yellow-200 px-2 text-gray-700 rounded-full flex items-center space-x-2"
                                 >
-                                    <div className="px-4 py-2">
-                                        <span>{tag}</span>
-                                    </div>
+                                    <span>{tag}</span>
                                     <button
                                         className="text-red-500"
                                         onClick={() => handleTagDelete(tag)}
@@ -290,16 +293,17 @@ const NewQuiz = ({ closeModal }) => {
                         </div>
                     </div>
 
-                    <div className="flex justify-end">
+                    {/* Save and Cancel Buttons */}
+                    <div className="flex justify-between">
                         <button
                             onClick={handleSave}
-                            className="bg-yellow-500 text-white rounded-lg px-4 py-2"
+                            className="bg-yellow-500 text-white rounded-lg px-6 py-2"
                         >
                             Save
                         </button>
                         <button
                             onClick={handleCancel}
-                            className="bg-yellow-200 text-gray-700 rounded-lg px-4 py-2 ml-3"
+                            className="bg-gray-500 text-white rounded-lg px-6 py-2"
                         >
                             Cancel
                         </button>

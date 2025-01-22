@@ -5,6 +5,7 @@ const Dashboard = () => {
   return (
    
       <div className="flex-1 ml-64 p-8">
+     
         <h1 className="text-2xl font-semibold m-8">Statistics</h1>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           {/* Total Users */}
