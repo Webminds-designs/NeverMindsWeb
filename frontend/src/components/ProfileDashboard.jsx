@@ -47,7 +47,7 @@ const ProfileDashboard = () => {
         {/* Left Section */}
         <div className="w-8/12 p-8">
           {/* Search Bar */}
-          <div className="mb-6 w-auto">
+          <div className="mb-6 px-7 w-auto">
             <input
               type="text"
               placeholder="Search your course..."
@@ -158,7 +158,12 @@ const ProfileDashboard = () => {
               <IonIcon icon={notificationsOutline} size="large" />
             </div>
             <div className="flex items-center gap-4">
-              <span>Dulsi Rathnayake</span>
+            <img
+            className="w-12 h-12 rounded-full shadow-md"
+            src={profileImage}
+            alt={`${name}'s profile`}
+          />
+              <span className="font-semibold">Dulsi Rathnayake</span>
             </div>
           </div>
 
