@@ -13,7 +13,9 @@ import science2img from "../assets/science-2.svg";
 import science3img from "../assets/science-3.svg";
 import tutorIcon from "../assets/person.png";
 import ProfileCard from "./ProfileCard";
+import DashBarChart from "./DashBarChart";
 import profileImage from "../assets/girl.jpg";
+import Tutors from "./Tutors";
 
 const ProfileDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -68,15 +70,14 @@ const ProfileDashboard = () => {
               </button>
             </div>
             <div className="w-1/3">
-              <img
-                src={showcardimg}
-                alt="Banner"
-                className="rounded-lg h-60"
-              />
+              <img src={showcardimg} alt="Banner" className="rounded-lg h-60" />
             </div>
           </div>
 
           {/* Favourite Quizzes Slider */}
+          <div>
+            <h3 className="text-[30px] font-bold mb-4">Favourite Quizzes</h3>
+          </div>
           <div className="flex my-6 gap-4">
             <QuizCard
               image={science1img}
@@ -105,31 +106,51 @@ const ProfileDashboard = () => {
               tutorName=" Dr. Charitha Munasinghe"
               tutorSubject="Biology"
             />
+            <QuizCard
+              image={science1img}
+              subject="Biology"
+              title="Building Blocks of Life"
+              score="80"
+              tutorIcon={tutorIcon}
+              tutorName=" Dr. Charitha Munasinghe"
+              tutorSubject="Biology"
+            />
           </div>
 
           {/* Overall Progress */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-gray-200 rounded-lg shadow-md flex justify-between">
-              <h4 className="font-bold text-left">Attempted Quizzes</h4>
-              <p className="text-right font-bold">20</p>
+          <div>
+            <h3 className="text-[30px] font-bold mb-4">
+              Your Overall Progress
+            </h3>
+          </div>
+          <div className="grid grid-cols-2 gap-20 ">
+            <div className="p-5 bg-white rounded-lg shadow-lg flex justify-between border border-gray-200">
+              <h4 className="font-bold text-left text-[22px]">
+                Attempted Quizzes
+              </h4>
+              <p className="text-right font-bold text-[22px]">20</p>
             </div>
-            <div className="p-4 bg-gray-200 rounded-lg shadow-md flex justify-between">
-              <h4 className="font-bold text-left">Completed Quizzes</h4>
-              <p className="text-right font-bold">20</p>
+            <div className="p-5 bg-white rounded-lg shadow-lg flex justify-between border border-gray-200">
+              <h4 className="font-bold text-left text-[22px]">
+                Completed Quizzes
+              </h4>
+              <p className="text-right font-bold text-[22px]">20</p>
             </div>
-            <div className="p-4 bg-gray-200 rounded-lg shadow-md flex justify-between">
-              <h4 className="font-bold text-left">Number of Favourites</h4>
-              <p className="text-right font-bold">5</p>
+            <div className="p-5 bg-white rounded-lg shadow-lg flex justify-between border border-gray-200">
+              <h4 className="font-bold text-left text-[22px]">
+                Number of Favourites
+              </h4>
+              <p className="text-right font-bold text-[22px]">5</p>
             </div>
-            <div className="p-4 bg-gray-200 rounded-lg shadow-md flex justify-between">
-              <h4 className="font-bold text-left">Score Points</h4>
-              <p className="text-right font-bold">200</p>
+            <div className="p-5 bg-white rounded-lg shadow-lg flex justify-between border border-gray-200">
+              <h4 className="font-bold text-left text-[22px]">Score Points</h4>
+              <p className="text-right font-bold text-[22px]">200</p>
             </div>
           </div>
         </div>
 
         {/* Right Section */}
-        <div className="w-4/12 bg-gray-100 p-8">
+        <div className="w-4/12 bg-gray-100 p-8 ">
           {/* Header */}
           <div className="flex justify-between items-center mb-6">
             <div className="flex gap-4">
@@ -142,49 +163,32 @@ const ProfileDashboard = () => {
           </div>
 
           {/* Profile Card */}
-          <ProfileCard
-            name="Dulsi Rathnayake"
-            email="dulsi@example.com"
-            phone="+94 712345678"
-            address="123, Example Street, Colombo"
-            profileImage="src/assets/girl.png" // Replace with actual image path or URL
-            greeting={getGreeting()} // Call a function to determine the greeting
-            onEdit={handleEdit} // Pass handleEdit function here
-          />
+          <div>
+            <h3 className="text-[30px] font-bold mt-4 mb-4">Profiles</h3>
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            <ProfileCard
+              name="Dulsi Rathnayake"
+              email="dulsirathnayake@gmail.com"
+              phone="077-060-0214"
+              address="24/75 1st Lane Boralasgamuwa"
+              profileImage={profileImage}
+              greeting={getGreeting()} // Call a function to determine the greeting
+              onEdit={handleEdit} // Pass handleEdit function here
+            />
+          </div>
 
           {/* Static Table */}
-          <table className="w-full mb-6">
-            <thead>
-              <tr>
-                <th>20</th>
-                <th>40</th>
-                <th>60</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1-10 Jan</td>
-                <td>11-20 Jan</td>
-                <td>21-30 Jan</td>
-              </tr>
-            </tbody>
-          </table>
+          <div>
+            <h3 className="text-[30px] font-bold mb-4">Statistic</h3>
+          </div>
+          <div className="my-8">
+            <DashBarChart />
+          </div>
 
           {/* Tutors */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Your Tutors</h3>
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-md mb-4"
-              >
-                <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
-                <div>
-                  <p className="font-bold">Tutor {i + 1}</p>
-                  <p>Subject {i + 1}</p>
-                </div>
-              </div>
-            ))}
+            <Tutors />
           </div>
         </div>
       </main>
@@ -193,4 +197,3 @@ const ProfileDashboard = () => {
 };
 
 export default ProfileDashboard;
-

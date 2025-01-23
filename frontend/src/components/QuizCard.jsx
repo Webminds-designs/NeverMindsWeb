@@ -1,6 +1,7 @@
 import React from "react";
 
 const QuizCard = ({
+  index, // Add an index prop for card order
   image,
   subject,
   title,
@@ -9,38 +10,26 @@ const QuizCard = ({
   tutorSubject,
   tutorIcon,
 }) => {
-  // Determine background color for the card image
-  const getImageBackgroundColor = (image) => {
-    if (image?.includes("science1img")) {
-      return "bg-blue-100"; // Light blue for science1img
-    } else if (image?.includes("science2img")) {
-      return "bg-green-100"; // Light green for science2img
-    } else if (image?.includes("science3img")) {
-      return "bg-yellow-100"; // Light yellow for science3img
-    }
-    return "bg-gray-200"; // Default background color
+  // New function to cycle background colors based on the card's index
+  const getCardBackgroundColor = (index) => {
+    const colors = ["bg-blue-100", "bg-green-100", "bg-yellow-100"];
+    return colors[index % colors.length];
   };
 
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md">
       {/* Card Image */}
       <div
-        className={`flex items-center justify-center h-40 rounded-t-lg ${getImageBackgroundColor(
-          image
+        className={`flex items-center justify-center h-40 rounded-t-lg ${getCardBackgroundColor(
+          index
         )}`}
       >
-        <img className="h-28 object-cover" src={image} alt={title} />
+        <img className="h-28 object-cover" src={image} alt={title || "Quiz image"} />
       </div>
 
       <div className="p-5">
         {/* Quiz Subject */}
-        <p
-          className={`inline-block text-sm font-medium px-2 py-1 rounded-md ${
-            subject === "Biology"
-              ? "bg-green-100 text-green-700"
-              : "bg-gray-100 text-gray-700"
-          }`}
-        >
+        <p className="inline-block text-sm font-medium px-2 py-1 rounded-md bg-gray-100 text-gray-700">
           {subject}
         </p>
 

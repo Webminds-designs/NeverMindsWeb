@@ -1,4 +1,5 @@
 import React from "react";
+import { RiEditCircleFill } from "react-icons/ri";
 
 const ProfileCard = ({
   name,
@@ -13,22 +14,21 @@ const ProfileCard = ({
   const firstName = name.split(" ")[0];
 
   return (
-    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg p-6">
-      {/* Header with Title and Menu */}
+    <div className="relative w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg p-6">
+      {/* Header with Title and Dropdown Menu */}
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-bold text-gray-800">Profile</h2>
         <button
           id="dropdownButton"
-          className="text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg p-2"
+          className="ml-auto text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg p-2"
           type="button"
+          aria-label="Open menu"
         >
-          <span className="sr-only">Open menu</span>
           <svg
             className="w-5 h-5"
-            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 16 16"
+            aria-hidden="true"
           >
             <path d="M7.5 3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0 5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0 5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
           </svg>
@@ -39,9 +39,8 @@ const ProfileCard = ({
       <div className="flex flex-col items-center mt-4">
         {/* Profile Image with Yellow Border */}
         <div className="relative mb-4">
-          <div className="absolute inset-0 rounded-full border-4 border-yellow-500"></div>
           <img
-            className="w-24 h-24 rounded-full shadow-md"
+            className="w-24 h-24 rounded-full border-4 border-[#f9c226] shadow-md"
             src={profileImage}
             alt={`${name}'s profile`}
           />
@@ -64,13 +63,15 @@ const ProfileCard = ({
             <strong>Address:</strong> {address}
           </p>
         </div>
+      </div>
 
-        {/* Edit Button */}
+      {/* Edit Button with Icon Only */}
+      <div className="absolute bottom-4 right-4">
         <button
           onClick={onEdit}
-          className="mt-6 px-4 py-2 text-sm font-medium text-yellow-600 bg-white border border-yellow-600 rounded-lg hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+          className="p-2 text-[#f9c226] bg-white rounded-full hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-300"
         >
-          Edit Profile
+          <RiEditCircleFill className="text-3xl" />
         </button>
       </div>
     </div>
