@@ -77,6 +77,11 @@ const NewQuiz = ({ closeModal }) => {
     };
 
     const handleSave = () => {
+          // Check for empty fields
+    if (!title || !description || !subject || !timer || !instructions ) {
+        alert("Please fill out all fields before saving the quiz.");
+        return; // Stop execution if any field is missing
+    }
         const quizDetails = {
             title,
             description,
@@ -113,7 +118,7 @@ const NewQuiz = ({ closeModal }) => {
                 <div className="grid gap-4">
                     {/* Title Input */}
                     <input
-                        className="w-full border border-gray-300 rounded-lg p-2"
+                        className="w-full border border-gray-800 rounded-xl p-2"
                         type="text"
                         placeholder="Enter Quiz Title"
                         value={title}
@@ -122,7 +127,7 @@ const NewQuiz = ({ closeModal }) => {
 
                     {/* Description Input */}
                     <input
-                        className="w-full border border-gray-300 rounded-lg p-2"
+                        className="w-full border border-gray-800 rounded-xl p-2"
                         type="text"
                         placeholder="Enter Quiz Description"
                         value={description}
@@ -131,7 +136,7 @@ const NewQuiz = ({ closeModal }) => {
                     <div className="relative w-full">
                         {/* Subject Input */}
                         <input
-                            className="w-full border border-gray-300 rounded-lg p-2"
+                            className="w-full border border-gray-800 rounded-xl p-2"
                             type="text"
                             placeholder="Enter Quiz Subject"
                             value={subject}
@@ -142,7 +147,7 @@ const NewQuiz = ({ closeModal }) => {
 
                         {/* Dropdown Menu */}
                         {dropdownVisible && (
-                            <ul className=" w-full bg-white border border-gray-300 rounded-lg mt-1  overflow-y-auto shadow-lg z-10">
+                            <ul className=" w-full bg-white border border-gray-800 rounded-xl mt-1  overflow-y-auto shadow-lg z-10">
                                 {filteredSubjects.length > 0 ? (
                                     filteredSubjects.map((sub, index) => (
                                         <li
@@ -163,7 +168,7 @@ const NewQuiz = ({ closeModal }) => {
                     <div className="flex flex-col">
                         <div className="flex items-center space-x-2 mb-4">
                             <input
-                                className="w-full border border-gray-300 rounded-lg p-2"
+                                className="w-full border border-gray-800 rounded-xl p-2"
                                 type="text"
                                 placeholder="Add instruction"
                                 value={instructionsInput}
@@ -171,7 +176,7 @@ const NewQuiz = ({ closeModal }) => {
                             />
                             <button
                                 onClick={handleInstructionsAdd}
-                                className="bg-yellow-500 text-white rounded-lg px-4 py-2"
+                                className="bg-yellow-300  rounded-2xl px-4 py-2"
                             >
                                 Add
                             </button>
@@ -210,7 +215,7 @@ const NewQuiz = ({ closeModal }) => {
                                     Hours
                                 </label>
                                 <input
-                                    className="w-16 border border-gray-300 rounded-lg p-2"
+                                    className="w-16 border border-gray-800 rounded-xl p-2"
                                     id="hours"
                                     type="number"
                                     value={timer.hours}
@@ -224,7 +229,7 @@ const NewQuiz = ({ closeModal }) => {
                                     Minutes
                                 </label>
                                 <input
-                                    className="w-16 border border-gray-300 rounded-lg p-2"
+                                    className="w-16 border border-gray-800 rounded-xl p-2"
                                     id="minutes"
                                     type="number"
                                     value={timer.minutes}
@@ -256,7 +261,7 @@ const NewQuiz = ({ closeModal }) => {
                     <div className="flex flex-col">
                         <div className="flex items-center space-x-2 mb-4">
                             <input
-                                className="w-full border border-gray-300 rounded-lg p-2"
+                                className="w-full border border-gray-800 rounded-xl p-2"
                                 type="text"
                                 placeholder="Add tag"
                                 value={tagInput}
@@ -264,7 +269,7 @@ const NewQuiz = ({ closeModal }) => {
                             />
                             <button
                                 onClick={handleTagAdd}
-                                className="bg-yellow-500 text-white rounded-lg px-4 py-2"
+                                className="bg-yellow-300  rounded-xl px-4 py-2"
                             >
                                 Add
                             </button>
@@ -294,16 +299,16 @@ const NewQuiz = ({ closeModal }) => {
                     </div>
 
                     {/* Save and Cancel Buttons */}
-                    <div className="flex justify-between">
+                    <div className="flex justify-end">
                         <button
                             onClick={handleSave}
-                            className="bg-yellow-500 text-white rounded-lg px-6 py-2"
+                            className="bg-yellow-300 mr-3 text-lg font-semibold  rounded-lg px-6  "
                         >
                             Save
                         </button>
                         <button
                             onClick={handleCancel}
-                            className="bg-gray-500 text-white rounded-lg px-6 py-2"
+                            className="bg-yellow-100 text-xl font-semibold rounded-lg px-6 py-2"
                         >
                             Cancel
                         </button>

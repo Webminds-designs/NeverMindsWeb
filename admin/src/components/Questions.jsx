@@ -13,7 +13,7 @@ const Questions = () => {
   const [isPublished, setIsPublished] = useState(false);
   const [required, setRequired] = useState(true);
   const [isCopied, setIsCopied] = useState(false);
-    const validationCode = "A1B2C3";
+  const validationCode = "A1B2C3";
   const [questions, setQuestions] = useState([
     {
       id: 1,
@@ -23,7 +23,7 @@ const Questions = () => {
       correctAnswers: [],
     },
   ]);
- console.log(quizDetails);
+
   // Add a new question
   const addQuestion = () => {
     setQuestions((prev) => [
@@ -37,6 +37,7 @@ const Questions = () => {
       },
     ]);
   };
+
 
   // Add an answer to a question
   const addAnswer = (questionId) => {
@@ -89,11 +90,11 @@ const Questions = () => {
       prev.map((q) =>
         q.id === questionId
           ? {
-              ...q,
-              correctAnswers: q.correctAnswers.includes(answerIndex)
-                ? q.correctAnswers.filter((index) => index !== answerIndex) // Unmark if already marked
-                : [...q.correctAnswers, answerIndex], // Mark as correct
-            }
+            ...q,
+            correctAnswers: q.correctAnswers.includes(answerIndex)
+              ? q.correctAnswers.filter((index) => index !== answerIndex) // Unmark if already marked
+              : [...q.correctAnswers, answerIndex], // Mark as correct
+          }
           : q
       )
     );
@@ -106,26 +107,65 @@ const Questions = () => {
   };
 
   const handleSubmit = () => {
+    let validationError = false;
+  let errorMessage = "";
 
+  
+    questions.forEach((q) => {
+      if (!q.questionText || q.questionText.trim() === "") {
+        validationError = true;
+        errorMessage = "Please ensure all questions have valid text.";
+      }
+      if (q.answers.every((answer) => !answer || answer.trim() === "")) {
+        validationError = true;
+        errorMessage = "Please ensure all questions have at least one valid answer.";
+      }
+      if (q.correctAnswers.length === 0) {
+        validationError = true;
+        errorMessage = "Please ensure each question has correct answers selected.";
+      }
+    });
+  
+    // If any validation error occurs, show the error message
+    if (validationError) {
+      alert(errorMessage);
+      return; // Stop submission if validation fails
+    }
+  
+  
     const allDetails = {
       quizDetails,
       required,
-      questions
+      questions,
+    };
+  
+    console.log("All Details: ", allDetails);
+    setIsPublished(true);
   };
-  console.log("All Details: ", allDetails);
-  setIsPublished(true);
-  };
+  
 
   const handleCopy = () => {
     navigator.clipboard.writeText(validationCode)
-        .then(() => {
-            setIsCopied(true);
-            setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
-        })
-        .catch((err) => {
-            console.error("Failed to copy text: ", err);
-        });
-};
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 4000); // Reset after 2 seconds
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
+  };
+  const deleteQuestion = (id) => {
+    setQuestions((prev) => {
+      // Remove the question with the matching ID
+      const updatedQuestions = prev.filter((q) => q.id !== id);
+
+      // Reassign IDs to maintain sequential order
+      return updatedQuestions.map((q, index) => ({
+        ...q,
+        id: index + 1, // Set the new ID based on the current index
+      }));
+    });
+  };
 
 
   return (
@@ -138,7 +178,7 @@ const Questions = () => {
         <h1 className="text-xl font-semibold">
           {quizDetails.title || "Quiz Title"}
         </h1>
-        <button  onClick={handleSubmit}  className="bg-yellow-400 text-black px-4 py-2 rounded-lg">
+        <button onClick={handleSubmit} className="bg-yellow-400 text-black px-4 py-2 rounded-lg">
           Publish
         </button>
       </header>
@@ -150,20 +190,45 @@ const Questions = () => {
             {questions.map((q) => (
               <div
                 key={q.id}
-                className="flex items-center p-4  border-2 border-yellow-500 rounded-2xl shadow"
+                className="flex items-start p-4 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
               >
-                <div className="bg-yellow-400  w-6 h-6 rounded-lg flex items-center justify-center">
+                {/* Question ID */}
+                <div className="bg-yellow-500 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center shadow-sm">
                   {q.id}
                 </div>
-                <div className="ml-2">
-                  <p className="font-semibold">
+
+                {/* Question Content */}
+                <div className="ml-4 flex-1">
+
+                  {/* Question Text */}
+                  <p className="col-span-9 font-semibold text-gray-800">
                     {(q.questionText || "Question").length > 50
                       ? `${(q.questionText || "Question").substring(0, 50)}...`
                       : q.questionText || "Question"}
                   </p>
-                  <p className="text-sm text-gray-500">{q.answers} Choices</p>
+
+
+
+
+                  {/* Choices Information */}
+                  <div className="flex justify-between">
+                  <p className="text-sm text-gray-500 mt-2">
+                    {q.answers?.length || 0} {q.answers?.length === 1 ? "Choice" : "Choices"}
+                  </p>
+
+                  {/* Delete Button */}
+
+                  <button
+                    onClick={() => deleteQuestion(q.id)}
+                    className=" text-red-500 hover:text-red-700  transition-colors  duration-200"
+                    aria-label="Delete Question"
+                  >
+                    <img src={deleteIcon} alt="Delete" width="20" />
+                  </button>
+                  </div>
                 </div>
               </div>
+
             ))}
             <button
               onClick={addQuestion}
@@ -283,11 +348,10 @@ const Questions = () => {
                         {/* Correct Answer Button */}
                         <button
                           onClick={() => setMultipleAnswer(q.id, index)} // Mark this answer as correct
-                          className={`p-1 rounded-full px-3 ${
-                            q.correctAnswers.includes(index)
-                              ? "bg-green-500 text-white"
-                              : "bg-yellow-100 text-gray-900"
-                          }`}
+                          className={`p-1 rounded-full px-3 ${q.correctAnswers.includes(index)
+                            ? "bg-green-500 text-white"
+                            : "bg-yellow-100 text-gray-900"
+                            }`}
                         >
                           {index + 1}
                         </button>
@@ -349,11 +413,10 @@ const Questions = () => {
                         {/* Correct Answer Button */}
                         <button
                           onClick={() => setCorrectAnswer(q.id, index)} // Mark this answer as correct
-                          className={`p-1 rounded-full px-3 ${
-                            q.correctAnswer === index
-                              ? "bg-green-500 text-white"
-                              : "bg-yellow-100 text-gray-900"
-                          }`}
+                          className={`p-1 rounded-full px-3 ${q.correctAnswer === index
+                            ? "bg-green-500 text-white"
+                            : "bg-yellow-100 text-gray-900"
+                            }`}
                         >
                           {index + 1}
                         </button>
@@ -389,46 +452,46 @@ const Questions = () => {
         </main>
         {/* Published Model */}
         {isPublished && (
-  <div className="fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
-    <div className="bg-white rounded-xl shadow-2xl p-8 w-[28rem]">
-      {/* Header */}
-      <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
-        {quizDetails.title} Quiz Published
-      </h2>
-      <p className="text-gray-700 text-center mb-6">
-        Your quiz has been successfully published! Share the code below to allow users to join.
-      </p>
+          <div className="fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
+            <div className="bg-white rounded-xl shadow-2xl p-8 w-[28rem]">
+              {/* Header */}
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+                {quizDetails.title} Quiz Published  <span className="text-yellow-500">!</span>
+              </h2>
+              <p className="text-gray-700 text-center mb-6">
+                Your quiz has been successfully published! Share the code below to allow users to join.
+              </p>
 
-      {/* Code Display and Copy Button */}
-      <div className="flex items-center justify-between bg-gray-100 p-4 rounded-lg border border-gray-300 mb-6">
-        <span className="font-mono text-lg text-gray-800">{validationCode}</span>
-        <button
-          onClick={handleCopy}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-yellow-200 focus:outline-none focus:ring focus:ring-yellow-300 transition"
-        >
-          <img src={copy} alt="copy" width="25" height="25" />
-        </button>
-      </div>
+              {/* Code Display and Copy Button */}
+              <div className="flex items-center justify-between bg-gray-50 p-2 m-5 rounded-lg border border-gray-300 mb-6">
+                <span className="font-mono text-lg text-gray-800">{validationCode}</span>
+                <button
+                  onClick={handleCopy}
+                  className="bg-yellow-200 text-white px-4 py-2 rounded-md hover:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 transition"
+                >
+                  <img src={copy} alt="copy" width="25" height="25" />
+                </button>
+              </div>
 
-      {/* Copy Feedback */}
-      {isCopied && (
-        <p className="text-sm text-green-600 text-center mb-4">
-          Validation code copied to clipboard!
-        </p>
-      )}
+              {/* Copy Feedback */}
+              {isCopied && (
+                <p className="text-sm text-green-600 text-center mb-4">
+                  Validation code copied to clipboard!
+                </p>
+              )}
 
-      {/* Close Button */}
-      <div className="flex justify-end">
-        <button
-          className="bg-yellow-400 text-black px-6 py-3 rounded-lg hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300 transition"
-          onClick={() => setIsPublished(false)}
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+              {/* Close Button */}
+              <div className="flex justify-end">
+                <button
+                  className="bg-yellow-400 text-black px-6 py-3 rounded-lg hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300 transition"
+                  onClick={() => setIsPublished(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>
