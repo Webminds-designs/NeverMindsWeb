@@ -39,7 +39,7 @@ const ProfileDashboard = () => {
   };
 
   return (
-    <div className="flex bg-gray-50 min-h-screen">
+    <div className="flex min-h-screen mx-5">
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
       {/* Main Content */}
@@ -47,16 +47,16 @@ const ProfileDashboard = () => {
         {/* Left Section */}
         <div className="w-8/12 p-8">
           {/* Search Bar */}
-          <div className="mb-6 px-7 w-auto">
+          <div className="mb-12 px-7 w-auto">
             <input
               type="text"
               placeholder="Search your course..."
-              className="w-full p-4 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="w-full p-4 rounded-3xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
           </div>
 
           {/* Showcard */}
-          <div className="flex bg-[#fed448] p-6 rounded-lg shadow-lg mb-6">
+          <div className="flex bg-[#fed448] p-6 rounded-3xl mb-16">
             <div className="flex-1">
               <h2 className="text-xl font-bold mb-2">ONLINE QUIZZES</h2>
               <p className="text-[50px] font-semibold mb-4">
@@ -76,9 +76,9 @@ const ProfileDashboard = () => {
 
           {/* Favourite Quizzes Slider */}
           <div>
-            <h3 className="text-[30px] font-bold mb-4">Favourite Quizzes</h3>
+            <h3 className="text-[30px] font-bold mb-12">Favourite Quizzes</h3>
           </div>
-          <div className="flex my-6 gap-4">
+          <div className="flex my-6 gap-4 mb-12">
             <QuizCard
               image={science1img}
               subject="Biology"
@@ -119,38 +119,38 @@ const ProfileDashboard = () => {
 
           {/* Overall Progress */}
           <div>
-            <h3 className="text-[30px] font-bold mb-4">
+            <h3 className="text-[30px] font-bold mb-12">
               Your Overall Progress
             </h3>
           </div>
-          <div className="grid grid-cols-2 gap-20 ">
-            <div className="p-5 bg-white rounded-lg shadow-lg flex justify-between border border-gray-200">
+          <div className="grid grid-cols-2 gap-10 ">
+            <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
               <h4 className="font-bold text-left text-[22px]">
                 Attempted Quizzes
               </h4>
-              <p className="text-right font-bold text-[22px]">20</p>
+              <p className="text-right font-semibold text-[40px]">20</p>
             </div>
-            <div className="p-5 bg-white rounded-lg shadow-lg flex justify-between border border-gray-200">
+            <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
               <h4 className="font-bold text-left text-[22px]">
                 Completed Quizzes
               </h4>
-              <p className="text-right font-bold text-[22px]">20</p>
+              <p className="text-right font-semibold text-[40px]">20</p>
             </div>
-            <div className="p-5 bg-white rounded-lg shadow-lg flex justify-between border border-gray-200">
+            <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
               <h4 className="font-bold text-left text-[22px]">
                 Number of Favourites
               </h4>
-              <p className="text-right font-bold text-[22px]">5</p>
+              <p className="text-right font-semibold text-[40px]">5</p>
             </div>
-            <div className="p-5 bg-white rounded-lg shadow-lg flex justify-between border border-gray-200">
+            <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
               <h4 className="font-bold text-left text-[22px]">Score Points</h4>
-              <p className="text-right font-bold text-[22px]">200</p>
+              <p className="text-right font-semibold text-[40px]">200</p>
             </div>
           </div>
         </div>
 
         {/* Right Section */}
-        <div className="w-4/12 bg-gray-100 p-8 ">
+        <div className="w-4/12 p-8">
           {/* Header */}
           <div className="flex justify-between items-center mb-6">
             <div className="flex gap-4">
@@ -158,11 +158,11 @@ const ProfileDashboard = () => {
               <IonIcon icon={notificationsOutline} size="large" />
             </div>
             <div className="flex items-center gap-4">
-            <img
-            className="w-12 h-12 rounded-full shadow-md"
-            src={profileImage}
-            alt={`${name}'s profile`}
-          />
+              <img
+                className="w-12 h-12 rounded-full shadow-md"
+                src={profileImage}
+                alt={`${name}'s profile`}
+              />
               <span className="font-semibold">Dulsi Rathnayake</span>
             </div>
           </div>

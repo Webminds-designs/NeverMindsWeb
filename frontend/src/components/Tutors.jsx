@@ -4,7 +4,7 @@ const Tutors = () => {
   return (
     <div>
       <h3 className="text-[30px] font-bold mt-5 mb-4">Your Tutors</h3>
-      <div className="bg-[#fff8e7] rounded-lg shadow-xl p-6">
+      <div className="bg-[#fff8e7] rounded-3xl p-6">
         {[...Array(3)].map((_, i) => (
           <div key={i}>
             {/* Tutor Details */}

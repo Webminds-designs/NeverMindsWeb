@@ -14,7 +14,7 @@ const ProfileCard = ({
   const firstName = name.split(" ")[0];
 
   return (
-    <div className="relative w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg p-6">
+    <div className="relative w-full bg-white border border-gray-200 rounded-3xl p-6">
       {/* Header with Title and Dropdown Menu */}
       <div className="flex justify-between items-center">
         <button
