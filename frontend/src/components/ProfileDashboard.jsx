@@ -33,6 +33,45 @@ const ProfileDashboard = () => {
     }
   };
 
+  const quizCardData = [
+    {
+      image: science1img,
+      subject: "Biology",
+      title: "Building Blocks of Life",
+      score: "80",
+      tutorIcon: tutorIcon,
+      tutorName: " Dr. Charitha Munasinghe",
+      tutorSubject: "Biology",
+    },
+    {
+      image: science2img,
+      subject: "Biology",
+      title: "Cracking the Code of Viruses",
+      score: "100",
+      tutorIcon: tutorIcon,
+      tutorName: " Dr. Charitha Munasinghe",
+      tutorSubject: "Biology",
+    },
+    {
+      image: science3img,
+      subject: "Biology",
+      title: "Bonding Basics",
+      score: "30",
+      tutorIcon: tutorIcon,
+      tutorName: " Dr. Charitha Munasinghe",
+      tutorSubject: "Biology",
+    },
+    {
+      image: science1img,
+      subject: "Biology",
+      title: "Building Blocks of Life",
+      score: "80",
+      tutorIcon: tutorIcon,
+      tutorName: " Dr. Charitha Munasinghe",
+      tutorSubject: "Biology",
+    }
+  ]
+
   // Define handleEdit function
   const handleEdit = () => {
     alert("Edit button clicked!");
@@ -43,9 +82,9 @@ const ProfileDashboard = () => {
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
       {/* Main Content */}
-      <main className="flex flex-1">
+      <main className="flex w-full">
         {/* Left Section */}
-        <div className="w-8/12 p-8">
+        <div className="lg:w-8/12 max-w-full lg:p-8 py-4">
           {/* Search Bar */}
           <div className="mb-12 px-7 w-auto">
             <input
@@ -58,8 +97,8 @@ const ProfileDashboard = () => {
           {/* Showcard */}
           <div className="flex bg-[#fed448] p-6 rounded-3xl mb-16">
             <div className="flex-1">
-              <h2 className="text-xl font-bold mb-2">ONLINE QUIZZES</h2>
-              <p className="text-[50px] font-semibold mb-4">
+              <h2 className="xl:text-xl md:text-sm text-xs font-bold mb-2">ONLINE QUIZZES</h2>
+              <p className="xl:text-[50px] lg:text-[30px] md:text-[40px] text-[30px] font-semibold mb-4">
                 Master your skills with
                 <br />
                 Quizzes that pack a punch!
@@ -76,81 +115,48 @@ const ProfileDashboard = () => {
 
           {/* Favourite Quizzes Slider */}
           <div>
-            <h3 className="text-[30px] font-bold mb-12">Favourite Quizzes</h3>
+            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-12">Favourite Quizzes</h3>
           </div>
-          <div className="flex my-6 gap-4 mb-12">
-            <QuizCard
-              image={science1img}
-              subject="Biology"
-              title="Building Blocks of Life"
-              score="80"
-              tutorIcon={tutorIcon}
-              tutorName=" Dr. Charitha Munasinghe"
-              tutorSubject="Biology"
-            />
-            <QuizCard
-              image={science2img}
-              subject="Biology"
-              title="Cracking the Code of Viruses"
-              score="100"
-              tutorIcon={tutorIcon}
-              tutorName=" Dr. Charitha Munasinghe"
-              tutorSubject="Biology"
-            />
-            <QuizCard
-              image={science3img}
-              subject="Biology"
-              title="Bonding Basics"
-              score="30"
-              tutorIcon={tutorIcon}
-              tutorName=" Dr. Charitha Munasinghe"
-              tutorSubject="Biology"
-            />
-            <QuizCard
-              image={science1img}
-              subject="Biology"
-              title="Building Blocks of Life"
-              score="80"
-              tutorIcon={tutorIcon}
-              tutorName=" Dr. Charitha Munasinghe"
-              tutorSubject="Biology"
-            />
+          <div className="flex my-6 gap-4 mb-12 overflow-x-auto scrollbar-hide">
+            {quizCardData.map((quiz, index) => (
+              <QuizCard key={index} {...quiz} />
+            ))}
           </div>
 
           {/* Overall Progress */}
           <div>
-            <h3 className="text-[30px] font-bold mb-12">
+            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-12">
               Your Overall Progress
             </h3>
           </div>
-          <div className="grid grid-cols-2 gap-10 ">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-10 ">
             <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
-              <h4 className="font-bold text-left text-[22px]">
+              <h4 className="font-bold text-left md:text-[22px] text-[20px]">
                 Attempted Quizzes
               </h4>
-              <p className="text-right font-semibold text-[40px]">20</p>
+              <p className="text-right font-semibold md:text-[40px] text-[30px]">20</p>
             </div>
             <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
-              <h4 className="font-bold text-left text-[22px]">
+              <h4 className="font-bold text-left md:text-[22px] text-[20px]">
                 Completed Quizzes
               </h4>
-              <p className="text-right font-semibold text-[40px]">20</p>
+              <p className="text-right font-semibold md:text-[40px] text-[30px]">20</p>
             </div>
             <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
-              <h4 className="font-bold text-left text-[22px]">
+              <h4 className="font-bold text-left md:text-[22px] text-[20px]">
                 Number of Favourites
               </h4>
-              <p className="text-right font-semibold text-[40px]">5</p>
+              <p className="text-right font-semibold md:text-[40px] text-[30px]">5</p>
             </div>
             <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
-              <h4 className="font-bold text-left text-[22px]">Score Points</h4>
-              <p className="text-right font-semibold text-[40px]">200</p>
+              <h4 className="font-bold text-left md:text-[22px] text-[20px]">Score Points</h4>
+              <p className="text-right font-semibold md:text-[40px] text-[30px]">200</p>
             </div>
           </div>
         </div>
 
         {/* Right Section */}
-        <div className="w-4/12 p-8">
+        <div className="hidden lg:flex flex-col w-4/12 p-8">
           {/* Header */}
           <div className="flex justify-between items-center mb-6">
             <div className="flex gap-4">
