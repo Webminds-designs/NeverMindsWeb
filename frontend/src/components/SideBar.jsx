@@ -1,7 +1,7 @@
 import React from "react";
 import { IonIcon } from "@ionic/react";
-import {homeOutline,heartOutline,trophyOutline,barChartOutline,personOutline,settingsOutline,logOutOutline,} from "ionicons/icons";
-import {TbTransitionLeftF,TbTransitionRightFilled} from "react-icons/tb";
+import {homeOutline,heartOutline,trophyOutline,barChartOutline,personOutline,settingsOutline,logOutOutline} from "ionicons/icons";
+import {TbTransitionLeftFilled,TbTransitionRightFilled} from "react-icons/tb";
 import logo from "../assets/logo.png";
 
 
@@ -97,7 +97,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         onClick={toggleSidebar}
       >
         {!isOpen && (
-          <TbTransitionLeftF
+          <TbTransitionLeftFilled
             className="w-10 h-10 hover:rotate-12 transition-transform"
           />
         )}
