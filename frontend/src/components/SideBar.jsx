@@ -1,17 +1,9 @@
 import React from "react";
 import { IonIcon } from "@ionic/react";
-import {
-  homeOutline,
-  heartOutline,
-  trophyOutline,
-  barChartOutline,
-  personOutline,
-  settingsOutline,
-  logOutOutline,
-} from "ionicons/icons";
+import {homeOutline,heartOutline,trophyOutline,barChartOutline,personOutline,settingsOutline,logOutOutline,} from "ionicons/icons";
+import {TbTransitionLeftF,TbTransitionRightFilled} from "react-icons/tb";
 import logo from "../assets/logo.png";
-import L from "../assets/L.png";
-import R from "../assets/R.png";
+
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   return (
@@ -45,9 +37,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
             {/* R Logo between NeverMinds and Overview */}
             <div className="flex justify-end items-center px-6">
-              <img
-                src={R}
-                alt="Right Logo"
+              <TbTransitionRightFilled
                 className="w-8 h-8 cursor-pointer hover:scale-110 transition-transform"
                 onClick={toggleSidebar}
               />
@@ -107,9 +97,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         onClick={toggleSidebar}
       >
         {!isOpen && (
-          <img
-            src={L}
-            alt="Open Sidebar"
+          <TbTransitionLeftF
             className="w-10 h-10 hover:rotate-12 transition-transform"
           />
         )}

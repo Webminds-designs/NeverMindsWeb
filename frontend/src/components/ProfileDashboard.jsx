@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./SideBar";
 import { IonIcon } from "@ionic/react";
-import {
-  arrowForward,
-  mailOutline,
-  notificationsOutline,
-} from "ionicons/icons";
+import {arrowForward,mailOutline,notificationsOutline,} from "ionicons/icons";
 import QuizCard from "./QuizCard";
 import showcardimg from "../assets/star-2.svg";
 import science1img from "../assets/science.svg";
