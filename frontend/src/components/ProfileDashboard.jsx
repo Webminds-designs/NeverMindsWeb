@@ -66,15 +66,7 @@ const ProfileDashboard = () => {
       tutorName: " Dr. Charitha Munasinghe",
       tutorSubject: "Biology",
     },
-    {
-      image: science2img,
-      subject: "Biology",
-      title: "Cracking the Code of Viruses",
-      score: "100",
-      tutorIcon: tutorIcon,
-      tutorName: " Dr. Charitha Munasinghe",
-      tutorSubject: "Biology",
-    }
+
   ]
 
   // Define handleEdit function
