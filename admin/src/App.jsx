@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { QuizProvider } from './context/context';
 
 import "./App.css";
 import DashboardNavigater from "./components/DashboardNavigater";
@@ -11,21 +12,25 @@ import Questions from "./components/Questions";
 
 function App() {
   const location = useLocation();
-
+  
   return (
-    <div >
+    <QuizProvider>
+    <div>
       {/* Conditionally render the navigator */}
       {location.pathname !== "/question" && <DashboardNavigater />}
 
       {/* Main Content */}
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/quizzes" element={<Quizzes />} />
-        <Route path="/statistics" element={<Statistics />} />
-        <Route path="/question" element={<Questions />} />
-      </Routes>
+     
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/quizzes" element={<Quizzes />} />
+          <Route path="/statistics" element={<Statistics />} />
+          <Route path="/question" element={<Questions />} />
+        </Routes>
+     
     </div>
+    </QuizProvider>
   );
 }
 

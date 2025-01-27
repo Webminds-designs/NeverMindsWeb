@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for React Router v6
 import pen from '../assets/pen.svg';
 import close from '../assets/close.png';
-import Questions from './Questions';
+import { useQuiz } from '../context/context';
 
 const NewQuiz = ({ closeModal }) => {
     const [title, setTitle] = useState('');
@@ -16,6 +16,7 @@ const NewQuiz = ({ closeModal }) => {
     const [tagInput, setTagInput] = useState('');
     const [quizSaved, setQuizSaved] = useState(false);
     const [quizData, setQuizData] = useState(null);
+    const { setQuizDetails } = useQuiz();
     const [filteredSubjects, setFilteredSubjects] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -72,32 +73,21 @@ const NewQuiz = ({ closeModal }) => {
     };
 
     const handleSelect = (selectedSubject) => {
-        setSubject(selectedSubject);
-        setDropdownVisible(false);
+        setSubject(selectedSubject); // Update the input value
+        setFilteredSubjects([]); // Clear the dropdown
+        setDropdownVisible(false); // Hide the dropdown
     };
 
     const handleSave = () => {
-          // Check for empty fields
-    if (!title || !description || !subject || !timer || !instructions ) {
-        alert("Please fill out all fields before saving the quiz.");
-        return; // Stop execution if any field is missing
-    }
-        const quizDetails = {
-            title,
-            description,
-            subject,
-            timer,
-            isPrivate,
-            instructions,
-            tags,
-        };
-        setQuizData(quizDetails);
-        setQuizSaved(true);
-
+        if (!title || !description || !subject || !timer || !instructions) {
+          alert('Please fill out all fields before saving the quiz.');
+          return;
+        }
       
-        navigate('/question',{ state: { quizDetails } });
-    };
-
+        const quizDetails = { title, description, subject, timer, isPrivate, instructions, tags };
+        setQuizDetails(quizDetails);  // Save globally
+        navigate('/question');
+      };
     const handleCancel = () => {
         closeModal();
     };
@@ -147,13 +137,13 @@ const NewQuiz = ({ closeModal }) => {
 
                         {/* Dropdown Menu */}
                         {dropdownVisible && (
-                            <ul className=" w-full bg-white border border-gray-800 rounded-xl mt-1  overflow-y-auto shadow-lg z-10">
+                            <ul className="w-full bg-white border border-gray-800 rounded-xl mt-1 overflow-y-auto shadow-lg z-10">
                                 {filteredSubjects.length > 0 ? (
                                     filteredSubjects.map((sub, index) => (
                                         <li
                                             key={index}
                                             className="p-2 hover:bg-gray-100 cursor-pointer"
-                                            onClick={() => handleSelect(sub)}
+                                            onClick={() => handleSelect(sub)} // Handle selection
                                         >
                                             {sub}
                                         </li>
@@ -298,13 +288,13 @@ const NewQuiz = ({ closeModal }) => {
                         </div>
                     </div>
 
-                    {/* Save and Cancel Buttons */}
+                    {/* Create and Cancel Buttons */}
                     <div className="flex justify-end">
                         <button
                             onClick={handleSave}
                             className="bg-yellow-300 mr-3 text-lg font-semibold  rounded-lg px-6  "
                         >
-                            Save
+                            Create
                         </button>
                         <button
                             onClick={handleCancel}

@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import add from "../assets/add.png";
 import back from "../assets/back.png";
 import search from "../assets/magnifier.png";
 import deleteIcon from "../assets/delete.png";
 import dragIcon from "../assets/drag.png";
 import copy from "../assets/copy.png";
+import { useQuiz } from '../context/context.jsx';  
+
 
 const Questions = () => {
-  const location = useLocation();
-  const { quizDetails } = location.state || {};
+  const { quizDetails } = useQuiz();
   const [isPublished, setIsPublished] = useState(false);
   const [required, setRequired] = useState(true);
   const [isCopied, setIsCopied] = useState(false);
   const validationCode = "A1B2C3";
+  const navigate = useNavigate();
   const [questions, setQuestions] = useState([
     {
       id: 1,
@@ -166,17 +169,25 @@ const Questions = () => {
       }));
     });
   };
+  const scrollToQuestion = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-
+  const handleBack = () => {
+    navigate(-1); // This will navigate to the previous page
+  };
   return (
     <div className="h-screen bg-gray-50">
       {/* Header */}
       <header className="flex items-center justify-between p-4 bg-white shadow">
-        <button className="bg-yellow-100 p-2 rounded-md">
+        <button onClick={handleBack} className="bg-yellow-100 p-2 rounded-md">
           <img src={back} alt="Back" width="25" height="25" />
         </button>
         <h1 className="text-xl font-semibold">
-          {quizDetails.title || "Quiz Title"}
+           {quizDetails.title|| "Quiz Title"}
         </h1>
         <button onClick={handleSubmit} className="bg-yellow-400 text-black px-4 py-2 rounded-lg">
           Publish
@@ -188,9 +199,18 @@ const Questions = () => {
         <aside className="w-1/4 bg-yellow-50 p-4 overflow-y-auto border-r-2 border-gray-300">
           <div className="space-y-4">
             {questions.map((q) => (
+               <a
+               key={q.id}
+               onClick={(e) => {
+                 e.preventDefault();
+                 scrollToQuestion(q.id);
+               }}
+               href={`#${q.id}`}
+               className=""
+             >
               <div
-                key={q.id}
-                className="flex items-start p-4 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+            
+                className="flex items-start p-4 m-2 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
               >
                 {/* Question ID */}
                 <div className="bg-yellow-500 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center shadow-sm">
@@ -206,9 +226,6 @@ const Questions = () => {
                       ? `${(q.questionText || "Question").substring(0, 50)}...`
                       : q.questionText || "Question"}
                   </p>
-
-
-
 
                   {/* Choices Information */}
                   <div className="flex justify-between">
@@ -228,7 +245,7 @@ const Questions = () => {
                   </div>
                 </div>
               </div>
-
+</a>
             ))}
             <button
               onClick={addQuestion}
@@ -257,7 +274,7 @@ const Questions = () => {
           {/* Questions */}
           {questions.map((q) => (
             <div
-              key={q.id}
+              id={q.id}
               className="bg-white p-6 rounded-2xl border border-gray-300 mb-6"
             >
               {/* Question Header */}
@@ -459,26 +476,29 @@ const Questions = () => {
                 {quizDetails.title} Quiz Published  <span className="text-yellow-500">!</span>
               </h2>
               <p className="text-gray-700 text-center mb-6">
-                Your quiz has been successfully published! Share the code below to allow users to join.
+                Your quiz has been successfully published! 
               </p>
 
               {/* Code Display and Copy Button */}
-              <div className="flex items-center justify-between bg-gray-50 p-2 m-5 rounded-lg border border-gray-300 mb-6">
-                <span className="font-mono text-lg text-gray-800">{validationCode}</span>
-                <button
-                  onClick={handleCopy}
-                  className="bg-yellow-200 text-white px-4 py-2 rounded-md hover:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 transition"
-                >
-                  <img src={copy} alt="copy" width="25" height="25" />
-                </button>
-              </div>
+              {quizDetails.isPrivate && (
+  <div className="flex items-center justify-between bg-gray-50 p-2 m-5 rounded-lg border border-gray-300 mb-6">
+    <span className="font-mono text-lg text-gray-800">{validationCode}</span>
+    <button
+      onClick={handleCopy}
+      className="bg-yellow-200 text-white px-4 py-2 rounded-md hover:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 transition"
+    >
+      <img src={copy} alt="copy" width="25" height="25" />
+    </button>
+  </div>
+)}
 
-              {/* Copy Feedback */}
-              {isCopied && (
-                <p className="text-sm text-green-600 text-center mb-4">
-                  Validation code copied to clipboard!
-                </p>
-              )}
+{/* Copy Feedback */}
+{isCopied && (
+  <p className="text-sm text-green-600 text-center mb-4">
+    Validation code copied to clipboard!
+  </p>
+)}
+
 
               {/* Close Button */}
               <div className="flex justify-end">
