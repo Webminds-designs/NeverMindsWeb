@@ -121,7 +121,7 @@ const ProfileDashboard = () => {
             </h3>
           </div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-10 ">
-            <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
+            <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
               <h4 className="font-bold text-left md:text-[22px] text-[20px]">
                 Attempted Quizzes
               </h4>
@@ -129,7 +129,7 @@ const ProfileDashboard = () => {
                 20
               </p>
             </div>
-            <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
+            <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
               <h4 className="font-bold text-left md:text-[22px] text-[20px]">
                 Completed Quizzes
               </h4>
@@ -137,7 +137,7 @@ const ProfileDashboard = () => {
                 20
               </p>
             </div>
-            <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
+            <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
               <h4 className="font-bold text-left md:text-[22px] text-[20px]">
                 Number of Favourites
               </h4>
@@ -145,7 +145,7 @@ const ProfileDashboard = () => {
                 5
               </p>
             </div>
-            <div className="p-5 bg-white rounded-3xl  flex justify-between border border-gray-200">
+            <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
               <h4 className="font-bold text-left md:text-[22px] text-[20px]">
                 Score Points
               </h4>
@@ -159,8 +159,8 @@ const ProfileDashboard = () => {
         {/* Right Section */}
         <div className="hidden lg:flex flex-col w-4/12 p-8">
           {/* Profile Card */}
-          <div>
-            <h3 className="text-[30px] font-bold mt-4 mb-4">Profiles</h3>
+          <div className="">
+            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-4">Profiles</h3>
           </div>
           <div className="flex flex-col items-center justify-center">
             <ProfileCard
@@ -175,8 +175,8 @@ const ProfileDashboard = () => {
           </div>
 
           {/* Static Table */}
-          <div>
-            <h3 className="text-[30px] font-bold mb-4">Statistic</h3>
+          <div className="my-8">
+            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-4">Statistic</h3>
           </div>
           <div className="my-8">
             <DashBarChart />
