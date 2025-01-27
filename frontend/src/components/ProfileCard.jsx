@@ -38,7 +38,7 @@ const ProfileCard = ({
       {/* Profile Details */}
       <div className="flex flex-col items-center mt-4">
         {/* Profile Image with Yellow Border */}
-        <div className="relative mb-4">
+        <div className="relative mb-4 rounded-full">
           <img
             className="w-24 h-24 rounded-full border-4 border-[#f9c226] shadow-md"
             src={profileImage}

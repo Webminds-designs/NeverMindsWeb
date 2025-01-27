@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {homeOutline,heartOutline,trophyOutline,barChartOutline,personOutline,settingsOutline,logOutOutline} from "ionicons/icons";
 import {TbTransitionLeftFilled,TbTransitionRightFilled} from "react-icons/tb";
@@ -50,19 +51,19 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={homeOutline} size="large" />
-                <span className="text-lg font-medium">Dashboard</span>
+                <Link to="/dashboard"className="text-lg font-medium">Dashboard</Link>
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={heartOutline} size="large" />
-                <span className="text-lg font-medium">Favourites</span>
+                <Link to="/favourites"className="text-lg font-medium">Favourites</Link>
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={trophyOutline} size="large" />
-                <span className="text-lg font-medium">Badges</span>
+                <Link to="/badges"className="text-lg font-medium">Badges</Link>
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={barChartOutline} size="large" />
-                <span className="text-lg font-medium">Progress</span>
+                <Link to="/progress"className="text-lg font-medium">Progress</Link>
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={personOutline} size="large" />
@@ -93,7 +94,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
       {/* Menu Icon */}
       <div
-        className="w-16 h-16 flex items-center justify-center text-black cursor-pointer hover:scale-110 transition-transform duration-300"
+        className="w-16 h-16 mt-7 flex items-center justify-center text-black cursor-pointer hover:scale-110 transition-transform duration-300"
         onClick={toggleSidebar}
       >
         {!isOpen && (
