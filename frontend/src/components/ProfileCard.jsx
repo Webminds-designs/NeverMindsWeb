@@ -38,22 +38,21 @@ const ProfileCard = ({
       {/* Profile Details */}
       <div className="flex flex-col items-center mt-4">
         {/* Profile Image with Circular Progress Bar */}
-        <div className="relative w-40 h-40">
+        <div className="relative w-32 h-32">
           {/* Circular Progress Bar */}
           <svg
-            className="absolute top-0 left-0 w-full h-full rotate-[135deg]"
+            className="absolute top-0 left-0 w-full h-full"
             viewBox="0 0 36 36"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {/* Background Circle (Gauge) */}
+            {/* Background Circle */}
             <circle
               cx="18"
               cy="18"
               r="16"
               fill="none"
-              className="stroke-current text-yellow-200"
+              stroke="#e5e7eb" /* Light gray background */
               strokeWidth="2"
-              strokeDasharray="75 100"
             ></circle>
 
             {/* Progress Circle */}
@@ -62,19 +61,26 @@ const ProfileCard = ({
               cy="18"
               r="16"
               fill="none"
-              className="stroke-current text-yellow-500"
+              stroke="#facc15" /* Yellow for progress */
               strokeWidth="2"
-              strokeDasharray="50 100"
+              strokeDasharray="32 100" /* 32% progress */
+              strokeLinecap="round"
+              transform="rotate(-90 18 18)" /* Rotate for progress to start at the top */
             ></circle>
           </svg>
 
           {/* Profile Image */}
-          <div className="absolute inset-2 rounded-full overflow-hidden">
+          <div className="absolute inset-4 rounded-full overflow-hidden">
             <img
-              className="w-full h-full rounded-full object-cover"
-              src={profileImage}
+              className="w-full h-full object-cover"
+              src={profileImage} /* Replace with your profile image URL */
               alt={`${name}'s profile`}
             />
+          </div>
+
+          {/* Percentage Label */}
+          <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-white text-yellow-500 text-xs font-bold px-2 py-1 rounded-full shadow">
+            32%
           </div>
         </div>
 
