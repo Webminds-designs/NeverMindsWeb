@@ -5,7 +5,7 @@ import ProfileDashboard from "./components/ProfileDashboard";
 import Badges from "./components/Badges";
 import Progress from "./components/Progress";
 import Favourites from "./components/Favourites";
-import dashboard from "./components/ProfileDashboard"
+import Dashboard from './Pages/Dashboard';
 
 
 function App() {
@@ -26,11 +26,11 @@ function App() {
       <Route path="/" element={<Home />} />
 
       {/* if user not null then show dashboard*/}
-      {user && <Route path="/dashboard" element={<ProfileDashboard />} />}
+      {user && <Route path="/dashboard" element={<Dashboard />} />}
       <Route path="/badges" element={<Badges />} />
       <Route path="/progress" element={<Progress />} />
       <Route path="/favourites" element={<Favourites />} />
-      <Route path="/dashboard" element={<ProfileDashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       
 
     </Routes>

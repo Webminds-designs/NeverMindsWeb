@@ -12,7 +12,7 @@ export default function Home() {
   let header;
   if (
     location.pathname === "/" ||
-    location.pathname === "/profiledashboard" ||
+    location.pathname === "/dashboard" ||
     location.pathname === "/badges"
   ) {
     header = <LOGUHeader />;
