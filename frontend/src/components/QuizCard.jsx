@@ -58,7 +58,7 @@ const QuizCard = ({
         {/* Tutor Information */}
         <div className="flex items-center gap-4">
           {/* Tutor Profile Icon */}
-          <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-300 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-[50px] overflow-hidden bg-gray-300 flex items-center justify-center">
             {tutorIcon ? (
               <img
                 src={tutorIcon}

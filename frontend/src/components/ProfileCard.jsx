@@ -37,13 +37,45 @@ const ProfileCard = ({
 
       {/* Profile Details */}
       <div className="flex flex-col items-center mt-4">
-        {/* Profile Image with Yellow Border */}
-        <div className="relative mb-4 rounded-full">
-          <img
-            className="w-24 h-24 rounded-full border-4 border-[#f9c226] shadow-md"
-            src={profileImage}
-            alt={`${name}'s profile`}
-          />
+        {/* Profile Image with Circular Progress Bar */}
+        <div className="relative w-40 h-40">
+          {/* Circular Progress Bar */}
+          <svg
+            className="absolute top-0 left-0 w-full h-full rotate-[135deg]"
+            viewBox="0 0 36 36"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Background Circle (Gauge) */}
+            <circle
+              cx="18"
+              cy="18"
+              r="16"
+              fill="none"
+              className="stroke-current text-yellow-200"
+              strokeWidth="2"
+              strokeDasharray="75 100"
+            ></circle>
+
+            {/* Progress Circle */}
+            <circle
+              cx="18"
+              cy="18"
+              r="16"
+              fill="none"
+              className="stroke-current text-yellow-500"
+              strokeWidth="2"
+              strokeDasharray="50 100"
+            ></circle>
+          </svg>
+
+          {/* Profile Image */}
+          <div className="absolute inset-2 rounded-full overflow-hidden">
+            <img
+              className="w-full h-full rounded-full object-cover"
+              src={profileImage}
+              alt={`${name}'s profile`}
+            />
+          </div>
         </div>
 
         {/* Greeting */}
