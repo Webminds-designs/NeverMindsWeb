@@ -3,9 +3,11 @@ import Search from '../assets/magnifier.png';
 import edit from '../assets/edit.svg';
 import { Link } from 'react-router-dom';
 import NewQuiz from '../components/NewQuiz';
+import { useQuiz } from '../context/context.jsx';  
+
 
 const Quizzes = () => {
-  
+   const { quizDetails } = useQuiz();
   const [newQuizzes, setNewQuizzes] = useState([]);
   const [allQuizzes, setAllQuizzes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -143,8 +145,19 @@ const Quizzes = () => {
   const filteredQuizzes = allQuizzes.filter((quiz) =>
     quiz.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const openModal = () => {
+    if (quizDetails !== null) {
+        setIsModalOpen(true);
+    } else {
+        console.log("Quiz details are null. Modal cannot be opened.");
+    }
+};
 
-  const openModal = () => setIsModalOpen(true); 
+useEffect(() => {
+    if (quizDetails !== null) {
+        openModal();
+    }
+}, [quizDetails]);
   const closeModal = () => setIsModalOpen(false);
 
   return (
@@ -196,7 +209,7 @@ const Quizzes = () => {
           {/* New Button */}
           <div className=" mb-4">
            
-            <button    onClick={openModal} className="bg-yellow-400 text-white font-bold py-2 px-4 rounded-full">
+            <button     onClick={() => setIsModalOpen(true)}  className="bg-yellow-400 text-white font-bold py-2 px-4 rounded-full">
               New
             </button>
           </div>

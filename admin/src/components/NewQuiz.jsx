@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for R
 import pen from '../assets/pen.svg';
 import close from '../assets/close.png';
 import { useQuiz } from '../context/context';
+import drag from '../assets/drag-and-drop.png'
 
 const NewQuiz = ({ closeModal }) => {
     const [title, setTitle] = useState('');
@@ -16,11 +17,45 @@ const NewQuiz = ({ closeModal }) => {
     const [tagInput, setTagInput] = useState('');
     const [quizSaved, setQuizSaved] = useState(false);
     const [quizData, setQuizData] = useState(null);
-    const { setQuizDetails } = useQuiz();
+    const { quizDetails, setQuizDetails } = useQuiz();
     const [filteredSubjects, setFilteredSubjects] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
+    const navigate = useNavigate(); 
+    const [image, setImage] = useState(null);
+    const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate(); // Initialize useNavigate hook
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+      };
+    
+      const handleDrop = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          setLoading(true); 
+          reader.onload = () => {
+            setImage(reader.result);
+            setLoading(false); 
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+    
+      const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          setLoading(true); 
+          reader.onload = () => {
+            setImage(reader.result);
+            setLoading(false);
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+    
 
     const handleInstructionsAdd = () => {
         if (instructionsInput && !instructions.includes(instructionsInput)) {
@@ -79,15 +114,12 @@ const NewQuiz = ({ closeModal }) => {
     };
 
     const handleSave = () => {
-        if (!title || !description || !subject || !timer || !instructions) {
-          alert('Please fill out all fields before saving the quiz.');
-          return;
-        }
       
-        const quizDetails = { title, description, subject, timer, isPrivate, instructions, tags };
+
+        const quizDetails = { title, description, subject, timer, isPrivate, instructions, tags ,image};
         setQuizDetails(quizDetails);  // Save globally
         navigate('/question');
-      };
+    };
     const handleCancel = () => {
         closeModal();
     };
@@ -96,22 +128,72 @@ const NewQuiz = ({ closeModal }) => {
     return (
         <div className="flex items-center justify-center min-h-screen">
             <div className="bg-white rounded-lg shadow-lg p-6 w-1/2 grid gap-6 max-h-[95vh] overflow-y-auto">
-                <div className="flex justify-center mb-4">
-                    <div className="relative">
-                        <div className="rounded-lg w-36 h-36 bg-yellow-400" />
-                        <div className="absolute bottom-0 right-0 bg-yellow-400 rounded-full -m-1">
-                            <img src={pen} alt="pen" width="30" height="30" />
-                        </div>
-                    </div>
-                </div>
-
+            <div className="flex flex-col items-center">
+      <div
+        className="flex justify-center mb-4"
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      >
+        <div className="relative">
+          <div className="rounded-lg w-36 h-36 bg-yellow-400 overflow-hidden">
+            {loading ? (
+              <div className="flex items-center justify-center w-full h-full">
+             <svg
+        className="animate-spin h-8 w-8 text-white"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        ></circle>
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v8H4z"
+        ></path>
+      </svg>
+              </div>
+            ) : image || quizDetails?.image ? (
+              <img
+                src={image || quizDetails?.image}
+                alt="Preview"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-700">
+               
+              </div>
+            )}
+          </div>
+          <label
+            htmlFor="fileInput"
+            className="absolute bottom-0 right-0 bg-yellow-400 rounded-full -m-1 cursor-pointer"
+          >
+            <img src={pen} alt="pen" width="30" height="30" />
+          </label>
+        </div>
+      </div>
+      <input
+        type="file"
+        id="fileInput"
+        accept="image/*"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+    </div>
                 <div className="grid gap-4">
                     {/* Title Input */}
                     <input
                         className="w-full border border-gray-800 rounded-xl p-2"
                         type="text"
                         placeholder="Enter Quiz Title"
-                        value={title}
+                        value={title || quizDetails?.title || ''}
                         onChange={(e) => setTitle(e.target.value)}
                     />
 
@@ -120,7 +202,7 @@ const NewQuiz = ({ closeModal }) => {
                         className="w-full border border-gray-800 rounded-xl p-2"
                         type="text"
                         placeholder="Enter Quiz Description"
-                        value={description}
+                        value={description || quizDetails?.title || ''}
                         onChange={(e) => setDescription(e.target.value)}
                     />
                     <div className="relative w-full">
@@ -129,7 +211,7 @@ const NewQuiz = ({ closeModal }) => {
                             className="w-full border border-gray-800 rounded-xl p-2"
                             type="text"
                             placeholder="Enter Quiz Subject"
-                            value={subject}
+                            value={subject || quizDetails?.subject || ''}
                             onChange={handleInputChange}
                             onFocus={() => setDropdownVisible(true)}
                             onBlur={() => setTimeout(() => setDropdownVisible(false), 150)} // Delay to allow selection click
@@ -172,13 +254,13 @@ const NewQuiz = ({ closeModal }) => {
                             </button>
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            {instructions.map((instruction, index) => (
+                            {(instructions.length > 0 ? instructions : quizDetails?.instructions || []).map((instruction, index) => (
                                 <div
                                     key={index}
                                     className="bg-yellow-200 px-1 text-gray-700 rounded-full flex items-center space-x-2"
                                 >
                                     <div className="px-4 py-2">
-                                        <span>{instruction}</span>
+                                        <span>{instruction || ''}</span>
                                     </div>
                                     <button
                                         className="text-red-500"
@@ -194,6 +276,8 @@ const NewQuiz = ({ closeModal }) => {
                                     </button>
                                 </div>
                             ))}
+
+
                         </div>
                     </div>
 
@@ -208,7 +292,7 @@ const NewQuiz = ({ closeModal }) => {
                                     className="w-16 border border-gray-800 rounded-xl p-2"
                                     id="hours"
                                     type="number"
-                                    value={timer.hours}
+                                    value={timer.hours || quizDetails?.timer.hours || '0'}
                                     onChange={(e) =>
                                         setTimer({ ...timer, hours: parseInt(e.target.value) })
                                     }
@@ -222,7 +306,7 @@ const NewQuiz = ({ closeModal }) => {
                                     className="w-16 border border-gray-800 rounded-xl p-2"
                                     id="minutes"
                                     type="number"
-                                    value={timer.minutes}
+                                    value={timer.minutes || quizDetails?.timer.minutes || '0'}
                                     onChange={(e) =>
                                         setTimer({ ...timer, minutes: parseInt(e.target.value) })
                                     }
@@ -238,7 +322,7 @@ const NewQuiz = ({ closeModal }) => {
                                 <input
                                     id="private"
                                     type="checkbox"
-                                    checked={isPrivate}
+                                    checked={isPrivate || quizDetails?.isPrivate || ''}
                                     onChange={() => setIsPrivate(!isPrivate)}
                                     className="sr-only peer"
                                 />
@@ -265,12 +349,12 @@ const NewQuiz = ({ closeModal }) => {
                             </button>
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            {tags.map((tag, index) => (
+                            {(tags.length > 0 ? tags : quizDetails?.tags || []).map((tag, index) => (
                                 <div
                                     key={index}
                                     className="bg-yellow-200 px-2 text-gray-700 rounded-full flex items-center space-x-2"
                                 >
-                                    <span>{tag}</span>
+                                    <span>{tag || ''}</span>
                                     <button
                                         className="text-red-500"
                                         onClick={() => handleTagDelete(tag)}
@@ -285,6 +369,7 @@ const NewQuiz = ({ closeModal }) => {
                                     </button>
                                 </div>
                             ))}
+
                         </div>
                     </div>
 

@@ -7,7 +7,7 @@ import search from "../assets/magnifier.png";
 import deleteIcon from "../assets/delete.png";
 import dragIcon from "../assets/drag.png";
 import copy from "../assets/copy.png";
-import { useQuiz } from '../context/context.jsx';  
+import { useQuiz } from '../context/context.jsx';
 
 
 const Questions = () => {
@@ -22,6 +22,7 @@ const Questions = () => {
       id: 1,
       answers: ["", "", ""],
       multipleAnswer: true,
+      image: null,
       required: true,
       correctAnswers: [],
     },
@@ -111,9 +112,9 @@ const Questions = () => {
 
   const handleSubmit = () => {
     let validationError = false;
-  let errorMessage = "";
+    let errorMessage = "";
 
-  
+
     questions.forEach((q) => {
       if (!q.questionText || q.questionText.trim() === "") {
         validationError = true;
@@ -128,24 +129,24 @@ const Questions = () => {
         errorMessage = "Please ensure each question has correct answers selected.";
       }
     });
-  
+
     // If any validation error occurs, show the error message
     if (validationError) {
       alert(errorMessage);
       return; // Stop submission if validation fails
     }
-  
-  
+
+
     const allDetails = {
       quizDetails,
       required,
       questions,
     };
-  
+
     console.log("All Details: ", allDetails);
     setIsPublished(true);
   };
-  
+
 
   const handleCopy = () => {
     navigator.clipboard.writeText(validationCode)
@@ -179,15 +180,51 @@ const Questions = () => {
   const handleBack = () => {
     navigate(-1); // This will navigate to the previous page
   };
+
+const handleImageUpload = (e, questionId) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  // Set loading state
+  setQuestions((prev) =>
+    prev.map((q) =>
+      q.id === questionId ? { ...q, isLoading: true } : q
+    )
+  );
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    setTimeout(() => {
+      setQuestions((prev) =>
+        prev.map((q) =>
+          q.id === questionId
+            ? { ...q, image: reader.result, isLoading: false }
+            : q
+        )
+      );
+    }, 1500); 
+  };
+  reader.readAsDataURL(file);
+};
+
+const handleDrop = (e, questionId) => {
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if (file) {
+    handleImageUpload({ target: { files: [file] } }, questionId);
+  }
+};
+
+
   return (
     <div className="h-screen bg-gray-50">
       {/* Header */}
-      <header className="flex items-center justify-between p-4 bg-white shadow">
+      <header className="  flex items-center justify-between p-4 bg-white shadow">
         <button onClick={handleBack} className="bg-yellow-100 p-2 rounded-md">
           <img src={back} alt="Back" width="25" height="25" />
         </button>
         <h1 className="text-xl font-semibold">
-           {quizDetails.title|| "Quiz Title"}
+          {quizDetails.title || "Quiz Title"}
         </h1>
         <button onClick={handleSubmit} className="bg-yellow-400 text-black px-4 py-2 rounded-lg">
           Publish
@@ -199,53 +236,53 @@ const Questions = () => {
         <aside className="w-1/4 bg-yellow-50 p-4 overflow-y-auto border-r-2 border-gray-300">
           <div className="space-y-4">
             {questions.map((q) => (
-               <a
-               key={q.id}
-               onClick={(e) => {
-                 e.preventDefault();
-                 scrollToQuestion(q.id);
-               }}
-               href={`#${q.id}`}
-               className=""
-             >
-              <div
-            
-                className="flex items-start p-4 m-2 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              <a
+                key={q.id}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToQuestion(q.id);
+                }}
+                href={`#${q.id}`}
+                className=""
               >
-                {/* Question ID */}
-                <div className="bg-yellow-500 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center shadow-sm">
-                  {q.id}
-                </div>
+                <div
 
-                {/* Question Content */}
-                <div className="ml-4 flex-1">
+                  className="flex items-start p-4 m-2 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                >
+                  {/* Question ID */}
+                  <div className="bg-yellow-500 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center shadow-sm">
+                    {q.id}
+                  </div>
 
-                  {/* Question Text */}
-                  <p className="col-span-9 font-semibold text-gray-800">
-                    {(q.questionText || "Question").length > 50
-                      ? `${(q.questionText || "Question").substring(0, 50)}...`
-                      : q.questionText || "Question"}
-                  </p>
+                  {/* Question Content */}
+                  <div className="ml-4 flex-1">
 
-                  {/* Choices Information */}
-                  <div className="flex justify-between">
-                  <p className="text-sm text-gray-500 mt-2">
-                    {q.answers?.length || 0} {q.answers?.length === 1 ? "Choice" : "Choices"}
-                  </p>
+                    {/* Question Text */}
+                    <p className="col-span-9 font-semibold text-gray-800">
+                      {(q.questionText || "Question").length > 50
+                        ? `${(q.questionText || "Question").substring(0, 50)}...`
+                        : q.questionText || "Question"}
+                    </p>
 
-                  {/* Delete Button */}
+                    {/* Choices Information */}
+                    <div className="flex justify-between">
+                      <p className="text-sm text-gray-500 mt-2">
+                        {q.answers?.length || 0} {q.answers?.length === 1 ? "Choice" : "Choices"}
+                      </p>
 
-                  <button
-                    onClick={() => deleteQuestion(q.id)}
-                    className=" text-red-500 hover:text-red-700  transition-colors  duration-200"
-                    aria-label="Delete Question"
-                  >
-                    <img src={deleteIcon} alt="Delete" width="20" />
-                  </button>
+                      {/* Delete Button */}
+
+                      <button
+                        onClick={() => deleteQuestion(q.id)}
+                        className=" text-red-500 hover:text-red-700  transition-colors  duration-200"
+                        aria-label="Delete Question"
+                      >
+                        <img src={deleteIcon} alt="Delete" width="20" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-</a>
+              </a>
             ))}
             <button
               onClick={addQuestion}
@@ -325,9 +362,61 @@ const Questions = () => {
                     handleQuestionTextChange(q.id, e.target.value)
                   }
                 />
-                <button className="flex items-center p-3 w-1/3  justify-center bg-gray-200  mb-4 ml-3 rounded-3xl cursor-pointer">
-                  <img src={add} alt="Add Question" width="55" height="55" />
-                </button>
+              
+                {/* Image Uploader */}
+                <div
+  className="flex items-center p-3 w-1/3 justify-center bg-gray-200 mb-4 ml-3 rounded-3xl cursor-pointer border-dashed border-2 border-gray-400 relative"
+  onDrop={(e) => handleDrop(e, q.id)}
+  onDragOver={(e) => e.preventDefault()}
+>
+  {/* Loading Spinner */}
+  {q.isLoading ? (
+    <div className="flex justify-center items-center">
+      <svg
+        className="animate-spin h-8 w-8 text-yellow-500"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        ></circle>
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v8H4z"
+        ></path>
+      </svg>
+    </div>
+  ) : q.image ? (
+    // Uploaded Image Preview
+    <img
+      src={q.image}
+      alt="Uploaded"
+      className="max-h-24 object-contain rounded-2xl"
+    />
+  ) : (
+    // Default "Add Question" Button with Placeholder Icon
+    <div className="text-gray-500 text-center">
+      <img src={add} alt="Add Question" width="55" height="55" />
+    </div>
+  )}
+
+  {/* Hidden Input for File Selection */}
+  <input
+    type="file"
+    accept="image/*"
+    onChange={(e) => handleImageUpload(e, q.id)}
+    className="absolute inset-0 opacity-0 cursor-pointer"
+  />
+</div>
+
+
               </div>
               {/* Answers */}
               <div>
@@ -476,28 +565,28 @@ const Questions = () => {
                 {quizDetails.title} Quiz Published  <span className="text-yellow-500">!</span>
               </h2>
               <p className="text-gray-700 text-center mb-6">
-                Your quiz has been successfully published! 
+                Your quiz has been successfully published!
               </p>
 
               {/* Code Display and Copy Button */}
               {quizDetails.isPrivate && (
-  <div className="flex items-center justify-between bg-gray-50 p-2 m-5 rounded-lg border border-gray-300 mb-6">
-    <span className="font-mono text-lg text-gray-800">{validationCode}</span>
-    <button
-      onClick={handleCopy}
-      className="bg-yellow-200 text-white px-4 py-2 rounded-md hover:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 transition"
-    >
-      <img src={copy} alt="copy" width="25" height="25" />
-    </button>
-  </div>
-)}
+                <div className="flex items-center justify-between bg-gray-50 p-2 m-5 rounded-lg border border-gray-300 mb-6">
+                  <span className="font-mono text-lg text-gray-800">{validationCode}</span>
+                  <button
+                    onClick={handleCopy}
+                    className="bg-yellow-200 text-white px-4 py-2 rounded-md hover:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 transition"
+                  >
+                    <img src={copy} alt="copy" width="25" height="25" />
+                  </button>
+                </div>
+              )}
 
-{/* Copy Feedback */}
-{isCopied && (
-  <p className="text-sm text-green-600 text-center mb-4">
-    Validation code copied to clipboard!
-  </p>
-)}
+              {/* Copy Feedback */}
+              {isCopied && (
+                <p className="text-sm text-green-600 text-center mb-4">
+                  Validation code copied to clipboard!
+                </p>
+              )}
 
 
               {/* Close Button */}
