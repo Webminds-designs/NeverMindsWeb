@@ -9,9 +9,14 @@ const ProfileCard = ({
   profileImage,
   greeting,
   onEdit,
+  progress, // Add progress as a prop
 }) => {
   // Extract the first name from the full name
   const firstName = name.split(" ")[0];
+
+  // Calculate strokeDasharray based on progress percentage
+  const circumference = 2 * Math.PI * 16; // 2πr (r = 16 as per the SVG circle)
+  const strokeDasharray = `${(progress / 100) * circumference} ${circumference}`;
 
   return (
     <div className="relative w-full bg-white border border-gray-200 rounded-3xl p-6">
@@ -63,7 +68,7 @@ const ProfileCard = ({
               fill="none"
               stroke="#facc15" /* Yellow for progress */
               strokeWidth="2"
-              strokeDasharray="32 100" /* 32% progress */
+              strokeDasharray={strokeDasharray} /* Dynamic progress */
               strokeLinecap="round"
               transform="rotate(-90 18 18)" /* Rotate for progress to start at the top */
             ></circle>
@@ -80,7 +85,7 @@ const ProfileCard = ({
 
           {/* Percentage Label */}
           <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-white text-yellow-500 text-xs font-bold px-2 py-1 rounded-full shadow">
-            32%
+            {progress}%
           </div>
         </div>
 

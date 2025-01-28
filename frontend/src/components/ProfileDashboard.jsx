@@ -7,6 +7,8 @@ import showcardimg from "../assets/star-2.svg";
 import science1img from "../assets/science.svg";
 import science2img from "../assets/science-2.svg";
 import science3img from "../assets/science-3.svg";
+import science4img from "../assets/science-4.svg";
+import anubis from "../assets/anubis.svg";
 import tutorIcon from "../assets/person.png";
 import ProfileCard from "./ProfileCard";
 import DashBarChart from "./DashBarChart";
@@ -58,13 +60,22 @@ const ProfileDashboard = () => {
       tutorSubject: "Biology",
     },
     {
-      image: science1img,
-      subject: "Biology",
-      title: "Building Blocks of Life",
-      score: "80",
+      image: anubis,
+      subject: "History",
+      title: "Through the Ages",
+      score: "0",
       tutorIcon: tutorIcon,
-      tutorName: " Dr. Charitha Munasinghe",
-      tutorSubject: "Biology",
+      tutorName: "Merwin Fernando",
+      tutorSubject: "History",
+    },
+    {
+      image: science4img,
+      subject: "Chemistry",
+      title: "Atomic Adventures",
+      score: "30",
+      tutorIcon: tutorIcon,
+      tutorName: "Senanui Perera",
+      tutorSubject: "Chemistry",
     },
   ];
 
@@ -108,10 +119,28 @@ const ProfileDashboard = () => {
               Favourite Quizzes
             </h3>
           </div>
-          <div className="flex my-6 gap-4 mb-12 overflow-x-auto scrollbar-hide">
-            {quizCardData.map((quiz, index) => (
-              <QuizCard key={index} {...quiz} />
-            ))}
+          <div className="overflow-x-auto scrollbar-hide">
+            <div className="flex gap-4 mb-12" style={{ width: "max-content" }}>
+              {quizCardData.map((quiz, index) => (
+                <div
+                  key={index}
+                  className="min-w-[25%] flex-shrink-0" // 25% width for 4 cards
+                  style={{ width: "calc(25% - 1rem)" }} // Adjust for gap
+                >
+                  <QuizCard
+                    key={index}
+                    index={index}
+                    image={quiz.image}
+                    subject={quiz.subject}
+                    title={quiz.title}
+                    score={quiz.score}
+                    tutorName={quiz.tutorName}
+                    tutorSubject={quiz.tutorSubject}
+                    tutorIcon={quiz.tutorIcon}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Overall Progress */}
@@ -160,7 +189,9 @@ const ProfileDashboard = () => {
         <div className="hidden lg:flex flex-col w-4/12 p-8">
           {/* Profile Card */}
           <div className="">
-            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-4">Profiles</h3>
+            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-4">
+              Profiles
+            </h3>
           </div>
           <div className="flex flex-col items-center justify-center">
             <ProfileCard
@@ -169,16 +200,19 @@ const ProfileDashboard = () => {
               phone="077-060-0214"
               address="24/75 1st Lane Boralasgamuwa"
               profileImage={profileImage}
-              greeting={getGreeting()} // Call a function to determine the greeting
-              onEdit={handleEdit} // Pass handleEdit function here
+              greeting={getGreeting()}
+              onEdit={handleEdit}
+              progress={75}
             />
           </div>
 
           {/* Static Table */}
-          <div className="my-8">
-            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-4">Statistic</h3>
+          <div className="mt-8">
+            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-4">
+              Statistic
+            </h3>
           </div>
-          <div className="my-8">
+          <div className="mt-8">
             <DashBarChart />
           </div>
 

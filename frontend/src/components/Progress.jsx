@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "./SideBar"; // Import the Sidebar component
+import CommitGraph from "./CommitGraph"; // Import the CommitGraph component
 
 const Progress = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -15,7 +16,7 @@ const Progress = () => {
       <main className="flex-1 p-5">
         {/* Header Section */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Progress Dashboard</h1>
+          <h1 className="text-2xl font-medium">Total Attempted Quizzes</h1>
           <div className="flex gap-4">
             <button className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
               Week
@@ -96,21 +97,8 @@ const Progress = () => {
           {/* Activity by Time */}
           <div className="p-6 bg-black text-white shadow rounded-lg">
             <h3 className="text-xl font-bold mb-4">Activity by time</h3>
-            <div className="grid grid-cols-7 gap-2 text-center">
-              {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, index) => (
-                <p key={index} className="text-sm font-medium">
-                  {day}
-                </p>
-              ))}
-              {Array.from({ length: 42 }).map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-6 h-6 ${
-                    index % 7 === 3 ? "bg-yellow-400" : "bg-gray-700"
-                  } rounded`}
-                ></div>
-              ))}
-            </div>
+            {/* Commit Graph */}
+            <CommitGraph />
           </div>
 
           {/* Recently Attempted */}

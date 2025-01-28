@@ -17,17 +17,21 @@ const QuizCard = ({
   };
 
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-3xl">
+    <div className="max-w-[22rem] bg-white border border-gray-200 rounded-3xl">
       {/* Card Image */}
       <div
-        className={`flex items-center justify-center h-40 rounded-t-lg ${getCardBackgroundColor(
+        className={`flex items-center justify-center h-64 rounded-t-lg ${getCardBackgroundColor(
           index
         )}`}
       >
-        <img className="h-28 object-cover" src={image} alt={title || "Quiz image"} />
+        <img
+          className="h-full object-cover"
+          src={image}
+          alt={title || "Quiz image"}
+        />
       </div>
 
-      <div className="p-5">
+      <div className="p-10">
         {/* Quiz Subject */}
         <p className="inline-block text-sm font-medium px-2 py-1 rounded-md bg-gray-100 text-gray-700">
           {subject}
