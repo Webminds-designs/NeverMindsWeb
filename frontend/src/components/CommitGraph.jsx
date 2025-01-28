@@ -21,7 +21,7 @@ function CommitGraph() {
 
   return (
     <section className="p-4">
-      <div className="grid grid-cols-[auto_repeat(7,_1fr)] gap-2">
+      <div className="grid grid-cols-[auto_repeat(7,_1fr)] gap-1">
         {/* Days Header */}
         <div></div> {/* Empty space for row labels */}
         {days.map((day) => (
