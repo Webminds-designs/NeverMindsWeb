@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for React Router v6
+import { useNavigate } from 'react-router-dom'; 
 import pen from '../assets/pen.svg';
 import close from '../assets/close.png';
 import { useQuiz } from '../context/context';
-import drag from '../assets/drag-and-drop.png'
 
 const NewQuiz = ({ closeModal }) => {
+    const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [subject, setSubject] = useState('');
@@ -15,72 +15,69 @@ const NewQuiz = ({ closeModal }) => {
     const [instructionsInput, setInstructionsInput] = useState('');
     const [tags, setTags] = useState([]);
     const [tagInput, setTagInput] = useState('');
-    const [quizSaved, setQuizSaved] = useState(false);
-    const [quizData, setQuizData] = useState(null);
     const { quizDetails, setQuizDetails } = useQuiz();
     const [filteredSubjects, setFilteredSubjects] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
-    const navigate = useNavigate(); 
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
 
-
+// drag and drop 
     const handleDragOver = (e) => {
         e.preventDefault();
-      };
-    
-      const handleDrop = (e) => {
+    };
+
+    const handleDrop = (e) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
         if (file && file.type.startsWith("image/")) {
-          const reader = new FileReader();
-          setLoading(true); 
-          reader.onload = () => {
-            setImage(reader.result);
-            setLoading(false); 
-          };
-          reader.readAsDataURL(file);
+            const reader = new FileReader();
+            setLoading(true);
+            reader.onload = () => {
+                setImage(reader.result);
+                setLoading(false);
+            };
+            reader.readAsDataURL(file);
         }
-      };
-    
-      const handleFileChange = (e) => {
+    };
+// image handle
+    const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file && file.type.startsWith("image/")) {
-          const reader = new FileReader();
-          setLoading(true); 
-          reader.onload = () => {
-            setImage(reader.result);
-            setLoading(false);
-          };
-          reader.readAsDataURL(file);
+            const reader = new FileReader();
+            setLoading(true);
+            reader.onload = () => {
+                setImage(reader.result);
+                setLoading(false);
+            };
+            reader.readAsDataURL(file);
         }
-      };
-    
+    };
 
+//instructions add
     const handleInstructionsAdd = () => {
         if (instructionsInput && !instructions.includes(instructionsInput)) {
             setInstructions([...instructions, instructionsInput]);
             setInstructionsInput('');
         }
     };
-
+//instructions delete
     const handleInstructionsDelete = (instructionToDelete) => {
         setInstructions(
             instructions.filter((instruction) => instruction !== instructionToDelete)
         );
     };
-
+// tag add
     const handleTagAdd = () => {
         if (tagInput && !tags.includes(tagInput)) {
             setTags([...tags, tagInput]);
             setTagInput('');
         }
     };
-
+//tag delete
     const handleTagDelete = (tagToDelete) => {
         setTags(tags.filter((tag) => tag !== tagToDelete));
     };
-
+// select subject
     const subjects = [
         'Biology',
         'Physics',
@@ -89,7 +86,7 @@ const NewQuiz = ({ closeModal }) => {
         'Computer Science',
         'English',
     ];
-
+// select input  subject
     const handleInputChange = (e) => {
         const value = e.target.value;
         setSubject(value);
@@ -106,20 +103,20 @@ const NewQuiz = ({ closeModal }) => {
             setDropdownVisible(false);
         }
     };
-
+// select subject
     const handleSelect = (selectedSubject) => {
-        setSubject(selectedSubject); // Update the input value
-        setFilteredSubjects([]); // Clear the dropdown
-        setDropdownVisible(false); // Hide the dropdown
+        setSubject(selectedSubject); 
+        setFilteredSubjects([]); 
+        setDropdownVisible(false); 
     };
 
     const handleSave = () => {
-      
-
-        const quizDetails = { title, description, subject, timer, isPrivate, instructions, tags ,image};
+        const quizDetails = { title, description, subject, timer, isPrivate, instructions, tags, image };
         setQuizDetails(quizDetails);  // Save globally
         navigate('/question');
     };
+
+    //cancel Model
     const handleCancel = () => {
         closeModal();
     };
@@ -128,65 +125,65 @@ const NewQuiz = ({ closeModal }) => {
     return (
         <div className="flex items-center justify-center min-h-screen">
             <div className="bg-white rounded-lg shadow-lg p-6 w-1/2 grid gap-6 max-h-[95vh] overflow-y-auto">
-            <div className="flex flex-col items-center">
-      <div
-        className="flex justify-center mb-4"
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-      >
-        <div className="relative">
-          <div className="rounded-lg w-36 h-36 bg-yellow-400 overflow-hidden">
-            {loading ? (
-              <div className="flex items-center justify-center w-full h-full">
-             <svg
-        className="animate-spin h-8 w-8 text-white"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle
-          className="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeWidth="4"
-        ></circle>
-        <path
-          className="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8v8H4z"
-        ></path>
-      </svg>
-              </div>
-            ) : image || quizDetails?.image ? (
-              <img
-                src={image || quizDetails?.image}
-                alt="Preview"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="flex items-center justify-center h-full text-gray-700">
-               
-              </div>
-            )}
-          </div>
-          <label
-            htmlFor="fileInput"
-            className="absolute bottom-0 right-0 bg-yellow-400 rounded-full -m-1 cursor-pointer"
-          >
-            <img src={pen} alt="pen" width="30" height="30" />
-          </label>
-        </div>
-      </div>
-      <input
-        type="file"
-        id="fileInput"
-        accept="image/*"
-        className="hidden"
-        onChange={handleFileChange}
-      />
-    </div>
+                <div className="flex flex-col items-center">
+                    <div
+                        className="flex justify-center mb-4"
+                        onDragOver={handleDragOver}
+                        onDrop={handleDrop}
+                    >
+                        <div className="relative">
+                            <div className="rounded-lg w-36 h-36 bg-yellow-400 overflow-hidden">
+                                {loading ? (
+                                    <div className="flex items-center justify-center w-full h-full">
+                                        <svg
+                                            className="animate-spin h-8 w-8 text-white"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <circle
+                                                className="opacity-25"
+                                                cx="12"
+                                                cy="12"
+                                                r="10"
+                                                stroke="currentColor"
+                                                strokeWidth="4"
+                                            ></circle>
+                                            <path
+                                                className="opacity-75"
+                                                fill="currentColor"
+                                                d="M4 12a8 8 0 018-8v8H4z"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                ) : image || quizDetails?.image ? (
+                                    <img
+                                        src={image || quizDetails?.image}
+                                        alt="Preview"
+                                        className="w-full h-full object-cover"
+                                    />
+                                ) : (
+                                    <div className="flex items-center justify-center h-full text-gray-700">
+
+                                    </div>
+                                )}
+                            </div>
+                            <label
+                                htmlFor="fileInput"
+                                className="absolute bottom-0 right-0 bg-yellow-400 rounded-full -m-1 cursor-pointer"
+                            >
+                                <img src={pen} alt="pen" width="30" height="30" />
+                            </label>
+                        </div>
+                    </div>
+                    <input
+                        type="file"
+                        id="fileInput"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleFileChange}
+                    />
+                </div>
                 <div className="grid gap-4">
                     {/* Title Input */}
                     <input
@@ -214,7 +211,7 @@ const NewQuiz = ({ closeModal }) => {
                             value={subject || quizDetails?.subject || ''}
                             onChange={handleInputChange}
                             onFocus={() => setDropdownVisible(true)}
-                            onBlur={() => setTimeout(() => setDropdownVisible(false), 150)} // Delay to allow selection click
+                            onBlur={() => setTimeout(() => setDropdownVisible(false), 150)} 
                         />
 
                         {/* Dropdown Menu */}

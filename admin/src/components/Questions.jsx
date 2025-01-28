@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import add from "../assets/add.png";
 import back from "../assets/back.png";
@@ -8,7 +7,6 @@ import deleteIcon from "../assets/delete.png";
 import dragIcon from "../assets/drag.png";
 import copy from "../assets/copy.png";
 import { useQuiz } from '../context/context.jsx';
-
 
 const Questions = () => {
   const { quizDetails } = useQuiz();
@@ -114,7 +112,6 @@ const Questions = () => {
     let validationError = false;
     let errorMessage = "";
 
-
     questions.forEach((q) => {
       if (!q.questionText || q.questionText.trim() === "") {
         validationError = true;
@@ -152,7 +149,7 @@ const Questions = () => {
     navigator.clipboard.writeText(validationCode)
       .then(() => {
         setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 4000); // Reset after 2 seconds
+        setTimeout(() => setIsCopied(false), 4000); 
       })
       .catch((err) => {
         console.error("Failed to copy text: ", err);
@@ -162,7 +159,6 @@ const Questions = () => {
     setQuestions((prev) => {
       // Remove the question with the matching ID
       const updatedQuestions = prev.filter((q) => q.id !== id);
-
       // Reassign IDs to maintain sequential order
       return updatedQuestions.map((q, index) => ({
         ...q,
@@ -181,39 +177,39 @@ const Questions = () => {
     navigate(-1); // This will navigate to the previous page
   };
 
-const handleImageUpload = (e, questionId) => {
-  const file = e.target.files[0];
-  if (!file) return;
+  const handleImageUpload = (e, questionId) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  // Set loading state
-  setQuestions((prev) =>
-    prev.map((q) =>
-      q.id === questionId ? { ...q, isLoading: true } : q
-    )
-  );
+    // Set loading state
+    setQuestions((prev) =>
+      prev.map((q) =>
+        q.id === questionId ? { ...q, isLoading: true } : q
+      )
+    );
 
-  const reader = new FileReader();
-  reader.onload = () => {
-    setTimeout(() => {
-      setQuestions((prev) =>
-        prev.map((q) =>
-          q.id === questionId
-            ? { ...q, image: reader.result, isLoading: false }
-            : q
-        )
-      );
-    }, 1500); 
+    const reader = new FileReader();
+    reader.onload = () => {
+      setTimeout(() => {
+        setQuestions((prev) =>
+          prev.map((q) =>
+            q.id === questionId
+              ? { ...q, image: reader.result, isLoading: false }
+              : q
+          )
+        );
+      }, 1500);
+    };
+    reader.readAsDataURL(file);
   };
-  reader.readAsDataURL(file);
-};
 
-const handleDrop = (e, questionId) => {
-  e.preventDefault();
-  const file = e.dataTransfer.files[0];
-  if (file) {
-    handleImageUpload({ target: { files: [file] } }, questionId);
-  }
-};
+  const handleDrop = (e, questionId) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      handleImageUpload({ target: { files: [file] } }, questionId);
+    }
+  };
 
 
   return (
@@ -362,59 +358,59 @@ const handleDrop = (e, questionId) => {
                     handleQuestionTextChange(q.id, e.target.value)
                   }
                 />
-              
+
                 {/* Image Uploader */}
                 <div
-  className="flex items-center p-3 w-1/3 justify-center bg-gray-200 mb-4 ml-3 rounded-3xl cursor-pointer border-dashed border-2 border-gray-400 relative"
-  onDrop={(e) => handleDrop(e, q.id)}
-  onDragOver={(e) => e.preventDefault()}
->
-  {/* Loading Spinner */}
-  {q.isLoading ? (
-    <div className="flex justify-center items-center">
-      <svg
-        className="animate-spin h-8 w-8 text-yellow-500"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle
-          className="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeWidth="4"
-        ></circle>
-        <path
-          className="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8v8H4z"
-        ></path>
-      </svg>
-    </div>
-  ) : q.image ? (
-    // Uploaded Image Preview
-    <img
-      src={q.image}
-      alt="Uploaded"
-      className="max-h-24 object-contain rounded-2xl"
-    />
-  ) : (
-    // Default "Add Question" Button with Placeholder Icon
-    <div className="text-gray-500 text-center">
-      <img src={add} alt="Add Question" width="55" height="55" />
-    </div>
-  )}
+                  className="flex items-center p-3 w-1/3 justify-center bg-gray-200 mb-4 ml-3 rounded-3xl cursor-pointer border-dashed border-2 border-gray-400 relative"
+                  onDrop={(e) => handleDrop(e, q.id)}
+                  onDragOver={(e) => e.preventDefault()}
+                >
+                  {/* Loading Spinner */}
+                  {q.isLoading ? (
+                    <div className="flex justify-center items-center">
+                      <svg
+                        className="animate-spin h-8 w-8 text-yellow-500"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8v8H4z"
+                        ></path>
+                      </svg>
+                    </div>
+                  ) : q.image ? (
+                    // Uploaded Image Preview
+                    <img
+                      src={q.image}
+                      alt="Uploaded"
+                      className="max-h-24 object-contain rounded-2xl"
+                    />
+                  ) : (
+                    // Default "Add Question" Button with Placeholder Icon
+                    <div className="text-gray-500 text-center">
+                      <img src={add} alt="Add Question" width="55" height="55" />
+                    </div>
+                  )}
 
-  {/* Hidden Input for File Selection */}
-  <input
-    type="file"
-    accept="image/*"
-    onChange={(e) => handleImageUpload(e, q.id)}
-    className="absolute inset-0 opacity-0 cursor-pointer"
-  />
-</div>
+                  {/* Hidden Input for File Selection */}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleImageUpload(e, q.id)}
+                    className="absolute inset-0 opacity-0 cursor-pointer"
+                  />
+                </div>
 
 
               </div>
