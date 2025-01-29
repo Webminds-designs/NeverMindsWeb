@@ -24,27 +24,27 @@ function CommitGraph() {
       <div className="grid grid-cols-[auto_repeat(7,_1fr)] gap-1">
         {/* Days Header */}
         <div></div> {/* Empty space for row labels */}
-        {days.map((day) => (
-          <div key={day} className="text-center text-sm font-medium text-white">
+        {days.map((day, index) => (
+          <div key={`day-header-${index}`} className="text-center text-sm font-medium text-white">
             {day}
           </div>
         ))}
 
         {/* Hours and Activity Grid */}
         {activityData.map((hourData, hourIndex) => (
-          <>
+          <React.Fragment key={`row-${hourIndex}`}> {/* Unique Key for Each Row */}
             {/* Hour Labels */}
-            <div key={`hour-${hourIndex}`} className="text-right pr-2 text-sm font-medium text-white">
+            <div className="text-right pr-2 text-sm font-medium text-white">
               {hours[hourIndex]}
             </div>
             {/* Activity Squares */}
             {hourData.map((activity, dayIndex) => (
               <div
-                key={`hour-${hourIndex}-day-${dayIndex}`}
+                key={`hour-${hourIndex}-day-${dayIndex}`} // Unique Key for Each Square
                 className={`w-6 h-6 rounded ${getColor(activity)}`}
               ></div>
             ))}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </section>

@@ -10,6 +10,8 @@ import QuizzesMain from "./Pages/QuizzesMain";
 import Quizzes from "./components/Quizzes";
 import QuizGuideLines from "./components/QuizGuideLines";
 import Quiz from "./components/Quiz";
+import QuizResult from "./components/QuizResult";
+import Account from "./components/Account";
 
 
 function App() {
@@ -33,12 +35,14 @@ function App() {
           <Route path="/progress" element={<Progress />} />
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/dashboard" element={<ProfileDashboard />} />
+          <Route path="/account" element={<Account />} />
         </Route>
         
         <Route path="/" element={<QuizzesMain />} />
         <Route path="/quizzes" element={<Quizzes />} />
         <Route path="/quizguidelines" element={<QuizGuideLines />} />
         <Route path="/quiz" element={<Quiz />} />
+        <Route path="/quizresult" element={<QuizResult />} />
         
         
         

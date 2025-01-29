@@ -9,7 +9,7 @@ export default function Home() {
   // Determine which header to display based on the path
   let header;
 
-  if (location.pathname === "/dashboard" || location.pathname === "/badges" || location.pathname === "/progress" || location.pathname === "/favourites" ) {
+  if (location.pathname === "/dashboard" || location.pathname === "/badges" || location.pathname === "/progress" || location.pathname === "/favourites" || location.pathname === "/account" ) {
     header = <LOGUHeader />;
   } else if (location.pathname === "/home" || location.pathname === "/checkout") {
     header = <Header />;

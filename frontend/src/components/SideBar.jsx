@@ -67,7 +67,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={personOutline} size="large" />
-                <span className="text-lg font-medium">Account</span>
+                <Link to="/account"className="text-lg font-medium">Account</Link> 
               </li>
             </ul>
 

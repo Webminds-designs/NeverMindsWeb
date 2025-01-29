@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import navigation hook
+import { useNavigate } from "react-router-dom";
 import Sidebar from "./SideBar";
 import QuizCard from "./QuizCard";
 import science1img from "../assets/science.svg";
@@ -17,120 +17,129 @@ import science9img from "../assets/science-9.svg";
 import science10img from "../assets/science-10.svg";
 
 const Quizzes = () => {
-  const navigate = useNavigate(); // Initialize navigation function
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   const quizCardData = [
     {
       image: science1img,
       subject: "Biology",
       title: "Building Blocks of Life",
-      score: "80",
-      tutorIcon,
+      description: "Explore the essential components of living organisms.",
+      duration: "20 Min",
+      numQuestions: "10",
+      icon: science1img,
       tutorName: "Dr. Charitha Munasinghe",
-      tutorSubject: "Biology",
     },
     {
       image: science2img,
       subject: "Biology",
       title: "Cracking the Code of Viruses",
-      score: "100",
-      tutorIcon,
+      description: "Understand viruses and how they impact health.",
+      duration: "15 Min",
+      numQuestions: "8",
+      icon: science2img,
       tutorName: "Dr. Charitha Munasinghe",
-      tutorSubject: "Biology",
     },
     {
       image: science3img,
       subject: "Biology",
       title: "Boarding Basics",
-      score: "30",
-      tutorIcon,
+      description: "Learn the foundation of cell functions and structures.",
+      duration: "25 Min",
+      numQuestions: "12",
+      icon: science3img,
       tutorName: "Dr. Charitha Munasinghe",
-      tutorSubject: "Biology",
     },
     {
       image: gramerphone,
       subject: "Music",
       title: "Harmony Hunt",
-      score: "100",
-      tutorIcon,
+      description: "Dive into the world of sound, rhythm, and harmony.",
+      duration: "10 Min",
+      numQuestions: "7",
+      icon: gramerphone,
       tutorName: "LeeAnn Deemer",
-      tutorSubject: "Music",
     },
     {
       image: anubis,
       subject: "History",
       title: "Through the Ages",
-      score: "0",
-      tutorIcon,
+      description: "Discover the greatest civilizations and their impact.",
+      duration: "30 Min",
+      numQuestions: "15",
+      icon: anubis,
       tutorName: "Merwin Fernando",
-      tutorSubject: "History",
     },
     {
       image: science4img,
       subject: "Chemistry",
       title: "Atomic Adventures",
-      score: "30",
-      tutorIcon,
+      description: "Explore the structure of atoms and chemical reactions.",
+      duration: "18 Min",
+      numQuestions: "9",
+      icon: science4img,
       tutorName: "Senanui Perera",
-      tutorSubject: "Chemistry",
     },
     {
       image: science5img,
       subject: "Chemistry",
-      title: "Atomic Adventures",
-      score: "30",
-      tutorIcon,
+      title: "Chemical Bonding Basics",
+      description: "Understand how elements combine to form compounds.",
+      duration: "22 Min",
+      numQuestions: "11",
+      icon: science5img,
       tutorName: "Senanui Perera",
-      tutorSubject: "Chemistry",
     },
     {
       image: science6img,
       subject: "Physics",
       title: "Forces and Motion",
-      score: "75",
-      tutorIcon,
+      description: "Learn the principles of movement and energy transfer.",
+      duration: "20 Min",
+      numQuestions: "10",
+      icon: science6img,
       tutorName: "Lakmal Jayasekara",
-      tutorSubject: "Physics",
     },
     {
       image: science7img,
       subject: "Mathematics",
       title: "Calculus Simplified",
-      score: "85",
-      tutorIcon,
+      description: "Master the fundamentals of differentiation and integration.",
+      duration: "25 Min",
+      numQuestions: "12",
+      icon: science7img,
       tutorName: "Anoma Rathnayake",
-      tutorSubject: "Mathematics",
     },
     {
       image: science8img,
       subject: "Biology",
       title: "The Cell Structure",
-      score: "95",
-      tutorIcon,
+      description: "Understand the intricate details of cell biology.",
+      duration: "20 Min",
+      numQuestions: "10",
+      icon: science8img,
       tutorName: "Dr. Charitha Munasinghe",
-      tutorSubject: "Biology",
     },
     {
       image: science9img,
       subject: "History",
       title: "Ancient Civilizations",
-      score: "60",
-      tutorIcon,
+      description: "Explore the rise and fall of historical empires.",
+      duration: "30 Min",
+      numQuestions: "15",
+      icon: science9img,
       tutorName: "Kamal Silva",
-      tutorSubject: "History",
     },
     {
       image: science10img,
       subject: "Geography",
       title: "Mapping the World",
-      score: "40",
-      tutorIcon,
+      description: "Learn about the Earth's landscapes and geographic wonders.",
+      duration: "18 Min",
+      numQuestions: "9",
+      icon: science10img,
       tutorName: "Nimal Perera",
-      tutorSubject: "Geography",
     },
   ];
 
@@ -142,14 +151,14 @@ const Quizzes = () => {
   );
 
   // Function to navigate to QuizGuideLines.jsx when clicking "Try"
-  const handleStartQuiz = (quiz) => {
+  const handleStartGuide = (quiz) => {
     navigate("/quizguidelines", { state: { quiz } });
   };
 
   return (
     <div className="flex min-h-screen py-8 px-4">
       {/* Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <Sidebar />
 
       {/* Main Content */}
       <main className="flex-1 px">
@@ -176,11 +185,10 @@ const Quizzes = () => {
                 image={quiz.image}
                 subject={quiz.subject}
                 title={quiz.title}
-                score={quiz.score}
                 tutorName={quiz.tutorName}
-                tutorSubject={quiz.tutorSubject}
-                tutorIcon={quiz.tutorIcon}
-                onTry={() => handleStartQuiz(quiz)} // Added navigation function
+                tutorSubject={quiz.subject}
+                tutorIcon={tutorIcon}
+                onTry={() => handleStartGuide(quiz)} // Navigate to QuizGuideLines.jsx
               />
             ))}
           </div>
