@@ -361,7 +361,7 @@ const Questions = () => {
 
                 {/* Image Uploader */}
                 <div
-                  className="flex items-center p-3 w-1/3 justify-center bg-gray-200 mb-4 ml-3 rounded-3xl cursor-pointer border-dashed border-2 border-gray-400 relative"
+                  className="flex items-center p-3 w-1/3 justify-center bg-gray-200 mb-4 ml-3 rounded-3xl cursor-pointer  relative"
                   onDrop={(e) => handleDrop(e, q.id)}
                   onDragOver={(e) => e.preventDefault()}
                 >

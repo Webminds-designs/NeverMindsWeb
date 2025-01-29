@@ -9,6 +9,7 @@ import Users from "./pages/Users";
 import Quizzes from "./pages/Quizzes";
 import Statistics from "./pages/Statistics";
 import Questions from "./components/Questions";
+import Marks from "./pages/Marks";
 
 function App() {
   const location = useLocation();
@@ -17,7 +18,7 @@ function App() {
     <QuizProvider>
     <div>
       {/* Conditionally render the navigator */}
-      {location.pathname !== "/question" && <DashboardNavigater />}
+      {location.pathname !== "/question"  && <DashboardNavigater />}
 
       {/* Main Content */}
      
@@ -27,6 +28,8 @@ function App() {
           <Route path="/quizzes" element={<Quizzes />} />
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/question" element={<Questions />} />
+          <Route path="/allmarks" element={<Marks />} />
+          
         </Routes>
      
     </div>

@@ -20,6 +20,7 @@ const NewQuiz = ({ closeModal }) => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [passedMarks, setPassedMarks] = useState('')
 
 // drag and drop 
     const handleDragOver = (e) => {
@@ -111,7 +112,7 @@ const NewQuiz = ({ closeModal }) => {
     };
 
     const handleSave = () => {
-        const quizDetails = { title, description, subject, timer, isPrivate, instructions, tags, image };
+        const quizDetails = { title, description, subject, timer,passedMarks, isPrivate, instructions, tags, image };
         setQuizDetails(quizDetails);  // Save globally
         navigate('/question');
     };
@@ -281,9 +282,9 @@ const NewQuiz = ({ closeModal }) => {
                     {/* Timer & Privacy Options */}
                     <div className="flex justify-between">
                         <div className="flex items-center space-x-4">
-                            <div className="flex flex-col">
-                                <label className="text-gray-700" htmlFor="hours">
-                                    Hours
+                            <div className="flex flex-row">
+                                <label className="text-gray-700 mr-2 content-center" htmlFor="hours">
+                                    Hours 
                                 </label>
                                 <input
                                     className="w-16 border border-gray-800 rounded-xl p-2"
@@ -295,8 +296,8 @@ const NewQuiz = ({ closeModal }) => {
                                     }
                                 />
                             </div>
-                            <div className="flex flex-col">
-                                <label className="text-gray-700" htmlFor="minutes">
+                            <div className="flex flex-row">
+                                <label className="text-gray-700 mr-2 content-center" htmlFor="minutes">
                                     Minutes
                                 </label>
                                 <input
@@ -312,6 +313,21 @@ const NewQuiz = ({ closeModal }) => {
                         </div>
 
                         <div className="flex items-center justify-end">
+                        <div className="flex flex-row items-center">
+  <label className="text-gray-700 mr-2" htmlFor="passedMarks">
+    Passed Marks
+  </label>
+  <input
+    className="w-16 border border-gray-800 rounded-xl p-2"
+    id="passedMarks"
+    type="number"
+    value={passedMarks || quizDetails?.passedMarks || '0'}
+    onChange={(e) =>
+      setPassedMarks(parseInt(e.target.value, 10) || 0)
+    }
+  />
+</div>
+
                             <label className="text-gray-700 m-3" htmlFor="private">
                                 Private
                             </label>
@@ -325,6 +341,7 @@ const NewQuiz = ({ closeModal }) => {
                                 />
                                 <span className="w-11 h-6 bg-gray-200 rounded-full peer-checked:bg-yellow-500 peer-checked:after:translate-x-full after:content-[''] after:absolute after:left-0.5 after:top-0.5 after:w-5 after:h-5 after:bg-white after:rounded-full after:transition-all"></span>
                             </label>
+
                         </div>
                     </div>
 

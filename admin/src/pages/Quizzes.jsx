@@ -162,7 +162,7 @@ useEffect(() => {
 
   return (
     <div className="flex-1 ml-64 p-8">
-      <div className="bg-gray-100 p-4">
+      <div className="p-4">
         {/* New Quizzes Section */}
         <div>
           <h2 className="text-xl font-bold mb-4">New Quizzes</h2>
