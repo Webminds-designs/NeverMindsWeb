@@ -6,6 +6,10 @@ import Progress from "./components/Progress";
 import Favourites from "./components/Favourites";
 import Dashboard from './Pages/Dashboard';
 import ProfileDashboard from "./components/ProfileDashboard";
+import QuizzesMain from "./Pages/QuizzesMain";
+import Quizzes from "./components/Quizzes";
+import QuizGuideLines from "./components/QuizGuideLines";
+import Quiz from "./components/Quiz";
 
 
 function App() {
@@ -30,6 +34,14 @@ function App() {
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/dashboard" element={<ProfileDashboard />} />
         </Route>
+        
+        <Route path="/" element={<QuizzesMain />} />
+        <Route path="/quizzes" element={<Quizzes />} />
+        <Route path="/quizguidelines" element={<QuizGuideLines />} />
+        <Route path="/quiz" element={<Quiz />} />
+        
+        
+        
 
         {/* if user not null then show dashboard*/}
         {/* {user && <Route path="/dashboard" element={<Dashboard />} />} */}

@@ -1,7 +1,7 @@
 import React from "react";
 
 const QuizCard = ({
-  index, // Add an index prop for card order
+  index,
   image,
   subject,
   title,
@@ -9,8 +9,9 @@ const QuizCard = ({
   tutorName,
   tutorSubject,
   tutorIcon,
+  onTry, // Accept the function as a prop
 }) => {
-  // New function to cycle background colors based on the card's index
+  // Function to cycle background colors
   const getCardBackgroundColor = (index) => {
     const colors = ["bg-blue-100", "bg-green-100", "bg-yellow-100"];
     return colors[index % colors.length];
@@ -81,7 +82,10 @@ const QuizCard = ({
             <p className="text-xs text-gray-500">{tutorSubject}</p>
           </div>
           {/* Try Button */}
-          <button className="ml-auto px-3 py-1 text-sm font-medium text-black bg-[#fed448] rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+          <button
+            onClick={onTry} // Call the function when button is clicked
+            className="ml-auto px-3 py-1 text-sm font-medium text-black bg-[#fed448] rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+          >
             Try
           </button>
         </div>
