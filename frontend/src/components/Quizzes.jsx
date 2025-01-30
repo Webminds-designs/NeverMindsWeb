@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./SideBar";
 import QuizCard from "./QuizCard";
 import science1img from "../assets/science.svg";
 import science2img from "../assets/science-2.svg";
@@ -143,27 +142,19 @@ const Quizzes = () => {
     },
   ];
 
-  // Filter quizzes based on search term
   const filteredQuizzes = quizCardData.filter(
     (quiz) =>
       quiz.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       quiz.subject.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Function to navigate to QuizGuideLines.jsx when clicking "Try"
   const handleStartGuide = (quiz) => {
     navigate("/quizguidelines", { state: { quiz } });
   };
 
   return (
-    <div className="flex min-h-screen py-8 px-4">
-      {/* Sidebar */}
-      <Sidebar />
-
-      {/* Main Content */}
-      <main className="flex-1 px">
-        {/* Search Bar */}
-        <div className="mb-6 flex justify-center">
+    <>
+    <div className="mb-6 flex justify-center">
           <input
             type="text"
             placeholder="Search quizzes..."
@@ -172,12 +163,13 @@ const Quizzes = () => {
             className="w-full max-w-md px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none"
           />
         </div>
-
-        {/* Quiz Cards */}
+    <div className="flex flex-col min-h-screen py-8 px-4">
+      <main className="flex-1 px-4">
+        
         {filteredQuizzes.length === 0 ? (
           <p className="text-center text-gray-600">No quizzes found</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredQuizzes.map((quiz, index) => (
               <QuizCard
                 key={index}
@@ -188,13 +180,14 @@ const Quizzes = () => {
                 tutorName={quiz.tutorName}
                 tutorSubject={quiz.subject}
                 tutorIcon={tutorIcon}
-                onTry={() => handleStartGuide(quiz)} // Navigate to QuizGuideLines.jsx
+                onTry={() => handleStartGuide(quiz)}
               />
             ))}
           </div>
         )}
       </main>
     </div>
+    </>
   );
 };
 

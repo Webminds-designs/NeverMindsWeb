@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaRegClock } from "react-icons/fa";
 import { LuMessageCircleQuestion } from "react-icons/lu";
-import nlogo from "../assets/nlogo.png";
+
 
 const QuizGuideLines = () => {
   const navigate = useNavigate();
@@ -25,16 +25,9 @@ const QuizGuideLines = () => {
     <div className="flex flex-col items-center justify-center h-screen ">
       {/* Full-Width Page Header */}
       <div className="w-full flex items-center justify-between px-6 py-4 fixed top-0 left-0 right-0">
-        {/* Logo - Top Left */}
-        <img src={nlogo} alt="Logo" className="h-8 sm:h-8" />
+        
 
-        {/* Go Back - Top Right */}
-        <button
-          onClick={() => navigate(-1)}
-          className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition"
-        >
-          Go Back
-        </button>
+        
       </div>
 
       {/* Quiz Header */}

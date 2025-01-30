@@ -11,7 +11,7 @@ export default function Home() {
 
   if (location.pathname === "/dashboard" || location.pathname === "/badges" || location.pathname === "/progress" || location.pathname === "/favourites" || location.pathname === "/account" ) {
     header = <LOGUHeader />;
-  } else if (location.pathname === "/home" || location.pathname === "/checkout") {
+  } else if (location.pathname === "/home" || location.pathname === "/checkout" || location.pathname === "/quizzes" || location.pathname === "/quizguidelines"  || location.pathname === "/quizresult") {
     header = <Header />;
   }
 

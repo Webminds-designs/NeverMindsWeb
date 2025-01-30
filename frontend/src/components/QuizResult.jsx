@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaMedal, FaTrophy, FaHome, FaRedo } from "react-icons/fa";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
 import nlogo from "../assets/nlogo.png";
 
 const QuizResult = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
+  const { width, height } = useWindowSize();
+
   // Retrieve score from state (default to 0 if undefined)
   const score = location.state?.score || 0;
+
+  // State to manage confetti visibility
+  const [showConfetti, setShowConfetti] = useState(false);
 
   // Generate user feedback based on score
   const getFeedback = () => {
@@ -23,43 +29,48 @@ const QuizResult = () => {
     }
   };
 
-  return (
-    <div className="flex flex-col items-center min-h-screen p-6 bg-[#fcfcfc]">
-      {/* Header */}
-      <div className="w-full flex justify-between items-center px-6 py-4 bg-white fixed top-0 left-0 right-0">
-        <img src={nlogo} alt="Logo" className="h-8 sm:h-8" />
-        <button
-          onClick={() => navigate("/")}
-          className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition flex items-center gap-2"
-        >
-          <FaHome /> Home
-        </button>
-      </div>
+  // Start confetti for 10 seconds when the component is mounted
+  useEffect(() => {
+    if (score >= 70) {
+      setShowConfetti(true);
+      const timer = setTimeout(() => {
+        setShowConfetti(false);
+      }, 10000); // Confetti will show for 10 seconds
 
-      {/* Result Box */}
-      <div className="mt-20 w-full max-w-3xl bg-white p-8 rounded-lg shadow-lg text-center">
-        <h1 className="text-3xl font-bold">Quiz Completed!</h1>
-        <p className="mt-2 text-gray-600">Here is how you performed:</p>
+      return () => clearTimeout(timer);
+    }
+  }, [score]);
+
+  return (
+    <div className="flex flex-col items-center min-h-screen w-full bg-[#fcfcfc] relative pt-24">
+      {/* Confetti Effect for High Scores */}
+      {showConfetti && <Confetti width={width} height={height} />}
+
+      {/* Content */}
+      <div className="flex flex-col items-center justify-center w-full max-w-4xl p-8 bg-yellow-50 rounded-lg shadow-lg">
+        {/* Result Title */}
+        <h1 className="text-[60px] font-semibold mb-4">Quiz Completed!</h1>
+        <p className="mt-2 text-[20px] font-medium text-gray-600 mb-6">Here is how you performed:</p>
 
         {/* Score Section */}
-        <div className="mt-6 bg-[#fff6d5] p-6 rounded-lg shadow-md">
-          <h2 className="text-4xl font-bold text-yellow-600">{score}%</h2>
+        <div className="bg-[#fff6d5] p-8 rounded-lg shadow-md mb-6 flex flex-col items-center">
+          <h2 className="text-6xl font-bold text-yellow-600">{score}%</h2>
           <p className={`mt-2 text-lg font-semibold ${getFeedback().color}`}>
             {getFeedback().message}
           </p>
         </div>
 
         {/* Medal/Trophy Icon */}
-        <div className="mt-6">
+        <div className="mt-8 mb-6">
           {score >= 70 ? (
-            <FaTrophy className="text-yellow-500 text-6xl mx-auto" />
+            <FaTrophy className="text-yellow-500 text-8xl mx-auto" />
           ) : (
-            <FaMedal className="text-gray-500 text-6xl mx-auto" />
+            <FaMedal className="text-gray-500 text-8xl mx-auto" />
           )}
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-center gap-4 mt-6">
+        <div className="flex justify-center gap-8 mt-6">
           <button
             onClick={() => navigate("/quizzes")}
             className="bg-yellow-400 text-black font-bold px-6 py-2 rounded-lg hover:bg-yellow-300 transition flex items-center gap-2"

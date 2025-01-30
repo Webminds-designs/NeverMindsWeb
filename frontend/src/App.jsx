@@ -38,11 +38,14 @@ function App() {
           <Route path="/account" element={<Account />} />
         </Route>
         
-        <Route path="/" element={<QuizzesMain />} />
-        <Route path="/quizzes" element={<Quizzes />} />
-        <Route path="/quizguidelines" element={<QuizGuideLines />} />
+        <Route path="/" element={<QuizzesMain />}>
+          <Route path="home" element={<Home />} /> 
+          <Route path="quizzes" element={<Quizzes />} />
+          <Route path="quizguidelines" element={<QuizGuideLines />} />
+          <Route path="quizresult" element={<QuizResult />} />  
+        </Route>
+
         <Route path="/quiz" element={<Quiz />} />
-        <Route path="/quizresult" element={<QuizResult />} />
         
         
         

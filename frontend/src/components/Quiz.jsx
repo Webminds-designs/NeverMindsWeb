@@ -48,9 +48,9 @@ const Quiz = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-6 bg-[#fcfcfc]">
+    <div className="flex flex-col items-center min-h-screen w-full p-6 bg-[#fcfcfc]">
       {/* Full-Width Page Header */}
-      <div className="w-full flex justify-between items-center px-6 py-4 bg-white fixed top-0 left-0 right-0 ">
+      <div className="w-full flex justify-between items-center px-6 py-4 bg-white fixed top-0 left-0 right-0 z-10">
         {/* Logo - Top Left */}
         <img src={nlogo} alt="Logo" className="h-8 sm:h-8" />
 
@@ -70,7 +70,7 @@ const Quiz = () => {
       </div>
 
       {/* Quiz Content */}
-      <div className="mt-20 w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg">
+      <div className="mt-24 w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg">
         {/* Quiz Header */}
         <div className="flex items-center gap-4">
           <img src={quiz.icon} alt="Quiz Icon" className="h-16 w-16" />
