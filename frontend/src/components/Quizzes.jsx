@@ -154,39 +154,40 @@ const Quizzes = () => {
 
   return (
     <>
-    <div className="mb-6 flex justify-center">
-          <input
-            type="text"
-            placeholder="Search quizzes..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full max-w-md px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-          />
-        </div>
-    <div className="flex flex-col min-h-screen py-8 px-4">
-      <main className="flex-1 px-4">
-        
-        {filteredQuizzes.length === 0 ? (
-          <p className="text-center text-gray-600">No quizzes found</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredQuizzes.map((quiz, index) => (
-              <QuizCard
-                key={index}
-                index={index}
-                image={quiz.image}
-                subject={quiz.subject}
-                title={quiz.title}
-                tutorName={quiz.tutorName}
-                tutorSubject={quiz.subject}
-                tutorIcon={tutorIcon}
-                onTry={() => handleStartGuide(quiz)}
-              />
-            ))}
-          </div>
-        )}
-      </main>
-    </div>
+      {/* Search Bar */}
+      <div className="mb-6 flex justify-center">
+        <input
+          type="text"
+          placeholder="Search quizzes..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full max-w-md px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+        />
+      </div>
+
+      <div className="flex-1 flex justify-center items-center p-8">
+        <main >
+          {filteredQuizzes.length === 0 ? (
+            <p className="text-center text-gray-600">No quizzes found</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+              {filteredQuizzes.map((quiz, index) => (
+                <QuizCard
+                  key={index}
+                  index={index}
+                  image={quiz.image}
+                  subject={quiz.subject}
+                  title={quiz.title}
+                  tutorName={quiz.tutorName}
+                  tutorSubject={quiz.subject}
+                  tutorIcon={tutorIcon}
+                  onTry={() => handleStartGuide(quiz)}
+                />
+              ))}
+            </div>
+          )}
+        </main>
+      </div>
     </>
   );
 };
