@@ -142,7 +142,7 @@ const Favourites = () => {
         {quizCardData.length === 0 ? (
           <p className="text-center text-gray-600">No quizzes to display</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-36">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-36 px-8">
             {quizCardData.map((quiz, index) => (
               <QuizCard
                 key={index}
