@@ -145,16 +145,18 @@ const Favourites = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-36 px-8">
             {quizCardData.map((quiz, index) => (
               <QuizCard
-                key={index}
-                index={index}
-                image={quiz.image}
-                subject={quiz.subject}
-                title={quiz.title}
-                score={quiz.score}
-                tutorName={quiz.tutorName}
-                tutorSubject={quiz.tutorSubject}
-                tutorIcon={quiz.tutorIcon}
-              />
+              key={index}
+              index={index}
+              image={quiz.image}
+              subject={quiz.subject}
+              title={quiz.title}
+              score={quiz.score}
+              tutorName={quiz.tutorName}
+              tutorSubject={quiz.tutorSubject}
+              tutorIcon={quiz.tutorIcon}
+              showScore={true} // Show progress bar & score
+            />
+            
             ))}
           </div>
         )}

@@ -173,16 +173,18 @@ const Quizzes = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
               {filteredQuizzes.map((quiz, index) => (
                 <QuizCard
-                  key={index}
-                  index={index}
-                  image={quiz.image}
-                  subject={quiz.subject}
-                  title={quiz.title}
-                  tutorName={quiz.tutorName}
-                  tutorSubject={quiz.subject}
-                  tutorIcon={tutorIcon}
-                  onTry={() => handleStartGuide(quiz)}
-                />
+                key={index}
+                index={index}
+                image={quiz.image}
+                subject={quiz.subject}
+                title={quiz.title}
+                tutorName={quiz.tutorName}
+                tutorSubject={quiz.subject}
+                tutorIcon={tutorIcon}
+                onTry={() => handleStartGuide(quiz)}
+                showScore={false} // Hide progress bar & score
+              />
+              
               ))}
             </div>
           )}

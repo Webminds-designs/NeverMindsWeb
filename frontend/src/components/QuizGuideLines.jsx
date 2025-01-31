@@ -22,7 +22,7 @@ const QuizGuideLines = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen ">
+    <div className="flex flex-col items-center justify-center">
       {/* Full-Width Page Header */}
       <div className="w-full flex items-center justify-between px-6 py-4 fixed top-0 left-0 right-0">
         
@@ -35,7 +35,7 @@ const QuizGuideLines = () => {
         <img
           src={quiz.icon}
           alt="Quiz Icon"
-          className="h-40 w-40 object-cover"
+          className="h-445 w-44 object-cover"
         />
         <h1 className="text-[50px] font-semibold mt-4">{quiz.title}</h1>
         <p className="text-gray-700 text-[20px] font-semibold mt-2 px-4 sm:px-0">

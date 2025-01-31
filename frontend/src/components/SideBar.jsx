@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {homeOutline,heartOutline,trophyOutline,barChartOutline,personOutline,settingsOutline,logOutOutline} from "ionicons/icons";
 import {TbTransitionLeftFilled,TbTransitionRightFilled} from "react-icons/tb";
-import logo from "../assets/logo.png";
+import logo from "../assets/nlogo2.png";
 
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -17,12 +17,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         {isOpen && (
           <div className="flex flex-col h-full">
             {/* Sidebar Header */}
-            <div className="flex items-center justify-between px-6 py-4">
+            <div className="flex items-center justify-center px-6 py-4 mt-5">
               <div className="flex items-center gap-4">
                 <img
                   src={logo}
                   alt="Logo"
-                  className="w-7 h-5 cursor-pointer hover:scale-110 transition-transform"
+                  className="w-28 cursor-pointer hover:scale-110 transition-transform"
                 />
                 <span
                   className="text-lg font-bold tracking-wide text-black"
@@ -31,7 +31,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     fontSize: "24px",
                   }}
                 >
-                  NeverMinds
+                  
                 </span>
               </div>
             </div>

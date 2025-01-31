@@ -137,6 +137,7 @@ const ProfileDashboard = () => {
                     tutorName={quiz.tutorName}
                     tutorSubject={quiz.tutorSubject}
                     tutorIcon={quiz.tutorIcon}
+                    showScore={true} // Show progress bar & score
                   />
                 </div>
               ))}

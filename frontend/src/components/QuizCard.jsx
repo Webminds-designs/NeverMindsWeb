@@ -10,6 +10,7 @@ const QuizCard = ({
   tutorSubject,
   tutorIcon,
   onTry, // Accept the function as a prop
+  showScore, // NEW PROP to control visibility
 }) => {
   // Function to cycle background colors
   const getCardBackgroundColor = (index) => {
@@ -18,7 +19,7 @@ const QuizCard = ({
   };
 
   return (
-    <div className="max-w-[22rem] bg-white border border-gray-200 rounded-3xl">
+    <div className="max-w-[22rem] bg-white border border-gray-200 rounded-lg">
       {/* Card Image */}
       <div
         className={`flex items-center justify-center h-64 rounded-t-lg ${getCardBackgroundColor(
@@ -43,22 +44,27 @@ const QuizCard = ({
           {title}
         </h5>
 
-        {/* Horizontal Progress Bar */}
-        <div className="my-3 w-full bg-gray-300 rounded-full h-1">
-          <div
-            className="h-1 rounded-full bg-black transition-all"
-            style={{
-              width: `${score}%`,
-              fontWeight: score >= 50 ? "bold" : "normal",
-            }}
-          />
-        </div>
+        {/* Show Progress Bar & Score ONLY if `showScore` is true */}
+        {showScore && (
+          <>
+            {/* Horizontal Progress Bar */}
+            <div className="my-3 w-full bg-gray-300 rounded-full h-1">
+              <div
+                className="h-1 rounded-full bg-black transition-all"
+                style={{
+                  width: `${score}%`,
+                  fontWeight: score >= 50 ? "bold" : "normal",
+                }}
+              />
+            </div>
 
-        {/* Score Percentage */}
-        <div className="flex justify-between items-center mb-4">
-          <span className="text-gray-500 text-sm font-medium">Score:</span>
-          <span className="text-lg font-semibold text-black">{score}%</span>
-        </div>
+            {/* Score Percentage */}
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-gray-500 text-sm font-medium">Score:</span>
+              <span className="text-lg font-semibold text-black">{score}%</span>
+            </div>
+          </>
+        )}
 
         {/* Tutor Information */}
         <div className="flex items-center gap-4">
