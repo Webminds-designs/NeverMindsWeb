@@ -65,7 +65,7 @@ const Statistics = () => {
 
   return (
     <div className="flex-1 ml-64 p-8">
-      <div className="relative p-3 -mx-2">
+      <div className="relative p-5 -mx-4">
         <input
           type="text"
           placeholder="Search by Subject"
@@ -78,7 +78,7 @@ const Statistics = () => {
         </div>
       </div>
       {filteredQuizzes.map((quiz) => (
-        <div key={quiz.id} className="bg-white p-6 rounded-xl shadow-md mx-auto mb-6">
+        <div key={quiz.id} className="bg-white p-6 rounded-3xl shadow-md mx-auto mb-6">
           <div className="flex justify-between items-center mb-4">
             <div>
               <h1 className="flex text-2xl font-semibold p-2">

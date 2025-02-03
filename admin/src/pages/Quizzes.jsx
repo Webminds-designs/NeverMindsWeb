@@ -196,7 +196,7 @@ useEffect(() => {
           <div className="relative p-3">
             <input
               type="text"
-              placeholder="Search for Users"
+              placeholder="Search Quizzes"
               className="pl-4 pr-10 py-2 rounded-full focus:outline-none focus:ring-2 w-full focus:ring-gray-200"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
