@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {homeOutline,heartOutline,trophyOutline,barChartOutline,personOutline,settingsOutline,logOutOutline} from "ionicons/icons";
-import {TbTransitionLeftFilled,TbTransitionRightFilled} from "react-icons/tb";
+import { FaBars } from "react-icons/fa";
 import logo from "../assets/nlogo2.png";
 
 
@@ -38,7 +38,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
             {/* R Logo between NeverMinds and Overview */}
             <div className="flex justify-end items-center px-6">
-              <TbTransitionLeftFilled
+              <FaBars
                 className="w-8 h-8 cursor-pointer hover:scale-110 transition-transform"
                 onClick={toggleSidebar}
               />
@@ -98,7 +98,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         onClick={toggleSidebar}
       >
         {!isOpen && (
-          <TbTransitionRightFilled
+          <FaBars
             className="w-10 h-10 hover:rotate-12 transition-transform"
           />
         )}
