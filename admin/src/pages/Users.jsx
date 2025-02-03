@@ -6,6 +6,8 @@ import pen from '../assets/pen.svg';
 const Users = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
+    const [searchTerm, setSearchTerm] = useState("");
+   
 
     const users = [
         { name: "Jananga Yasith", date: "Feb 9", email: "jananga@.com", age: 22, gender: "Male", phone: "0771234567", address: "Colombo" },
@@ -15,6 +17,10 @@ const Users = () => {
         { name: "Deneth Kavindu", date: "Feb 9", email: "deneth@.com", age: 21, gender: "Male", phone: "0772345678", address: "Galle" },
         { name: "Pawara Hasamal", date: "Feb 9", email: "pawara@.com", age: 22, gender: "Male", phone: "0773456789", address: "Kandy" },
     ];
+    //search users
+    const filteredUsers = users.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     // open modal 
     const handleOpenModal = (user) => {
@@ -45,21 +51,22 @@ const Users = () => {
             </div>
 
             {/* Search Users */}
-            <div className="relative p-3">
+            <div className="relative w-1/2 mb-6">
                 <input
                     type="text"
                     placeholder="Search for Users"
-                    className="pl-4 pr-10 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-200"
+                    className="w-full pl-12 pr-4 py-2 border rounded-full shadow focus:outline-none focus:ring-2 focus:ring-gray-200"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <div className="absolute inset-y-0 left-52 flex items-center pr-3">
-                    <img src={Search} alt="Search" width="15" height="15" />
-                </div>
+                <img src={Search} alt="Search" className="absolute left-4 top-2.5 w-5 h-5" />
             </div>
 
             {/* All Users */}
             <h2 className="text-xl font-semibold mb-4">All Users</h2>
             <div className="bg-white p-4 rounded-lg shadow-md">
-                {users.map((user, idx) => (
+            {filteredUsers.length > 0 ? (
+                            filteredUsers.map((user, idx) => (
                     <div key={idx}>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
@@ -89,7 +96,14 @@ const Users = () => {
                         </div>
                         <hr className="h-px my-8 bg-gray-200 border-2 dark:bg-gray-400" />
                     </div>
-                ))}
+                ))
+            ) : (
+                <tr>
+                    <td colSpan="6" className="text-center py-4 text-gray-500">
+                        No users found.
+                    </td>
+                </tr>
+            )}
             </div>
 
             {/* Modal for editing user details */}
