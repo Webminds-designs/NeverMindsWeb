@@ -13,7 +13,7 @@ const LSCPQuizCard = ({
   showScore,
 }) => {
   return (
-    <div className="max-w-2xl bg-white border border-gray-300 rounded-xl shadow-sm overflow-hidden flex flex-col md:flex-row p-4 items-center md:items-start gap-4">
+    <div className="max-w-full md:w-full bg-white border border-gray-300 rounded-xl shadow-sm overflow-hidden flex flex-col md:flex-row p-4 items-center md:items-start gap-4">
       {/* Image Section */}
       <div className="w-full md:w-1/3 h-32 md:h-40 bg-yellow-100 flex items-center justify-center rounded-lg overflow-hidden">
         <img className="w-full h-full object-contain" src={image} alt={title} />
@@ -23,11 +23,14 @@ const LSCPQuizCard = ({
       <div className="flex-1 flex flex-col gap-2">
         {/* Subject */}
         <p className="inline-flex items-center gap-1 text-sm font-medium px-3 py-1 rounded-full bg-purple-100 text-purple-700">
-          <span className="text-xs">📖</span> {subject}
+           {subject}
         </p>
 
         {/* Quiz Title */}
+        <div className="flex overflow-x-scroll scrollbar-hide">
         <h5 className="text-lg font-semibold text-gray-900">{title}</h5>
+        </div>
+        
 
         {/* Score & Progress Bar */}
         {showScore && (

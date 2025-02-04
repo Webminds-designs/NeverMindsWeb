@@ -269,9 +269,9 @@ const Quizzes = () => {
   };
 
   return (
-    <>
+    <div className=" w-full mx-auto overflow-hidden container">
       {/* Tabs */}
-      <div className="flex space-x-6 border-b pb-2 text-lg font-semibold px-5">
+      <div className="flex space-x-6 border-b pb-2 text-lg font-semibold">
         {["Public", "Private"].map((tab) => (
           <span
             key={tab}
@@ -288,9 +288,9 @@ const Quizzes = () => {
       </div>
 
       {/* Recommended Quizzes Section */}
-      <div className="mb-6 px-5">
+      <div className="mb-6">
         <h2 className="text-xl font-semibold mt-4">Recommended Quizzes</h2>
-        <div className="flex gap-4 mt-4 overflow-x-auto scrollbar-hide">
+        <div className="flex gap-4 mt-4 overflow-x-auto w-[1000px] md:w-[2000px] scrollbar-hide">
           {recommendedQuizzes.map((quiz, index) => (
             <div
               key={index}
@@ -314,9 +314,11 @@ const Quizzes = () => {
           ))}
         </div>
       </div>
-      <div className="mb-6 px-4">
-        {/* Filters & Search */}
-        <div></div>
+
+      {/* Filters & Search */}
+      <div className="mb-6 ">
+        
+
         <div className="flex items-center justify-between mt-6">
           <div className="flex items-center gap-3 px-5">
             <span className="text-gray-600">All Materials</span>
@@ -361,12 +363,12 @@ const Quizzes = () => {
       </div>
 
       {/* Quizzes Grid Section */}
-      <div className="flex-1 flex justify-center items-center p-8">
-        <main>
+      <div className="flex justify-center items-center mt-6">
+        
           {filteredQuizzes.length === 0 ? (
             <p className="text-center text-gray-600">No quizzes found</p>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
               {filteredQuizzes.map((quiz, index) => (
                 <QuizCard
                   key={index}
@@ -383,9 +385,9 @@ const Quizzes = () => {
               ))}
             </div>
           )}
-        </main>
+        
       </div>
-    </>
+    </div>
   );
 };
 
