@@ -35,18 +35,18 @@ const Hero = () => {
           {/* Left Section - Text Content */}
           <div className="w-full text-black flex flex-col lg:items-start items-center lg:gap-y-7 lg:mt-32 lg:mb-0 mb-[600px]">
             <div className="hidden md:block">
-              <h1 className="lg:text-[50px] text-3xl font-semibold leading-tight mb-4 text-center lg:text-left">
+              <h1 className="lg:text-[70px] text-3xl font-semibold leading-tight mb-8 text-center lg:text-left">
                 <p>
                   Challenge Your<br></br>Knowledge Beyond<br></br>Limits
                 </p>
               </h1>
-              <span className="text-[15px] md:text-[20px] lg:text-[24px] font-medium text-center lg:text-left mb-6">
+              <span className="text-[15px] md:text-[28px] lg:text-[28px] font-medium text-center lg:text-left mb-8">
                 <p>
                   Dive into a variety of quizzes tailored to your<br></br>
                   interests and skill levels. Ready to test your<br></br>limits?
                 </p>
               </span>
-              <button className="bg-[#fbc72e] text-black text-[15px] lg:text-[22px] font-medium md:px-6 md:py-3 px-3 py-2 rounded-full hover:bg-yellow-500 transition">
+              <button className="bg-[#fbc72e] text-black text-[15px] lg:text-[28px] font-medium md:px-6 md:py-3 px-3 py-2 rounded-full hover:bg-yellow-500 transition sm:mt-8 mt-4">
                 Get Started
               </button>
             </div>
