@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect ,useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import QuizCard from "./QuizCard";
 import LSCPQuizCard from "./LSCPQuizCard";
@@ -18,6 +18,9 @@ import science10img from "../assets/science-10.svg";
 import { IoSearchSharp } from "react-icons/io5";
 import { FaFilter, FaSort } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
+import { LanguageContext } from "../context/LanguageContext";
+import content from "../components/content/QuizzersContent.json";
+
 
 const Quizzes = () => {
   const navigate = useNavigate();
@@ -25,6 +28,7 @@ const Quizzes = () => {
   const [activeTab, setActiveTab] = useState("Public");
   const [publicQuizzes, setPublicQuizzes] = useState([]);
   const [privateQuizzes, setPrivateQuizzes] = useState([]);
+   const { language } = useContext(LanguageContext);
 
   const quizCardData = [
     {
@@ -272,7 +276,7 @@ const Quizzes = () => {
     <div className=" w-full mx-auto overflow-hidden container">
       {/* Tabs */}
       <div className="flex space-x-6 border-b pb-2 text-lg font-semibold">
-        {["Public", "Private"].map((tab) => (
+        {content[language].tabs.map((tab) => (
           <span
             key={tab}
             className={`pb-1 cursor-pointer transition-all duration-300 ${
@@ -282,14 +286,14 @@ const Quizzes = () => {
             }`}
             onClick={() => setActiveTab(tab)}
           >
-            {tab} Quizzes
+            {tab} 
           </span>
         ))}
       </div>
 
       {/* Recommended Quizzes Section */}
       <div className="mb-6">
-        <h2 className="text-xl font-semibold mt-4">Recommended Quizzes</h2>
+        <h2 className="text-xl font-semibold mt-4">{content[language].recommendedTitle}</h2>
         <div className="flex gap-4 mt-4 overflow-x-auto w-[1000px] md:w-[2000px] scrollbar-hide">
           {recommendedQuizzes.map((quiz, index) => (
             <div
@@ -317,23 +321,21 @@ const Quizzes = () => {
 
       {/* Filters & Search */}
       <div className="mb-6 ">
-        
-
         <div className="flex items-center justify-between mt-6">
           <div className="flex items-center gap-3 px-5">
-            <span className="text-gray-600">All Materials</span>
+            <span className="text-gray-600">{content[language].allMaterials}</span>
             <select className="border px-2 py-1 rounded-md text-gray-600">
               <option>200</option>
             </select>
             <div className="flex gap-3">
               <button className="bg-yellow-300 text-black font-medium px-4 py-1 rounded-md">
-                All Quizzes
+              {content[language].allQuizzes}
               </button>
               <button className="bg-gray-200 text-black font-medium px-4 py-1 rounded-md">
-                Not Started
+              {content[language].notStarted}
               </button>
               <button className="bg-gray-200 text-black font-medium px-4 py-1 rounded-md">
-                Completed
+              {content[language].completed}
               </button>
             </div>
           </div>
@@ -343,17 +345,17 @@ const Quizzes = () => {
               <IoSearchSharp className="absolute left-3 top-2 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search quizzes..."
+                placeholder={content[language].searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10 pr-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none"
               />
             </div>
             <button className="text-gray-600 flex items-center gap-1">
-              <FaFilter /> Filter
+              <FaFilter />  {content[language].filter}
             </button>
             <button className="text-gray-600 flex items-center gap-1">
-              <FaSort /> Sort by
+              <FaSort />{content[language].sortBy}
             </button>
             <button className="text-gray-600 bg-yellow-500 p-1 rounded">
               <IoGrid />
@@ -366,7 +368,7 @@ const Quizzes = () => {
       <div className="flex justify-center items-center mt-6">
         
           {filteredQuizzes.length === 0 ? (
-            <p className="text-center text-gray-600">No quizzes found</p>
+            <p className="text-center text-gray-600">{content[language].noQuizzesFound}</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
               {filteredQuizzes.map((quiz, index) => (

@@ -1,26 +1,31 @@
-import React from "react";
+import React,{useContext} from "react";
 import landing from "../assets/landing.png";
 import arrow from "../assets/arrow3.png";
 import person from "../assets/person.png";
+import content from '../components/content/HeroContent.json'
+import { LanguageContext } from "../context/LanguageContext"; 
 
 const Hero = () => {
+
+  const { language } = useContext(LanguageContext);
+  
   return (
     <>
       <div className="md:hidden block p-12">
         <h1 className="lg:text-[50px] text-3xl font-semibold leading-tight mb-4 flex flex-col text-center lg:text-left">
           <p>
-            Challenge Your<br></br>Knowledge Beyond<br></br>Limits
+           {content[language].title1}<br></br>   {content[language].title2}<br></br>   {content[language].title3}
           </p>
         </h1>
         <span className="text-[15px] md:text-[20px] lg:text-[24px] font-medium text-center lg:text-left mb-6">
           <p>
-            Dive into a variety of quizzes tailored to your<br></br>interests
-            and skill levels. Ready to test your<br></br>limits?
+          {content[language].description1}<br></br>
+          {content[language].description2}<br></br> {content[language].description3}
           </p>
         </span>
         <div className="flex justify-center">
           <button className="bg-[#fbc72e] text-black text-[15px] lg:text-[22px] font-medium md:px-6 md:py-3 px-3 py-2 rounded-full hover:bg-yellow-500 transition">
-            Get Started
+          {content[language].button}
           </button>
         </div>
       </div>
@@ -37,17 +42,17 @@ const Hero = () => {
             <div className="hidden md:block">
               <h1 className="lg:text-[70px] text-3xl font-semibold leading-tight mb-8 text-center lg:text-left">
                 <p>
-                  Challenge Your<br></br>Knowledge Beyond<br></br>Limits
+                {content[language].title1}<br></br>   {content[language].title2}<br></br>   {content[language].title3}
                 </p>
               </h1>
               <span className="text-[15px] md:text-[28px] lg:text-[28px] font-medium text-center lg:text-left mb-8">
                 <p>
-                  Dive into a variety of quizzes tailored to your<br></br>
-                  interests and skill levels. Ready to test your<br></br>limits?
+                {content[language].description1}<br></br>
+                {content[language].description2}<br></br> {content[language].description3}
                 </p>
               </span>
               <button className="bg-[#fbc72e] text-black text-[15px] lg:text-[28px] font-medium md:px-6 md:py-3 px-3 py-2 rounded-full hover:bg-yellow-500 transition sm:mt-8 mt-4">
-                Get Started
+              {content[language].button}
               </button>
             </div>
           </div>
@@ -57,7 +62,7 @@ const Hero = () => {
             {/* Circle Text - Top Right */}
             <div className="absolute bottom-1/4 lg:bottom-2/3 left-3 lg:left-auto lg:right-10 w-full flex justify-start lg:justify-end">
               <div className="text-black border-2 border-[#fbc72e] rounded-full px-4 py-2 w-40 h-40 text-center flex items-center text-[18px]">
-                Mobile app coming soon!
+              {content[language].mobileApp}
               </div>
             </div>
 
@@ -77,19 +82,17 @@ const Hero = () => {
                 </div>
                 <div>
                   <span className="font-light text-xl lg:text-2xl">
-                    Powered by
+                  {content[language].poweredBy}
                   </span>
                   <span className="font-medium text-2xl lg:text-4xl mx-2">
                     15
                   </span>
-                  <span className="font-light text-xl lg:text-2xl">minds</span>
+                  <span className="font-light text-xl lg:text-2xl"> {content[language].minds}</span>
                 </div>
               </div>
 
               <p className="text-gray-700 text-xs lg:text-sm">
-                This app is a testament to the dedication and creativity of 15
-                incredible minds, united to empower students through engaging
-                quizzes.
+              {content[language].credits}
               </p>
 
               {/* Arrow Icon */}

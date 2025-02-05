@@ -1,0 +1,23 @@
+{
+    "en": {
+      "title": "Latest Quizzes",
+      "quizzes": [
+        { "title": "QUIZ 01" },
+        { "title": "QUIZ 02" },
+        { "title": "QUIZ 03" },
+        { "title": "QUIZ 04" },
+        { "title": "QUIZ 05" }
+      ]
+    },
+    "si": {
+      "title": "නවතම ප්‍රශ්නාවලි",
+      "quizzes": [
+        { "title": "ප්‍රශ්නාවලිය 01" },
+        { "title": "ප්‍රශ්නාවලිය 02" },
+        { "title": "ප්‍රශ්නාවලිය 03" },
+        { "title": "ප්‍රශ්නාවලිය 04" },
+        { "title": "ප්‍රශ්නාවලිය 05" }
+      ]
+    }
+  }
+  

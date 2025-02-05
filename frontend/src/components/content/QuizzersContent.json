@@ -1,0 +1,32 @@
+{
+  "en": {
+    "tabs": [
+      "Public Quizzes",
+      "Private Quizzes"
+    ],
+    "recommendedTitle": "Recommended Quizzes",
+    "allMaterials": "All Materials",
+    "allQuizzes": "All Quizzes",
+    "notStarted": "Not Started",
+    "completed": "Completed",
+    "searchPlaceholder": "Search quizzes...",
+    "filter": "Filter",
+    "sortBy": "Sort by",
+    "noQuizzesFound": "No quizzes found"
+  },
+  "si": {
+    "tabs": [
+      "ප්‍රසිද්ධ ප්‍රශ්නාවලි",
+      "පෞද්ගලික ප්‍රශ්නාවලි"
+    ],
+    "recommendedTitle": "නිර්දේශිත ප්‍රශ්නාවලි",
+    "allMaterials": "සියලුම ද්‍රව්‍ය",
+    "allQuizzes": "සියලුම ප්‍රශ්නෝත්තර",
+    "notStarted": "ආරම්භ කර නොමැත",
+    "completed": "සම්පූර්ණ කළ",
+    "searchPlaceholder": "ප්‍රශ්නෝත්තර සෙවීම...",
+    "filter": "පෙරහන්",
+    "sortBy": "අනුපිළිවෙල",
+    "noQuizzesFound": "ප්‍රශ්නෝත්තර හමු නොවීය"
+  }
+}

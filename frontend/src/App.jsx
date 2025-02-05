@@ -12,6 +12,7 @@ import QuizGuideLines from "./components/QuizGuideLines";
 import Quiz from "./components/Quiz";
 import QuizResult from "./components/QuizResult";
 import Account from "./components/Account";
+import { LanguageProvider } from "./context/LanguageContext";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
   localStorage.setItem("user", JSON.stringify(user));
 
   return (
+    <LanguageProvider>
       <Routes>
         <Route path="/" element={<Dashboard />}>
           <Route index element={<Home />} />
@@ -54,6 +56,7 @@ function App() {
         {/* if user not null then show dashboard*/}
         {/* {user && <Route path="/dashboard" element={<Dashboard />} />} */}
       </Routes>
+      </LanguageProvider>
   );
 }
 

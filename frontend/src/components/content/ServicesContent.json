@@ -1,0 +1,35 @@
+{
+    "en": {
+      "title": "Our Services",
+      "description": "At NeverMinds, we offer a wide range of interactive quizzes designed to entertain and educate. Whether you're looking to test your knowledge, explore new topics, or challenge friends, our quizzes cater to all interests and skill levels. Dive in and discover quizzes that are fun, engaging, and packed with learning opportunities!",
+      "services": [
+        "Custom Quizzes",
+        "Data Analytics",
+        "Creative Design",
+        "Collaborative Tools",
+        "Knowledge Tracking",
+        "Interactive Experiences",
+        "Performance Insights",
+        "Educational Resources",
+        "Gamified Learning",
+        "Community Engagement"
+      ]
+    },
+    "si": {
+      "title": "අපගේ සේවාවන්",
+      "description": "NeverMinds හිදී, අපි ඔබේ විනෝදාස්වාදය සහ අධ්‍යාපනය සඳහා විශේෂිත ප්‍රශ්න පත්‍ර ලබා දෙමු. ඔබේ දැනුම පරීක්ෂා කිරීමට, නව මාතෘකා ගවේෂණය කිරීමට, හෝ මිත්‍රයන්ට අභියෝග කිරීමට මෙය උපයෝගී වේ. අපගේ ප්‍රශ්න පත්‍ර සියලුම කැමැත්තන් සහ දක්ෂතා මට්ටම් සඳහා සුදුසුය. දැන්ම පිවිසෙන්න සහ නව අධ්‍යාපන අවස්ථා අත්විඳින්න!",
+      "services": [
+        "අභිරුචි ප්‍රශ්න පත්‍ර",
+        "දත්ත විශ්ලේෂණය",
+        "සංස්කෘතික නිර්මාණ",
+        "සන්ධාන මෙවලම්",
+        "දැනුම් පද්ධති පිරික්සුම",
+        "අන්තර්ක්‍රියාත්මක අත්දැකීම්",
+        "කාර්ය සාධනය පිළිබඳ අවබෝධය",
+        "අධ්‍යාපන මූලාශ්‍ර",
+        "ක්‍රීඩාමය ඉගෙනීම",
+        "සමාජීය බැඳීම"
+      ]
+    }
+  }
+  

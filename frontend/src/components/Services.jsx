@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BentoGrid, BentoGridItem } from "./ui/servise-Bentogrid";
+import { LanguageContext } from "../context/LanguageContext";
+import content from "../components/content/ServicesContent.json";
+
+const Skeleton = () => (
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#f9c226]"></div>
+);
 
 const Services = () => {
+  const { language } = useContext(LanguageContext);
+
+  // Dynamic service items based on selected language
+  const serviceItems = content[language].services.map((service) => ({
+    title: service,
+    header: <Skeleton />,
+  }));
+
   return (
     <section className="bg-white py-16">
       <div className="max-w-screen-xl mx-auto text-center px-6">
         {/* Section Title */}
-        <h2 className="text-[40px] sm:text-[96px] font-regular text-black mb-6">Our Services</h2>
+        <h2 className="text-[40px] sm:text-[96px] font-regular text-black mb-6">
+          {content[language].title}
+        </h2>
         <p className="text-black text-[20px] mb-12 max-w-2xl mx-auto leading-relaxed">
-          At NeverMinds, we offer a wide range of interactive quizzes designed
-          to entertain and educate. Whether you're looking to test your
-          knowledge, explore new topics, or challenge friends, our quizzes
-          cater to all interests and skill levels. Dive in and discover quizzes
-          that are fun, engaging, and packed with learning opportunities!
+          {content[language].description}
         </p>
 
         {/* BentoGrid Section */}
@@ -70,24 +82,5 @@ const Services = () => {
     </section>
   );
 };
-
-// Skeleton Component
-const Skeleton = () => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#f9c226]"></div>
-);
-
-// Service Items Data
-const serviceItems = [
-  { title: "Custom Quizzes", header: <Skeleton /> },
-  { title: "Data Analytics", header: <Skeleton /> },
-  { title: "Creative Design", header: <Skeleton /> },
-  { title: "Collaborative Tools", header: <Skeleton /> },
-  { title: "Knowledge Tracking", header: <Skeleton /> },
-  { title: "Interactive Experiences", header: <Skeleton /> },
-  { title: "Performance Insights", header: <Skeleton /> },
-  { title: "Educational Resources", header: <Skeleton /> },
-  { title: "Gamified Learning", header: <Skeleton /> },
-  { title: "Community Engagement", header: <Skeleton /> },
-];
 
 export default Services;
