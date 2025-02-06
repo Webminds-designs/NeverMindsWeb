@@ -14,6 +14,11 @@ import ProfileCard from "./ProfileCard";
 import DashBarChart from "./DashBarChart";
 import profileImage from "../assets/girl.jpg";
 import Tutors from "./Tutors";
+import {
+  IoIosArrowDropleftCircle,
+  IoIosArrowDroprightCircle,
+} from "react-icons/io";
+import { useRef } from "react";
 
 const ProfileDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -77,7 +82,39 @@ const ProfileDashboard = () => {
       tutorName: "Senanui Perera",
       tutorSubject: "Chemistry",
     },
+    {
+      image: science4img,
+      subject: "Chemistry",
+      title: "Atomic Adventures",
+      score: "30",
+      tutorIcon: tutorIcon,
+      tutorName: "Senanui Perera",
+      tutorSubject: "Chemistry",
+    },
+    {
+      image: science4img,
+      subject: "Chemistry",
+      title: "Atomic Adventures",
+      score: "30",
+      tutorIcon: tutorIcon,
+      tutorName: "Senanui Perera",
+      tutorSubject: "Chemistry",
+    },
   ];
+
+  const quizContainerRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (quizContainerRef.current) {
+      quizContainerRef.current.scrollLeft -= 300; // Adjust scroll amount
+    }
+  };
+
+  const scrollRight = () => {
+    if (quizContainerRef.current) {
+      quizContainerRef.current.scrollLeft += 300;
+    }
+  };
 
   // Define handleEdit function
   const handleEdit = () => {
@@ -113,35 +150,55 @@ const ProfileDashboard = () => {
             </div>
           </div>
 
-          {/* Favourite Quizzes Slider */}
-          <div>
-            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-12">
+          {/* Favourite Quizzes Header with Buttons */}
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold">
               Favourite Quizzes
             </h3>
-          </div>
-          <div className="overflow-x-auto scrollbar-hide">
-            <div className="flex gap-4 mb-12" style={{ width: "max-content" }}>
-              {quizCardData.map((quiz, index) => (
-                <div
-                  key={index}
-                  className="min-w-[25%] flex-shrink-0" // 25% width for 4 cards
-                  style={{ width: "calc(25% - 1rem)" }} // Adjust for gap
-                >
-                  <QuizCard
-                    key={index}
-                    index={index}
-                    image={quiz.image}
-                    subject={quiz.subject}
-                    title={quiz.title}
-                    score={quiz.score}
-                    tutorName={quiz.tutorName}
-                    tutorSubject={quiz.tutorSubject}
-                    tutorIcon={quiz.tutorIcon}
-                    showScore={true} // Show progress bar & score
-                  />
-                </div>
-              ))}
+
+            {/* Navigation Buttons */}
+            <div className="flex gap-3">
+              <button
+                onClick={scrollLeft}
+                className="text-yellow-400 hover:text-black"
+              >
+                <IoIosArrowDropleftCircle size={40} />
+              </button>
+              <button
+                onClick={scrollRight}
+                className="text-yellow-400 hover:text-black"
+              >
+                <IoIosArrowDroprightCircle size={40} />
+              </button>
             </div>
+          </div>
+
+          {/* Quiz Cards Container */}
+          <div
+            ref={quizContainerRef}
+            className="overflow-x-auto scrollbar-hide flex gap-4 mb-12"
+            style={{ scrollBehavior: "smooth" }}
+          >
+            {quizCardData.map((quiz, index) => (
+              <div
+                key={index}
+                className="min-w-[25%] flex-shrink-0"
+                style={{ width: "calc(25% - 1rem)" }}
+              >
+                <QuizCard
+                  key={index}
+                  index={index}
+                  image={quiz.image}
+                  subject={quiz.subject}
+                  title={quiz.title}
+                  score={quiz.score}
+                  tutorName={quiz.tutorName}
+                  tutorSubject={quiz.tutorSubject}
+                  tutorIcon={quiz.tutorIcon}
+                  showScore={true}
+                />
+              </div>
+            ))}
           </div>
 
           {/* Overall Progress */}

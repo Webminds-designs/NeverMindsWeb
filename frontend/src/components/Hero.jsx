@@ -40,13 +40,13 @@ const Hero = () => {
                   Challenge Your<br></br>Knowledge Beyond<br></br>Limits
                 </p>
               </h1>
-              <span className="text-[15px] md:text-[28px] lg:text-[28px] font-medium text-center lg:text-left mb-8">
+              <span className="text-[15px] md:text-[28px] lg:text-[28px] font-regular text-center lg:text-left mb-8">
                 <p>
                   Dive into a variety of quizzes tailored to your<br></br>
                   interests and skill levels. Ready to test your<br></br>limits?
                 </p>
               </span>
-              <button className="bg-[#fbc72e] text-black text-[15px] lg:text-[28px] font-medium md:px-6 md:py-3 px-3 py-2 rounded-full hover:bg-yellow-500 transition sm:mt-8 mt-4">
+              <button className="flex items-center bg-[#fbc72e] text-black text-[15px] lg:text-[28px] font-semibold md:px-6 md:py-3 px-3 py-2 rounded-full hover:bg-yellow-500 transition sm:mt-8 mt-4">
                 Get Started
               </button>
             </div>

@@ -6,6 +6,7 @@ import studentImage from "../assets/student-3.svg"; // Ensure this file exists
 
 const Progress = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedDuration, setSelectedDuration] = useState("week"); // State to track selected duration
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -56,12 +57,18 @@ const Progress = () => {
               type="radio"
               id="week"
               name="duration"
-              className="sr-only peer"
-              defaultChecked
+              value="week"
+              className="sr-only"
+              checked={selectedDuration === "week"}
+              onChange={() => setSelectedDuration("week")}
             />
             <label
               htmlFor="week"
-              className="flex items-center justify-center px-6 py-2 text-sm font-medium text-gray-600 bg-white rounded-full cursor-pointer transition-all peer-checked:text-white peer-checked:bg-black"
+              className={`flex items-center justify-center px-6 py-2 text-sm font-medium rounded-full cursor-pointer transition-all ${
+                selectedDuration === "week"
+                  ? "text-black bg-[#facc15]" // Black text and yellow background
+                  : "text-gray-600 bg-white" // Default style
+              }`}
             >
               Week
             </label>
@@ -71,11 +78,18 @@ const Progress = () => {
               type="radio"
               id="month"
               name="duration"
-              className="sr-only peer"
+              value="month"
+              className="sr-only"
+              checked={selectedDuration === "month"}
+              onChange={() => setSelectedDuration("month")}
             />
             <label
               htmlFor="month"
-              className="flex items-center justify-center px-6 py-2 text-sm font-medium text-gray-600 bg-white rounded-full cursor-pointer transition-all peer-checked:text-white peer-checked:bg-black"
+              className={`flex items-center justify-center px-6 py-2 text-sm font-medium rounded-full cursor-pointer transition-all ${
+                selectedDuration === "month"
+                  ? "text-black bg-[#facc15]" // Black text and yellow background
+                  : "text-gray-600 bg-white" // Default style
+              }`}
             >
               Month
             </label>
@@ -85,11 +99,18 @@ const Progress = () => {
               type="radio"
               id="year"
               name="duration"
-              className="sr-only peer"
+              value="year"
+              className="sr-only"
+              checked={selectedDuration === "year"}
+              onChange={() => setSelectedDuration("year")}
             />
             <label
               htmlFor="year"
-              className="flex items-center justify-center px-6 py-2 text-sm font-medium text-gray-600 bg-white rounded-full cursor-pointer transition-all peer-checked:text-white peer-checked:bg-black"
+              className={`flex items-center justify-center px-6 py-2 text-sm font-medium rounded-full cursor-pointer transition-all ${
+                selectedDuration === "year"
+                  ? "text-black bg-[#facc15]" // Black text and yellow background
+                  : "text-gray-600 bg-white" // Default style
+              }`}
             >
               Year
             </label>
@@ -153,8 +174,10 @@ const Progress = () => {
           </div>
 
           {/* Total Topics Mastered */}
-          <div className="flex flex-col items-center p-6 bg-white shadow rounded-lg">         
-            <p className="text-Black font-semibold text-[23px] flex justify-center">Total Topics Mastered</p>
+          <div className="flex flex-col items-center p-6 bg-white shadow rounded-lg">
+            <p className="text-Black font-semibold text-[23px] flex justify-center">
+              Total Topics Mastered
+            </p>
             {/* Number and Bars Side by Side */}
             <div className="flex items-center gap-3">
               {/* Number Centered Vertically */}

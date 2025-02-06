@@ -57,11 +57,11 @@ const Header = () => {
                 isMenuOpen ? "block" : "hidden"
               } lg:block`}
             >
-              <ul className="lg:flex hidden space-y-4 lg:space-y-0 lg:space-x-6 text-lg font-semibold text-gray-700">
+              <ul className="lg:flex hidden space-y-4 lg:space-y-0 lg:space-x-6 text-[22px] font-regular text-gray-700">
                 <li>
                   <Link
                     to="/hero"
-                    className="hover:text-[#FFD448] transition-colors"
+                    className="hover:text-[#FFD448] transition-colors "
                   >
                     Home
                   </Link>
@@ -69,7 +69,7 @@ const Header = () => {
                 <li>
                   <Link
                     to="/quizzes"
-                    className="hover:text-[#FFD448] transition-colors"
+                    className="hover:text-[#FFD448] transition-colors pl-20"
                   >
                     Quizzes
                   </Link>
@@ -77,7 +77,7 @@ const Header = () => {
                 <li>
                   <Link
                     to="/services"
-                    className="hover:text-[#FFD448] transition-colors"
+                    className="hover:text-[#FFD448] transition-colors pl-20"
                   >
                     Services
                   </Link>
@@ -85,7 +85,7 @@ const Header = () => {
                 <li>
                   <Link
                     to="/aboutus"
-                    className="hover:text-[#FFD448] transition-colors"
+                    className="hover:text-[#FFD448] transition-colors pl-20"
                   >
                     About Us
                   </Link>
@@ -139,35 +139,49 @@ const Header = () => {
               )}
             </div>
 
-           {/* Mobile Header: Hamburger & Profile Icon Aligned to Right */}
-<div className="lg:hidden flex items-center ml-auto space-x-4">
-  {/* Hamburger Menu */}
-  <button onClick={toggleMenu} className="text-gray-700 focus:outline-none">
-    <RxHamburgerMenu size={30} />
-  </button>
+            {/* Mobile Header: Hamburger & Profile Icon Aligned to Right */}
+            <div className="lg:hidden flex items-center ml-auto space-x-4">
+              {/* Hamburger Menu */}
+              <button
+                onClick={toggleMenu}
+                className="text-gray-700 focus:outline-none"
+              >
+                <RxHamburgerMenu size={30} />
+              </button>
 
-  {/* Profile Icon */}
-  {user ? (
-    <div className="relative w-10 h-10 rounded-full border-2 border-[#FFD448] cursor-pointer" onClick={handleProfileClick}>
-      <img src={profileImg} alt="User Profile" className="w-10 h-10 rounded-full" />
-      {isProfileOpen && (
-        <div className="absolute top-12 right-0 bg-white text-black py-4 px-5 rounded-lg shadow-lg z-50">
-          <Link to="/dashboard" className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors">
-            <FaTachometerAlt size={18} /> Dashboard
-          </Link>
-          <Link to="/logout" className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors mt-2">
-            <FaSignOutAlt size={18} /> Logout
-          </Link>
-        </div>
-      )}
-    </div>
-  ) : (
-    <button className="text-black font-bold py-2 px-4 rounded-2xl hover:bg-yellow-300 transition duration-200">
-      Login
-    </button>
-  )}
-
-              
+              {/* Profile Icon */}
+              {user ? (
+                <div
+                  className="relative w-10 h-10 rounded-full border-2 border-[#FFD448] cursor-pointer"
+                  onClick={handleProfileClick}
+                >
+                  <img
+                    src={profileImg}
+                    alt="User Profile"
+                    className="w-10 h-10 rounded-full"
+                  />
+                  {isProfileOpen && (
+                    <div className="absolute top-12 right-0 bg-white text-black py-4 px-5 rounded-lg shadow-lg z-50">
+                      <Link
+                        to="/dashboard"
+                        className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors"
+                      >
+                        <FaTachometerAlt size={18} /> Dashboard
+                      </Link>
+                      <Link
+                        to="/logout"
+                        className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors mt-2"
+                      >
+                        <FaSignOutAlt size={18} /> Logout
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button className="text-black font-bold py-2 px-4 rounded-2xl hover:bg-yellow-300 transition duration-200">
+                  Login
+                </button>
+              )}
             </div>
           </>
         )}

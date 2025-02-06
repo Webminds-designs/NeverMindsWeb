@@ -9,8 +9,8 @@ const QuizCard = ({
   tutorName,
   tutorSubject,
   tutorIcon,
-  onTry, // Accept the function as a prop
-  showScore, // NEW PROP to control visibility
+  onTry,
+  showScore,
 }) => {
   // Function to cycle background colors
   const getCardBackgroundColor = (index) => {
@@ -19,7 +19,7 @@ const QuizCard = ({
   };
 
   return (
-    <div className="max-w-[22rem] bg-white border border-gray-200 rounded-2xl">
+    <div className="max-w-[22rem] bg-white border border-gray-400 rounded-2xl">
       {/* Card Image */}
       <div
         className={`flex items-center justify-center h-64 rounded-t-lg m-2 rounded-2xl ${getCardBackgroundColor(
@@ -40,7 +40,7 @@ const QuizCard = ({
         </p>
 
         {/* Quiz Title */}
-        <h5 className="mb-2 text-[18px] font-bold tracking-tight text-black">
+        <h5 className="mb-2 text-[18px] font-bold tracking-tight text-black truncate">
           {title}
         </h5>
 
@@ -83,13 +83,15 @@ const QuizCard = ({
             )}
           </div>
           {/* Tutor Name and Subject */}
-          <div>
-            <p className="text-sm font-semibold text-gray-800">{tutorName}</p>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-gray-800 truncate">
+              {tutorName}
+            </p>
             <p className="text-xs text-gray-500">{tutorSubject}</p>
           </div>
           {/* Try Button */}
           <button
-            onClick={onTry} // Call the function when button is clicked
+            onClick={onTry}
             className="ml-auto px-3 py-1 text-sm font-medium text-black bg-[#fed448] rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300"
           >
             Try
