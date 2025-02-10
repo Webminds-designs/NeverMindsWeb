@@ -292,12 +292,11 @@ const Quizzes = () => {
                 image={quiz.image}
                 subject={quiz.subject}
                 title={quiz.title}
-                score={quiz.score}
                 tutorName={quiz.tutorName}
-                tutorSubject={quiz.tutorSubject}
-                tutorIcon={quiz.tutorIcon}
+                tutorSubject={quiz.subject}
+                tutorIcon={tutorIcon}
                 onTry={() => handleStartGuide(quiz)}
-                showScore={true}
+                showScore={false}
               />
             </div>
           ))}

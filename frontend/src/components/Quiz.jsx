@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaBars, FaRegClock, FaUserCircle } from "react-icons/fa";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { MdLanguage } from "react-icons/md";
-import nlogo from "../assets/nlogo.png";
 import Breadcrumb from "./BreadCrumb";
 
 const Quiz = () => {

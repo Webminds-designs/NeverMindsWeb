@@ -44,14 +44,14 @@ const Progress = () => {
   ];
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex md:flex-row md:justify-center">
       {/* Sidebar */}
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
       {/* Main Content */}
       <main className="flex-1 p-5">
         <div className="flex items-center justify-end space-x-4">
-          <div className="relative flex bg-gray-200 rounded-full p-1 shadow-lg w-fit">
+          <div className="relative flex bg-gray-200 rounded-full p-1 w-fit">
             {/* Week Option */}
             <input
               type="radio"
@@ -118,9 +118,9 @@ const Progress = () => {
         </div>
 
         {/* Summary Section */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
           {/* Total Quizzes Attempted */}
-          <div className="p-6 bg-white shadow rounded-lg">
+          <div className="p-6 bg-white rounded-lg">
             <div className="flex justify-between items-center">
               <p className="text-gray-700 font-medium">
                 Total Quizzes Attempted
@@ -144,7 +144,7 @@ const Progress = () => {
           </div>
 
           {/* Average Score */}
-          <div className="p-6 bg-white shadow rounded-lg">
+          <div className="p-6 bg-white  rounded-lg">
             <p className="text-Black font-semibold text-[23px] flex justify-center">
               Average Score
             </p>
@@ -158,7 +158,7 @@ const Progress = () => {
           </div>
 
           {/* Time Spent Studying */}
-          <div className="p-6 bg-white shadow rounded-lg">
+          <div className="p-6 bg-white rounded-lg">
             <p className="text-Black font-semibold text-[23px] flex justify-center">
               Time Spent Studying
             </p>
@@ -174,7 +174,7 @@ const Progress = () => {
           </div>
 
           {/* Total Topics Mastered */}
-          <div className="flex flex-col items-center p-6 bg-white shadow rounded-lg">
+          <div className="flex flex-col items-center p-6 bg-white  rounded-lg">
             <p className="text-Black font-semibold text-[23px] flex justify-center">
               Total Topics Mastered
             </p>
@@ -200,7 +200,7 @@ const Progress = () => {
         {/* Recommended Quizzes and Activity */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Recommended Quizzes */}
-          <div className="p-6 bg-white shadow rounded-lg flex flex-col items-center">
+          <div className="p-6 bg-white  rounded-lg flex flex-col items-center">
             <h3 className="text-xl font-bold mb-4">Recommended Quizzes</h3>
 
             {/* Quiz List */}
@@ -235,13 +235,13 @@ const Progress = () => {
           </div>
 
           {/* Activity by Time */}
-          <div className="p-6 bg-[#1a191c] text-white shadow rounded-3xl">
+          <div className="p-6 bg-[#1a191c] text-white  rounded-3xl">
             <h3 className="text-xl font-bold mb-4">Activity by time</h3>
             <CommitGraph />
           </div>
 
           {/* Recently Attempted */}
-          <div className="p-6 bg-white shadow rounded-lg relative">
+          <div className="p-6 bg-white  rounded-lg relative">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold">Recently Attempted</h3>
               <button className="p-2 bg-black rounded-full hover:bg-gray-200">
