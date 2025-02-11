@@ -20,6 +20,11 @@ import {
 } from "react-icons/io";
 import { useRef } from "react";
 
+const tutorsData = [
+  { name: "Dr. John Doe", subject: "Mathematics", profileIcon: tutorIcon },
+  { name: "Dr. Jane Smith", subject: "Physics", profileIcon: tutorIcon },
+  { name: "Dr. Alex Brown", subject: "Chemistry", profileIcon: tutorIcon }
+];
 const ProfileDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -260,7 +265,7 @@ const ProfileDashboard = () => {
               profileImage={profileImage}
               greeting={getGreeting()}
               onEdit={handleEdit}
-              progress={75}
+              progress={85}
             />
           </div>
 
@@ -275,8 +280,8 @@ const ProfileDashboard = () => {
           </div>
 
           {/* Tutors */}
-          <div>
-            <Tutors />
+          <div className="mt-8">
+            <Tutors tutors={tutorsData} />
           </div>
         </div>
       </main>

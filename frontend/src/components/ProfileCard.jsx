@@ -96,6 +96,9 @@ const ProfileCard = ({
 
         {/* Contact Info */}
         <div className="w-full text-left">
+        <p className="text-sm text-gray-600 mb-2">
+            <strong>Name:</strong> {name}
+          </p>
           <p className="text-sm text-gray-600 mb-2">
             <strong>Email:</strong> {email}
           </p>

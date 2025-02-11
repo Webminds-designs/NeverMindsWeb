@@ -1,20 +1,55 @@
 import React, { useState } from "react";
-import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdOutlineDelete } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
-import Sidebar from "./SideBar"; // Import Sidebar
-import userimg from "../assets/person.png"; // Profile Image
+import Sidebar from "./SideBar";
+import userimg from "../assets/person.png";
 
 const Account = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
+  // Form states
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  
+  // Error states
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  // Name validation handler
+  const handleNameChange = (setter) => (e) => {
+    const value = e.target.value.replace(/[^A-Za-z]/g, "");
+    const processedValue = value.charAt(0).toUpperCase() + value.slice(1);
+    setter(processedValue);
+  };
+
+  // Email validation handler
+  const validateEmail = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(value) && value) {
+      setEmailError("Please enter a valid email address");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  // Password validation handler
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setNewPassword(value);
+    if (value.length > 0 && value.length < 8) {
+      setPasswordError("Password must be at least 8 characters");
+    } else {
+      setPasswordError("");
+    }
+  };
 
   return (
     <div className="flex min-h-screen px-10">
@@ -27,7 +62,7 @@ const Account = () => {
         </p>
         <hr className="border-yellow-500 my-4" />
 
-        {/* Profile Picture */}
+        {/* Profile Picture Section */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <img
@@ -52,29 +87,33 @@ const Account = () => {
           </div>
         </div>
 
-        {/* Full Name */}
+        {/* Full Name Section */}
         <div className="mt-6">
           <h2 className="font-semibold">Full name</h2>
           <div className="flex gap-4 mt-2">
             <input
               type="text"
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={handleNameChange(setFirstName)}
               className="border border-gray-300 px-4 py-2 w-full rounded-md"
               placeholder="First name"
+              pattern="[A-Za-z]+"
+              title="Only letters allowed"
             />
             <input
               type="text"
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={handleNameChange(setLastName)}
               className="border border-gray-300 px-4 py-2 w-full rounded-md"
               placeholder="Last name"
+              pattern="[A-Za-z]+"
+              title="Only letters allowed"
             />
           </div>
         </div>
         <hr className="border-yellow-500 my-4" />
 
-        {/* Contact Email */}
+        {/* Contact Email Section */}
         <div className="mt-6 flex justify-between items-center">
           <div className="w-3/4">
             <h2 className="font-semibold">Contact email</h2>
@@ -82,17 +121,23 @@ const Account = () => {
               Manage your account's email address
             </p>
             <div className="relative mt-2">
-              <FaEnvelope className="absolute left-3 top-3 text-gray-500" />
+              <FaEnvelope className="absolute left-3 top-3 text-yellow-500" />
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="border border-gray-300 pl-10 pr-4 py-2 w-full rounded-md"
+                onChange={validateEmail}
+                onBlur={validateEmail}
+                className={`border ${
+                  emailError ? "border-red-500" : "border-gray-300"
+                } pl-10 pr-4 py-2 w-full rounded-md`}
                 placeholder="Email address"
               />
+              {emailError && (
+                <p className="text-red-500 text-sm mt-1">{emailError}</p>
+              )}
             </div>
           </div>
-          <button className="font-semibold bg-gray-100 px-4 py-2 rounded-md text-sm flex items-center gap-2">
+          <button className="font-semibold bg-gray-100 px-4 py-2 rounded-md text-sm flex items-center gap-2 h-fit">
             <AiOutlinePlus /> Add another email
           </button>
         </div>
@@ -119,7 +164,7 @@ const Account = () => {
 
           <div className="flex gap-4 mt-2">
             <div className="relative w-1/2">
-              <FaLock className="absolute left-3 top-3 text-gray-500" />
+              <FaLock className="absolute left-3 top-3 text-yellow-500" />
               <input
                 type="password"
                 value={currentPassword}
@@ -129,20 +174,25 @@ const Account = () => {
               />
             </div>
             <div className="relative w-1/2">
-              <FaLock className="absolute left-3 top-3 text-gray-500" />
+              <FaLock className="absolute left-3 top-3 text-yellow-500" />
               <input
                 type="password"
                 value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                className="border border-gray-300 pl-10 pr-4 py-2 w-full rounded-md"
+                onChange={handlePasswordChange}
+                className={`border ${
+                  passwordError ? "border-red-500" : "border-gray-300"
+                } pl-10 pr-4 py-2 w-full rounded-md`}
                 placeholder="New Password"
               />
+              {passwordError && (
+                <p className="text-red-500 text-sm mt-1">{passwordError}</p>
+              )}
             </div>
           </div>
         </div>
         <hr className="border-yellow-500 my-4" />
 
-        {/* Account Security */}
+        {/* Account Security Section */}
         <div className="mt-6">
           <h2 className="font-semibold">Account security</h2>
           <p className="text-sm font-semibold text-gray-500">

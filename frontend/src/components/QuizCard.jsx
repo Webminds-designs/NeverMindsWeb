@@ -19,10 +19,10 @@ const QuizCard = ({
   };
 
   return (
-    <div className="max-w-[22rem] bg-white border border-gray-400 rounded-2xl">
+    <div className="max-w-[22rem] bg-white border border-gray-400 rounded-3xl">
       {/* Card Image */}
       <div
-        className={`flex items-center justify-center h-64 rounded-t-lg m-2 rounded-2xl ${getCardBackgroundColor(
+        className={`flex items-center justify-center h-64 rounded-3xl m-2 ${getCardBackgroundColor(
           index
         )}`}
       >

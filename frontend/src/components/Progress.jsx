@@ -145,7 +145,7 @@ const Progress = () => {
 
           {/* Average Score */}
           <div className="p-6 bg-white  rounded-lg">
-            <p className="text-Black font-semibold text-[23px] flex justify-center">
+            <p className="text-Black font-semibold text-[23px] flex justify-center border-b-2 border-gray-950 pb-2 border-dashed">
               Average Score
             </p>
             <h2 className="text-4xl font-bold">85%</h2>
@@ -158,8 +158,8 @@ const Progress = () => {
           </div>
 
           {/* Time Spent Studying */}
-          <div className="p-6 bg-white rounded-lg">
-            <p className="text-Black font-semibold text-[23px] flex justify-center">
+          <div className="p-6 bg-white rounded-lg ">
+            <p className="text-Black font-semibold text-[23px] flex justify-center border-b-2 border-gray-950 pb-2 border-dashed">
               Time Spent Studying
             </p>
             <h2 className="text-4xl font-bold">36 h</h2>
@@ -175,7 +175,7 @@ const Progress = () => {
 
           {/* Total Topics Mastered */}
           <div className="flex flex-col items-center p-6 bg-white  rounded-lg">
-            <p className="text-Black font-semibold text-[23px] flex justify-center">
+            <p className="text-Black font-semibold text-[23px] flex justify-center border-b-2 border-gray-950 pb-2 border-dashed">
               Total Topics Mastered
             </p>
             {/* Number and Bars Side by Side */}
@@ -200,11 +200,11 @@ const Progress = () => {
         {/* Recommended Quizzes and Activity */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Recommended Quizzes */}
-          <div className="p-6 bg-white  rounded-lg flex flex-col items-center">
+          <div className="p-6 bg-white  rounded-3xl flex flex-col items-center border border-gray-950">
             <h3 className="text-xl font-bold mb-4">Recommended Quizzes</h3>
 
             {/* Quiz List */}
-            <div className="w-full flex flex-col space-y-4">
+            <div className="w-full flex flex-col space-y-4 border-t border-gray-950 pt-4 mt-4">
               {/* Quiz 1 */}
               <div className="flex items-center space-x-3">
                 <span className="w-4 h-4 bg-pink-400 rounded-full"></span>
@@ -241,7 +241,7 @@ const Progress = () => {
           </div>
 
           {/* Recently Attempted */}
-          <div className="p-6 bg-white  rounded-lg relative">
+          <div className="p-6 bg-white rounded-3xl relative border border-gray-950 border-rounded-3xl">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold">Recently Attempted</h3>
               <button className="p-2 bg-black rounded-full hover:bg-gray-200">
