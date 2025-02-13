@@ -248,7 +248,7 @@ const Quizzes = () => {
   return (
     <div className="w-full mx-auto overflow-hidden container">
       {/* Tabs */}
-      <div className="flex space-x-6 border-b pb-2 text-lg font-semibold">
+      <div className="flex space-x-6 border-b pb-2 text-lg font-semibold mt-20">
         {["Public", "Private"].map((tab) => (
           <span
             key={tab}

@@ -1,8 +1,16 @@
 import React from "react";
 import { BentoGrid, BentoGridItem } from "./ui/servise-Bentogrid";
-import dragon from "../assets/year-of-the-dragon.svg";
-import std3 from "../assets/student-3.svg";
-import star2 from "../assets/star-2.svg";
+
+import edu2 from "../assets/education-2.svg";
+import project from "../assets/project-status.svg";
+import std33 from "../assets/student-33.svg";
+import trophy from "../assets/trophy.svg";
+import book from "../assets/book.svg";
+import creativity from "../assets/creativity.svg";
+import target from "../assets/target.svg";
+import maths5 from "../assets/maths-5.svg";
+import graph from "../assets/graph.svg";
+import creativity2 from "../assets/creativity-2.svg";
 
 const Services = () => {
   return (
@@ -41,28 +49,28 @@ const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#000000]"></div>
 );
 
-// ✅ Service Items Data
+
 const serviceItems = [
-  // Box 1 - All Centered
+  // Box 1
   {
     title: (
-      <div className="flex flex-col items-start text-left text-white p-6 h-full">
-        {/* Image (Centered) */}
-        <img src={std3} alt="Learning Fun" className="w-28 h-28 mb-6" />
+      <div className="flex flex-col items-left text-left text-black p-6 h-full">
+        {/* Image*/}
+        <img src={edu2} alt="Learning Fun" className="w-40 h-40 mb-4" />
 
-        {/* Title (Multi-Line) */}
+        {/* Title */}
         <h3 className="text-[40px] sm:text-[50px] md:text-[45px] text-left font-semibold leading-tight mb-4">
           Turn <br /> learning <br /> into fun.
         </h3>
 
         {/* Description */}
         <p className="text-[18px] sm:text-[24px] text-left leading-tight font-normal mb-4">
-          Transform boring topics into engaging quizzes that make learning
-          enjoyable and effective.
+          Transform boring topics<br></br> into engaging quizzes that<br></br> make learning
+          enjoyable<br></br> and effective.
         </p>
 
         {/* Bottom Link */}
-        <span className="text-[16px] sm:text-[22px] font-light mt-auto underline text-white cursor-pointer">
+        <span className="text-[16px] sm:text-[22px] font-light mt-auto text-black cursor-pointer">
           More about learning
         </span>
       </div>
@@ -70,131 +78,250 @@ const serviceItems = [
     header: null,
   },
 
-  // Box 2 - Left-aligned Text
+  // Box 2
   {
     title: (
-      <div className="flex flex-col text-left text-white p-6 h-full">
+      <div className="relative flex flex-col text-left items-left text-black p-6 h-full">
+        {/* Image Positioned*/}
+        <img
+          src={project}
+          alt="24/7 Support"
+          className="w-20 sm:w-28 h-20 sm:h-24"
+        />
         {/* Title */}
-        <h3 className="text-[30px] sm:text-[30px] font-semibold leading-tight">
-          A Vast Quiz Bank <br /> Tailored to Your Syllabus
+        <h3 className="text-[30px] sm:text-[28px] font-semibold leading-tight">
+          Track Your <br /> Progress
         </h3>
 
         {/* Subtitle */}
-        <p className="text-[18px] sm:text-[20px] font-normal leading-tight mt-4">
-          Access quizzes designed specifically for your curriculum.
+        <p className="text-[18px] sm:text-[20px] font-normal leading-tight mt-2">
+          Monitor quiz scores and<br></br> performance trends over time.{" "}
         </p>
       </div>
     ),
     header: null,
   },
 
-  // Box 3 - Laptop in Top Right, Text Left
+  // Box 3
   {
     title: (
-      <div className="relative flex flex-col text-left text-white p-6 h-full">
+      <div className="relative flex flex-col text-center items-center text-black p-6 h-full">
         {/* Image Positioned Top-Right */}
         <img
-          src={star2}
+          src={std33}
           alt="24/7 Support"
-          className="absolute top-3 right-3 w-16 sm:w-20 h-16 sm:h-20"
+          className="items-center w-20 sm:w-24 h-20 sm:h-24"
         />
 
         {/* Title */}
-        <h3 className="text-[30px] sm:text-[30px] font-semibold">
-          24/7 Educational <br /> Support
+        <h3 className="text-[30px] sm:text-[28px] font-semibold">
+          For Students
+        </h3>
+
+        {/* Subtitle */}
+        <p className="text-[18px] sm:text-[20px] font-normal leading-tight mt-2">
+          Designed to make learning<br></br> interactive, engaging, and<br></br> effective.{" "}
+        </p>
+      </div>
+    ),
+    header: null,
+  },
+
+  // Box 4
+  {
+    title: (
+      <div className="relative flex flex-col items-end text-black p-6 h-full">
+        {/* "Try Quizzes" Top Left */}
+        <span className="absolute top-4 left-4 text-[14px] sm:text-[25px] font-light text-black cursor-pointer">
+          Try Quizzes
+        </span>
+
+        {/* Image Right */}
+        <img
+          src={book}
+          alt="Quiz Learning"
+          className="w-56 sm:w-56 h-auto mb-4 items-right"
+        />
+
+        {/* Title */}
+        <h3 className="text-[26px] sm:text-[32px] md:text-[65px] font-semibold text-right">
+          A Vast Quiz Bank
+        </h3>
+
+        {/* Subtitle */}
+        <p className="text-[16px] sm:text-[30px] text-right font-normal mt-2">
+          Access quizzes tailored to your syllabus for <br /> better learning.
+        </p>
+      </div>
+    ),
+    header: null,
+  },
+  // Box 5
+  {
+    title: (
+      <div className="relative flex flex-col text-right text-black h-full p-6">
+        {/* Text Section at the Top */}
+        <div className="mb-16">
+          {/* Title */}
+          <h3 className="text-[30px] sm:text-[25px] font-semibold">
+            Interactive <br /> Challenges and <br /> Rewards
+          </h3>
+          {/* Subtitle */}
+          <p className="text-[18px] sm:text-[20px] font-normal leading-tight mt-4">
+            Engage in fun challenges<br></br> and earn rewards to keep<br></br> learning exciting.
+          </p>
+        </div>
+        {/* Image Positioned at Top Right */}
+        <div className="absolute bottom-2 left-4 sm:bottom-20 sm:left-4">
+          <img
+            src={trophy}
+            alt="Rewards Icon"
+            className="w-16 sm:w-20 h-16 sm:h-20"
+          />
+        </div>
+      </div>
+    ),
+    header: null,
+  },
+  // Box 6
+  {
+    title: (
+      <div className="flex flex-col items-center text-left text-black p-6 h-full">
+        {/* Image (Centered) */}
+        <img src={creativity} alt="Learning Fun" className="w-40 h-40 mb-6" />
+
+        {/* Title (Multi-Line) */}
+        <h3 className="text-[40px] sm:text-[50px] md:text-[45px] text-center font-semibold leading-tight mb-4">
+          Exclusive <br /> Tutor <br /> Promotions.
+        </h3>
+
+        {/* Description */}
+        <p className="text-[18px] sm:text-[24px] text-center leading-tight font-normal mb-4">
+          Get featured as a top<br></br> educator and attract<br></br> more
+          students with<br></br> exclusive promotions.
+        </p>
+      </div>
+    ),
+    header: null,
+  },
+
+  // Box 7
+  {
+    title: (
+      <div className="relative flex flex-col text-left items-left text-black p-6 h-full">
+        {/* Title */}
+        <h3 className="text-[30px] sm:text-[28px] font-semibold leading-tight">
+          Instant, Detailed <br /> Quiz Reports
         </h3>
 
         {/* Subtitle */}
         <p className="text-[18px] sm:text-[20px] font-normal leading-tight mt-4">
-          Get help anytime to ensure uninterrupted learning.
+          Get real-time, detailed<br></br> performance insights.{" "}
         </p>
-      </div>
-    ),
-    header: null,
-  },
-
-  // Box 4 - Laptop Center Left, Title Right, Subtitle Center
-  {
-    title: (
-      <div className="flex flex-col md:flex-row items-center text-white p-6 h-full gap-4">
-        {/* Image on Left */}
-        <div className="flex flex-col items-center">
-          <img
-            src={dragon}
-            alt="Work in Progress"
-            className="w-80 h-80 md:w-96 md:h-96"
-          />
-        </div>
-
-        {/* Text on Right */}
-        <div className="text-right">
-          {/* Title */}
-          <h3 className="text-[40px] sm:text-[50px] md:text-[50px] font-semibold">
-            Self- <br /> Evaluation <br /> Dashboard
-          </h3>
-
-          {/* Subtitle */}
-          <p className="text-[18px] sm:text-[24px] font-normal text-right  my-4">
-            Track your progress and identify areas for improvement.
-          </p>
-
-          {/* Bottom Link */}
-          <span className="text-[16px] sm:text-[22px] text-left font-light mt-4 underline text-white cursor-pointer">
-            More about tracking
-          </span>
-        </div>
-      </div>
-    ),
-    header: null,
-  },
-
-  // Box 5 - All Right-Aligned
-  {
-    title: (
-      <div className="flex flex-col  text-right text-white h-full">
-        {/* Title */}
-        <h3 className="text-[30px] sm:text-[35px] font-semibold">
-          Interactive <br /> Challenges and <br /> Rewards
-        </h3>
-<div className="flex flex-col items-start"> 
-         {/* Subtitle */}
-         <p className="text-[18px] sm:text-[20px] font-normal leading-tight mt-4">
-          Engage in fun challenges and earn rewards to keep learning exciting.
-        </p>
-
-        {/* Image Positioned Bottom-Left 
+        {/* Image Positioned Top-Right */}
         <img
-          src={laptopIcon}
-          alt="Rewards Icon"
-          className="w-16 sm:w-10 h-16 sm:h-10 "
-        />*/}
-</div>
-       
+          src={graph}
+          alt="24/7 Support"
+          className="w-20 sm:w-24 h-20 sm:h-24"
+        />
       </div>
     ),
     header: null,
   },
 
-  // ✅ Placeholder Boxes (6-10) - Skeleton Placeholder
-  { title: <Skeleton />, header: null },
-  { title: <Skeleton />, header: null },
-  { title: <Skeleton />, header: null },
-  { title: <Skeleton />, header: null },
-  { title: <Skeleton />, header: null },
+  // Box 8
+  {
+    title: (
+      <div className="relative flex flex-col text-end items-end text-black p-6 h-full">
+        {/* Image Positioned Top-Right */}
+        <img
+          src={maths5}
+          alt="24/7 Support"
+          className="items-center w-20 sm:w-24 h-20 sm:h-24"
+        />
+
+        {/* Title */}
+        <h3 className="text-[30px] sm:text-[25px] font-semibold">
+          For Teachers{" "}
+        </h3>
+
+        {/* Subtitle */}
+        <p className="text-[18px] sm:text-[20px] font-normal leading-tight mt-4">
+          Enhancing teaching with<br></br> smart, interactive tools.{" "}
+        </p>
+      </div>
+    ),
+    header: null,
+  },
+
+  // Box 9
+  {
+    title: (
+      <div className="relative flex flex-col items-start text-black p-6 h-full">
+        {/* "Try Quizzes" Top Left */}
+        <span className="absolute top-4 right-4 text-[14px] sm:text-[25px] font-light text-black cursor-pointer">
+          Try Quizzes
+        </span>
+
+        {/* Image Right */}
+        <img
+          src={target}
+          alt="Quiz Learning"
+          className="w-40 sm:w-52 sm:h-52 m-4 items-right
+      "
+        />
+
+        {/* Title */}
+        <h3 className="text-[26px] sm:text-[32px] md:text-[65px] font-semibold text-left">
+          Effortless Quiz<br></br> Hosting{" "}
+        </h3>
+
+        {/* Subtitle */}
+        <p className="text-[16px] sm:text-[30px] text-left font-normal mt-2">
+          Create and host quizzes in a<br></br> few clicks.{" "}
+        </p>
+      </div>
+    ),
+    header: null,
+  },
+  // Box 10
+  {
+    title: (
+      <div className="relative flex flex-col text-center items-center text-black p-6 h-full">
+        {/* Image Positioned Top-Right */}
+        <img
+          src={creativity2}
+          alt="24/7 Support"
+          className="items-center w-20 sm:w-24 h-20 sm:h-24"
+        />
+
+        {/* Title */}
+        <h3 className="text-[30px] sm:text-[28px] font-semibold">
+        Comprehensive<br></br>Technical Support
+        </h3>
+
+        {/* Subtitle */}
+        <p className="text-[18px] sm:text-[20px] font-normal leading-tight">
+        24/7 assistance for a<br></br> smooth experience.
+        </p>
+      </div>
+    ),
+    header: null,
+  },
 ];
 
-// ✅ Optimized Grid Layout Classes
 const gridClasses = [
-  "md:row-span-2 md:col-span-3 rounded-3xl", // Box 1
-  "md:row-span-1 md:col-span-3 rounded-3xl", // Box 2
-  "md:row-span-1 md:col-span-3 rounded-3xl", // Box 3
-  "md:row-span-2 md:col-span-6 rounded-3xl", // Box 4
-  "md:row-span-1 md:col-span-3 rounded-3xl", // Box 5
-  "md:row-span-2 md:col-span-6 rounded-3xl", // Box 6
-  "md:row-span-1 md:col-span-3 rounded-3xl", // Box 7
-  "md:row-span-2 md:col-span-3 rounded-3xl", // Box 8
-  "md:row-span-1 md:col-span-3 rounded-3xl", // Box 9
-  "md:row-span-1 md:col-span-3 rounded-3xl", // Box 10
+  "md:row-span-2 md:col-span-3 rounded-3xl",
+  "md:row-span-1 md:col-span-3 rounded-3xl",
+  "md:row-span-1 md:col-span-3 rounded-3xl",
+  "md:row-span-2 md:col-span-6 rounded-3xl",
+  "md:row-span-1 md:col-span-3 rounded-3xl",
+
+  "md:row-span-2 md:col-span-3 rounded-3xl",
+  "md:row-span-1 md:col-span-3 rounded-3xl",
+  "md:row-span-1 md:col-span-3 rounded-3xl",
+  "md:row-span-2 md:col-span-6 rounded-3xl",
+  "md:row-span-1 md:col-span-3 rounded-3xl",
 ];
 
 export default Services;

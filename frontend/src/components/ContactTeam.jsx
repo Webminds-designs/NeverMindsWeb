@@ -1,5 +1,11 @@
 import React from 'react';
 import teampic from '../assets/knight.png';
+import i2 from '../assets/i2.png';
+import i3 from '../assets/i3.png';
+import i4 from '../assets/i4.png';
+import i5 from '../assets/i5.png';
+
+const teamImages = [i2, i3, i4, i5];
 
 const ContactTeam = () => {
   return (
@@ -18,14 +24,23 @@ const ContactTeam = () => {
         <h1 className="text-[36px] md:text-[55px] lg:text-[80px] font-regular text-center mb-4">
           Contact Our Friendly Team
         </h1>
+
+        {/* Grid for Team Members */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          {[...Array(4)].map((_, i) => (
+          {teamImages.map((image, i) => (
             <div
               key={i}
-              className="h-40 md:h-80 bg-[#f9c226] rounded-3xl hover:shadow-lg hover:bg-[#f9a826] transition-all duration-300"
-            ></div>
+              className="h-40 md:h-80 w-full rounded-3xl overflow-hidden hover:shadow-lg hover:scale-105 transition-all duration-300"
+            >
+              <img 
+                src={image} 
+                alt={`Team Member ${i + 1}`} 
+                className="h-full w-full object-cover"
+              />
+            </div>
           ))}
         </div>
+
         <p className="text-gray-700 text-[18px] md:text-[24px] lg:text-[30px] text-center hover:text-gray-900 transition-colors duration-300">
           We're here to help! Whether you have questions, need assistance, or want
           to share feedback, our team is always ready to provide the support you

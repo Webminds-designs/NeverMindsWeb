@@ -12,6 +12,7 @@ import QuizGuideLines from "./components/QuizGuideLines";
 import Quiz from "./components/Quiz";
 import QuizResult from "./components/QuizResult";
 import Account from "./components/Account";
+import Services from "./components/Services";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         </Route>
 
         <Route path="/quiz" element={<Quiz />} />
+        <Route path="/services" element={<Services/>} />
         
         
         

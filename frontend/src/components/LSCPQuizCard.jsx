@@ -34,11 +34,11 @@ const LSCPQuizCard = ({
 
   return (
     <div
-      className={`w-full bg-white border border-gray-400 rounded-xl shadow-sm overflow-hidden flex flex-col sm:flex-row p-4 items-center sm:items-start gap-4 `}
+      className={`w-full bg-white border border-gray-400 rounded-3xl shadow-sm overflow-hidden flex flex-col sm:flex-row p-4 items-center sm:items-start gap-4 `}
     >
       {/* Image Section */}
       <div
-        className="w-full sm:w-1/3 h-32 sm:h-40 bg-yellow-100 flex items-center justify-center rounded-lg overflow-hidden"
+        className="w-full sm:w-1/3 h-32 sm:h-40 bg-yellow-100 flex items-center justify-center rounded-3xl overflow-hidden"
         style={{ aspectRatio: "16/9" }}
       >
         <img
@@ -101,7 +101,7 @@ const LSCPQuizCard = ({
           {/* Try Button */}
           <button
             onClick={handleTryClick}
-            className="ml-auto px-3 py-1 text-sm font-medium text-black bg-yellow-400 rounded-lg hover:bg-yellow-500 transition"
+            className="ml-auto px-3 py-1 text-sm font-medium text-black bg-yellow-400 rounded-3xl hover:bg-yellow-500 transition"
           >
             Try
           </button>

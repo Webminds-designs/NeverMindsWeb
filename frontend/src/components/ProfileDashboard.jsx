@@ -179,16 +179,10 @@ const ProfileDashboard = () => {
           </div>
 
           {/* Quiz Cards Container */}
-          <div
-            ref={quizContainerRef}
-            className="overflow-x-auto scrollbar-hide flex gap-4 mb-12"
-            style={{ scrollBehavior: "smooth" }}
-          >
+          <div ref={quizContainerRef} className="overflow-x-auto scrollbar-hide flex gap-4 mb-12 px-2 md:px-0" style={{ scrollBehavior: "smooth" }}>
             {quizCardData.map((quiz, index) => (
-              <div
-                key={index}
-                className="min-w-[25%] flex-shrink-0"
-                style={{ width: "calc(25% - 1rem)" }}
+              <div key={index} className="min-w-[60%] md:min-w-[30%] lg:min-w-[25%] flex-shrink-0"
+               
               >
                 <QuizCard
                   key={index}
