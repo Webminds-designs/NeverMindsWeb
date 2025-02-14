@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useContext } from "react";
 import Sidebar from "./SideBar";
 import { IonIcon } from "@ionic/react";
 import { arrowForward } from "ionicons/icons";
@@ -14,9 +14,12 @@ import ProfileCard from "./ProfileCard";
 import DashBarChart from "./DashBarChart";
 import profileImage from "../assets/girl.jpg";
 import Tutors from "./Tutors";
+import { LanguageContext } from "../context/LanguageContext";
+import content from '../components/content/ProfileDashboardContent.json'
 
 const ProfileDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { language, toggleLanguage } = useContext(LanguageContext); 
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -96,15 +99,15 @@ const ProfileDashboard = () => {
           <div className="flex bg-[#fed448] p-6 rounded-3xl mb-16">
             <div className="flex-1">
               <h2 className="xl:text-xl md:text-sm text-xs font-bold mb-2">
-                ONLINE QUIZZES
+              {content[language].title}
               </h2>
               <p className="xl:text-[50px] lg:text-[30px] md:text-[40px] text-[30px] font-semibold mb-4">
-                Master your skills with
+              {content[language].description}
                 <br />
-                Quizzes that pack a punch!
+                {content[language].description2}
               </p>
               <button className="flex items-center text-lg font-medium text-white hover:text-yellow bg-black py-2 px-4 rounded-full">
-                Try now
+              {content[language].button}
                 <IonIcon icon={arrowForward} className="ml-2" />
               </button>
             </div>
@@ -116,7 +119,7 @@ const ProfileDashboard = () => {
           {/* Favourite Quizzes Slider */}
           <div>
             <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-12">
-              Favourite Quizzes
+            {content[language].favourite_quizzes}
             </h3>
           </div>
           <div className="overflow-x-auto scrollbar-hide">
@@ -147,13 +150,13 @@ const ProfileDashboard = () => {
           {/* Overall Progress */}
           <div>
             <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-12">
-              Your Overall Progress
+            {content[language].your_overall_progress}
             </h3>
           </div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-10 ">
             <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
               <h4 className="font-bold text-left md:text-[22px] text-[20px]">
-                Attempted Quizzes
+              {content[language].attempted_quizzes}
               </h4>
               <p className="text-right font-semibold md:text-[40px] text-[30px]">
                 20
@@ -161,7 +164,7 @@ const ProfileDashboard = () => {
             </div>
             <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
               <h4 className="font-bold text-left md:text-[22px] text-[20px]">
-                Completed Quizzes
+              {content[language].completed_quizzes} 
               </h4>
               <p className="text-right font-semibold md:text-[40px] text-[30px]">
                 20
@@ -169,7 +172,7 @@ const ProfileDashboard = () => {
             </div>
             <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
               <h4 className="font-bold text-left md:text-[22px] text-[20px]">
-                Number of Favourites
+              {content[language].number_of_favourites}  
               </h4>
               <p className="text-right font-semibold md:text-[40px] text-[30px]">
                 5
@@ -177,7 +180,7 @@ const ProfileDashboard = () => {
             </div>
             <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
               <h4 className="font-bold text-left md:text-[22px] text-[20px]">
-                Score Points
+              {content[language].score_points}
               </h4>
               <p className="text-right font-semibold md:text-[40px] text-[30px]">
                 200
@@ -191,7 +194,7 @@ const ProfileDashboard = () => {
           {/* Profile Card */}
           <div className="">
             <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-4">
-              Profiles
+            {content[language].profiles}
             </h3>
           </div>
           <div className="flex flex-col items-center justify-center">
@@ -210,7 +213,7 @@ const ProfileDashboard = () => {
           {/* Static Table */}
           <div className="mt-8">
             <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-4">
-              Statistic
+            {content[language].statistic}
             </h3>
           </div>
           <div className="mt-8">

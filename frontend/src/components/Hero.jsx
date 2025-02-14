@@ -17,7 +17,7 @@ const Hero = () => {
            {content[language].title1}<br></br>   {content[language].title2}<br></br>   {content[language].title3}
           </p>
         </h1>
-        <span className="text-[15px] md:text-[20px] lg:text-[24px] font-medium text-center lg:text-left mb-6">
+        <span className=" text-[15px] md:text-[20px] lg:text-[24px] font-medium text-center lg:text-left mb-6">
           <p>
           {content[language].description1}<br></br>
           {content[language].description2}<br></br> {content[language].description3}

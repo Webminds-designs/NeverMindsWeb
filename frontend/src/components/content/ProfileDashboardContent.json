@@ -1,0 +1,31 @@
+{
+    "en": {
+      "title": "ONLINE QUIZZES",
+      "description": "Master your skills with Quizzes that pack a punch!",
+      "description2": " Quizzes that pack a punch!",
+      "button": "Try now",
+      "favourite_quizzes": "Favourite Quizzes",
+      "your_overall_progress": "Your Overall Progress",
+      "attempted_quizzes": "Attempted Quizzes",
+      "completed_quizzes": "Completed Quizzes",
+      "number_of_favourites": "Number of Favourites",
+      "score_points": "Score Points",
+      "profiles": "Profiles",
+      "statistic": "Statistic"
+    },
+    "si": {
+      "title": "මාර්ගගත ප්‍රශ්නෝත්තර",
+      "description": "ඔබේ කුසලතා වර්ධනය කරනු ",
+      "description2": " මෙන් බලවත් ප්‍රශ්නෝත්තර සමඟ!",
+      "button": "අරඹන්න",
+      "favourite_quizzes": "ප්‍රියතම ප්‍රශ්නෝත්තර",
+      "your_overall_progress": "ඔබේ සමස්ත ප්‍රගතිය",
+      "attempted_quizzes": "උත්සාහ කළ ප්‍රශ්නෝත්තර",
+      "completed_quizzes": "සම්පූර්ණ කළ ප්‍රශ්නෝත්තර",
+      "number_of_favourites": "ප්‍රියතම ගණන",
+      "score_points": "ලකුණු",
+      "profiles": "පැතිකඩ",
+      "statistic": "සංඛ්‍යාන විශ්ලේෂණය"
+    }
+  }
+  

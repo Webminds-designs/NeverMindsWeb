@@ -1,0 +1,23 @@
+{
+    "en": {
+      "overview": "Overview",
+      "dashboard": "Dashboard",
+      "favourites": "Favourites",
+      "badges": "Badges",
+      "progress": "Progress",
+      "account": "Account",
+      "settings": "Settings",
+      "logout": "Logout"
+    },
+    "si": {
+      "overview": "දළ විශ්ලේෂණය",
+      "dashboard": "ප්‍රධාන පුවරුව",
+      "favourites": "ප්‍රියතම",
+      "badges": "බැජ්",
+      "progress": "ප්‍රගතිය",
+      "account": "ගිණුම",
+      "settings": "සැකසුම්",
+      "logout": "පිටවීම"
+    }
+  }
+  

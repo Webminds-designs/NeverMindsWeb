@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import Sidebar from "./SideBar"; // Ensure this file exists
 import CommitGraph from "./CommitGraph"; // Ensure this file exists
 import { Search } from "lucide-react"; // Ensure lucide-react is installed
 import studentImage from "../assets/student-3.svg"; // Ensure this file exists
+import { LanguageContext } from "../context/LanguageContext";
+import content from '../components/content/ProgressContent.json'
 
 const Progress = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+const { language, toggleLanguage } = useContext(LanguageContext); 
 
   const recentlyAttemptedQuizzes = [
     {
@@ -63,7 +66,7 @@ const Progress = () => {
               htmlFor="week"
               className="flex items-center justify-center px-6 py-2 text-sm font-medium text-gray-600 bg-white rounded-full cursor-pointer transition-all peer-checked:text-white peer-checked:bg-black"
             >
-              Week
+                {content[language].week}
             </label>
 
             {/* Month Option */}
@@ -77,7 +80,7 @@ const Progress = () => {
               htmlFor="month"
               className="flex items-center justify-center px-6 py-2 text-sm font-medium text-gray-600 bg-white rounded-full cursor-pointer transition-all peer-checked:text-white peer-checked:bg-black"
             >
-              Month
+                {content[language].month}
             </label>
 
             {/* Year Option */}
@@ -91,7 +94,7 @@ const Progress = () => {
               htmlFor="year"
               className="flex items-center justify-center px-6 py-2 text-sm font-medium text-gray-600 bg-white rounded-full cursor-pointer transition-all peer-checked:text-white peer-checked:bg-black"
             >
-              Year
+                {content[language].year}
             </label>
           </div>
         </div>
@@ -102,22 +105,22 @@ const Progress = () => {
           <div className="p-6 bg-white shadow rounded-lg">
             <div className="flex justify-between items-center">
               <p className="text-gray-700 font-medium">
-                Total Quizzes Attempted
+              {content[language].total_quizzes_attempted}
               </p>
             </div>
             <div className="flex items-center justify-between mt-2">
-              <h2 className="text-4xl font-bold">125 quizzes</h2>
+              <h2 className="text-4xl font-bold">125   {content[language].quizzes}</h2>
               <p className="text-blue-700 font-medium text-[23px] mr-7">
                 +12.67%
               </p>
             </div>
             <p className="mt-4 text-gray-700">
-              Available to attempt:{" "}
-              <span className="text-black font-medium">200 Quizzes</span>
+            {content[language].available_to_attempt}
+              <span className="text-black font-medium">200 {content[language].quizzes}</span>
             </p>
             <div className="mt-4 flex justify-center">
               <button className="mt-4 px-4 py-2 bg-black text-white rounded-3xl hover:bg-gray-700">
-                Start a new Quiz
+              {content[language].start_new_quiz}
               </button>
             </div>
           </div>
@@ -125,7 +128,7 @@ const Progress = () => {
           {/* Average Score */}
           <div className="p-6 bg-white shadow rounded-lg">
             <p className="text-Black font-semibold text-[23px] flex justify-center">
-              Average Score
+            {content[language].average_score}
             </p>
             <h2 className="text-4xl font-bold">85%</h2>
             <div className="mt-2 bg-gray-300 rounded-lg h-10">
@@ -139,7 +142,7 @@ const Progress = () => {
           {/* Time Spent Studying */}
           <div className="p-6 bg-white shadow rounded-lg">
             <p className="text-Black font-semibold text-[23px] flex justify-center">
-              Time Spent Studying
+            {content[language].time_spent_studying}
             </p>
             <h2 className="text-4xl font-bold">36 h</h2>
             <div className="mt-4 flex gap-1">
@@ -154,7 +157,7 @@ const Progress = () => {
 
           {/* Total Topics Mastered */}
           <div className="flex flex-col items-center p-6 bg-white shadow rounded-lg">         
-            <p className="text-Black font-semibold text-[23px] flex justify-center">Total Topics Mastered</p>
+            <p className="text-Black font-semibold text-[23px] flex justify-center">  {content[language].total_topics_mastered}</p>
             {/* Number and Bars Side by Side */}
             <div className="flex items-center gap-3">
               {/* Number Centered Vertically */}
@@ -178,7 +181,7 @@ const Progress = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Recommended Quizzes */}
           <div className="p-6 bg-white shadow rounded-lg flex flex-col items-center">
-            <h3 className="text-xl font-bold mb-4">Recommended Quizzes</h3>
+            <h3 className="text-xl font-bold mb-4">  {content[language].recommended_quizzes}</h3>
 
             {/* Quiz List */}
             <div className="w-full flex flex-col space-y-4">
@@ -186,19 +189,19 @@ const Progress = () => {
               <div className="flex items-center space-x-3">
                 <span className="w-4 h-4 bg-pink-400 rounded-full"></span>
                 <p className="font-medium flex-1">
-                  Strengthen your skills in Algebra II
+                {content[language].strengthen_algebra_skills}
                 </p>
                 <button className="text-sm px-3 py-1 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500">
-                  Try
+                {content[language].try}
                 </button>
               </div>
 
               {/* Quiz 2 */}
               <div className="flex items-center space-x-3">
                 <span className="w-4 h-4 bg-green-400 rounded-full"></span>
-                <p className="font-medium flex-1">Advanced Biology Concepts</p>
+                <p className="font-medium flex-1">  {content[language].advanced_biology_concepts}</p>
                 <button className="text-sm px-3 py-1 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500">
-                  Try
+                {content[language].try}
                 </button>
               </div>
             </div>
@@ -213,14 +216,14 @@ const Progress = () => {
 
           {/* Activity by Time */}
           <div className="p-6 bg-[#1a191c] text-white shadow rounded-3xl">
-            <h3 className="text-xl font-bold mb-4">Activity by time</h3>
+            <h3 className="text-xl font-bold mb-4">  {content[language].activity_by_time}</h3>
             <CommitGraph />
           </div>
 
           {/* Recently Attempted */}
           <div className="p-6 bg-white shadow rounded-lg relative">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold">Recently Attempted</h3>
+              <h3 className="text-xl font-bold">  {content[language].recently_attempted}</h3>
               <button className="p-2 bg-black rounded-full hover:bg-gray-200">
                 <Search className="w-5 h-5 text-white" />
               </button>
