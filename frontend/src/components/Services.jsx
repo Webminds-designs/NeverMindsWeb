@@ -183,6 +183,8 @@ const serviceItems = [
     ),
     header: null,
   },
+
+    
   // Box 6
   {
     title: (
@@ -260,8 +262,7 @@ const serviceItems = [
       <div className="relative flex flex-col items-start text-black p-6 h-full">
         {/* "Try Quizzes" Top Left */}
         <span className="absolute top-4 right-4 text-[14px] sm:text-[25px] font-light text-black cursor-pointer">
-          Try Quizzes
-        </span>
+        Make your own Quizzes        </span>
 
         {/* Image Right */}
         <img

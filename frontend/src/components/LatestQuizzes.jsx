@@ -21,7 +21,7 @@ const LatestQuizzes = () => {
             // Assign row and column spans based on design
             switch (i) {
               case 0:
-                gridClass = "md:row-span-2 md:col-span-3 rounded-3xl";
+                gridClass = "md:row-span-1 md:col-span-3 rounded-3xl";
                 break;
               case 1:
                 gridClass = "md:row-span-2 md:col-span-6 rounded-3xl";

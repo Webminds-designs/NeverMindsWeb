@@ -12,6 +12,8 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [visible, setVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
@@ -33,8 +35,29 @@ const Header = () => {
     return location.pathname === "/quiz";
   };
 
+  // Scroll event listener
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY && window.scrollY > 50) {
+        setVisible(false); // Hide header when scrolling down
+      } else {
+        setVisible(true); // Show header when scrolling up
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+
   return (
-    <header className="fixed z-50 w-full p-5 font-Parkinsans bg-white/10 backdrop-blur">
+    <header
+      className={`fixed top-0 left-0 w-full p-5 font-Parkinsans bg-transparent backdrop-blur-md transition-transform duration-300 z-50 ${
+        visible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center">
           <img src={nlogo} alt="NeverMinds Logo" className="h-15 w-12" />
@@ -47,7 +70,7 @@ const Header = () => {
             <nav className={`flex-1 ml-20 ${isMenuOpen ? "block" : "hidden"} lg:block`}>
               <ul className="lg:flex hidden space-y-4 lg:space-y-0 lg:space-x-6 text-[22px] font-regular text-black">
                 <li>
-                  <a href to="#home" className="hover:text-[#FFD448] transition-colors">
+                  <a href="#home" className="hover:text-[#FFD448] transition-colors">
                     Home
                   </a>
                 </li>
