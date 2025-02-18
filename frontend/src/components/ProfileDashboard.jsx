@@ -1,4 +1,5 @@
 import React, { useState , useContext } from "react";
+import { useRef } from "react";
 import Sidebar from "./SideBar";
 import { IonIcon } from "@ionic/react";
 import { arrowForward } from "ionicons/icons";
@@ -14,9 +15,18 @@ import ProfileCard from "./ProfileCard";
 import DashBarChart from "./DashBarChart";
 import profileImage from "../assets/girl.jpg";
 import Tutors from "./Tutors";
+import {
+  IoIosArrowDropleftCircle,
+  IoIosArrowDroprightCircle,
+} from "react-icons/io";
 import { LanguageContext } from "../context/LanguageContext";
 import content from '../components/content/ProfileDashboardContent.json'
 
+const tutorsData = [
+  { name: "Dr. John Doe", subject: "Mathematics", profileIcon: tutorIcon },
+  { name: "Dr. Jane Smith", subject: "Physics", profileIcon: tutorIcon },
+  { name: "Dr. Alex Brown", subject: "Chemistry", profileIcon: tutorIcon }
+];
 const ProfileDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { language, toggleLanguage } = useContext(LanguageContext); 
@@ -80,7 +90,39 @@ const ProfileDashboard = () => {
       tutorName: "Senanui Perera",
       tutorSubject: "Chemistry",
     },
+    {
+      image: science4img,
+      subject: "Chemistry",
+      title: "Atomic Adventures",
+      score: "30",
+      tutorIcon: tutorIcon,
+      tutorName: "Senanui Perera",
+      tutorSubject: "Chemistry",
+    },
+    {
+      image: science4img,
+      subject: "Chemistry",
+      title: "Atomic Adventures",
+      score: "30",
+      tutorIcon: tutorIcon,
+      tutorName: "Senanui Perera",
+      tutorSubject: "Chemistry",
+    },
   ];
+
+  const quizContainerRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (quizContainerRef.current) {
+      quizContainerRef.current.scrollLeft -= 300; // Adjust scroll amount
+    }
+  };
+
+  const scrollRight = () => {
+    if (quizContainerRef.current) {
+      quizContainerRef.current.scrollLeft += 300;
+    }
+  };
 
   // Define handleEdit function
   const handleEdit = () => {
@@ -121,30 +163,44 @@ const ProfileDashboard = () => {
             <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-12">
             {content[language].favourite_quizzes}
             </h3>
-          </div>
-          <div className="overflow-x-auto scrollbar-hide">
-            <div className="flex gap-4 mb-12" style={{ width: "max-content" }}>
-              {quizCardData.map((quiz, index) => (
-                <div
-                  key={index}
-                  className="min-w-[25%] flex-shrink-0" // 25% width for 4 cards
-                  style={{ width: "calc(25% - 1rem)" }} // Adjust for gap
-                >
-                  <QuizCard
-                    key={index}
-                    index={index}
-                    image={quiz.image}
-                    subject={quiz.subject}
-                    title={quiz.title}
-                    score={quiz.score}
-                    tutorName={quiz.tutorName}
-                    tutorSubject={quiz.tutorSubject}
-                    tutorIcon={quiz.tutorIcon}
-                    showScore={true} // Show progress bar & score
-                  />
-                </div>
-              ))}
+
+            {/* Navigation Buttons */}
+            <div className="flex gap-3">
+              <button
+                onClick={scrollLeft}
+                className="text-yellow-400 hover:text-black"
+              >
+                <IoIosArrowDropleftCircle size={40} />
+              </button>
+              <button
+                onClick={scrollRight}
+                className="text-yellow-400 hover:text-black"
+              >
+                <IoIosArrowDroprightCircle size={40} />
+              </button>
             </div>
+          </div>
+
+          {/* Quiz Cards Container */}
+          <div ref={quizContainerRef} className="overflow-x-auto scrollbar-hide flex gap-4 mb-12 px-2 md:px-0" style={{ scrollBehavior: "smooth" }}>
+            {quizCardData.map((quiz, index) => (
+              <div key={index} className="min-w-[60%] md:min-w-[30%] lg:min-w-[25%] flex-shrink-0"
+               
+              >
+                <QuizCard
+                  key={index}
+                  index={index}
+                  image={quiz.image}
+                  subject={quiz.subject}
+                  title={quiz.title}
+                  score={quiz.score}
+                  tutorName={quiz.tutorName}
+                  tutorSubject={quiz.tutorSubject}
+                  tutorIcon={quiz.tutorIcon}
+                  showScore={true}
+                />
+              </div>
+            ))}
           </div>
 
           {/* Overall Progress */}
@@ -206,7 +262,7 @@ const ProfileDashboard = () => {
               profileImage={profileImage}
               greeting={getGreeting()}
               onEdit={handleEdit}
-              progress={75}
+              progress={85}
             />
           </div>
 
@@ -221,8 +277,8 @@ const ProfileDashboard = () => {
           </div>
 
           {/* Tutors */}
-          <div>
-            <Tutors />
+          <div className="mt-8">
+            <Tutors tutors={tutorsData} />
           </div>
         </div>
       </main>

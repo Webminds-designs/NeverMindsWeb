@@ -10,27 +10,26 @@ const Badges = () => {
  const { language, toggleLanguage } = useContext(LanguageContext); 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  const profileImage = "https://via.placeholder.com/150"; // Replace with dynamic profile image if needed
-  const name = "Dulsi Rathnayake"; // Replace with dynamic name if needed
-
   return (
-    <div className="relative flex h-screen items-center justify-center mx-5 w-full">
+    <div className="relative flex flex-col lg:flex-row h-screen w-full items-center justify-center px-4 md:px-10 lg:px-20">
       {/* Sidebar */}
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
       {/* Main Content */}
-      <main className="flex-1 p-4 md:p-6 max-w-4xl mx-auto">
-        <header className="text-center mb-12">
+      <main className="flex-1 p-4 md:p-6 max-w-4xl text-center">
+        <header className="mb-12">
           {/* Heading */}
           <h1 className="text-[40px] md:text-[80px] lg:text-[100px] font-medium mb-4">
           {content[language].coming_soon}
           </h1>
+
           {/* Subheading */}
           <p className="text-[20px] md:text-[30px] text-gray-600 mb-4">
           {content[language].email_placeholder}
           </p>
-          {/* Input and Button */}
-          <div className="inline-block py-2 px-2 text-[15px] justify-center gap-2 bg-gray-300 rounded-lg">
+
+          {/* Input and Button Section */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 bg-gray-300 rounded-lg p-3 w-full max-w-lg mx-auto">
             <input
               type="email"
               placeholder= {content[language].placeholder}
@@ -40,6 +39,7 @@ const Badges = () => {
             {content[language].notify_me} 
             </button>
           </div>
+
           {/* Footer Text */}
           <p className="mt-4 text-[20px] md:text-[30px] text-gray-500">
           {content[language].footer_text} 
@@ -51,7 +51,7 @@ const Badges = () => {
       <img
         src={Star3}
         alt="Star"
-        className="absolute bottom-4 right-4 w-50 h-50 md:w-50 md:h-50 lg:w-50 lg:h-50"
+        className="absolute bottom-4 right-4 w-20 h-20 sm:w-40 sm:h-40 md:w-40 md:h-40 lg:w-40 lg:h-40"
       />
     </div>
   );

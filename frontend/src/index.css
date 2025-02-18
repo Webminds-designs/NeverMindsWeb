@@ -9,3 +9,8 @@
     display: none;
   }
 }
+
+
+*{
+  scroll-behavior: smooth;
+}

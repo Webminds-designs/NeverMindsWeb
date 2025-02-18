@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const LSCPQuizCard = ({
   index,
@@ -12,25 +13,52 @@ const LSCPQuizCard = ({
   onTry,
   showScore,
 }) => {
+  const navigate = useNavigate();
+
+  // Function to cycle background colors
+  
+
+  // Updated onTry function to handle navigation
+  const handleTryClick = () => {
+    const quiz = {
+      title,
+      description: "This is a placeholder description.", // Update as necessary
+      icon: image || "https://via.placeholder.com/150",  // Placeholder icon
+      duration: "20 Min",  // Adjust duration
+      numQuestions: 10,    // Adjust number of questions
+    };
+
+    // Navigate to the quiz guide lines page
+    navigate("/quizguidelines", { state: { quiz } });
+  };
+
   return (
-    <div className="max-w-full md:w-full bg-white border border-gray-300 rounded-xl shadow-sm overflow-hidden flex flex-col md:flex-row p-4 items-center md:items-start gap-4">
+    <div
+      className={`w-full bg-white border border-gray-400 rounded-3xl shadow-sm overflow-hidden flex flex-col sm:flex-row p-4 items-center sm:items-start gap-4 `}
+    >
       {/* Image Section */}
-      <div className="w-full md:w-1/3 h-32 md:h-40 bg-yellow-100 flex items-center justify-center rounded-lg overflow-hidden">
-        <img className="w-full h-full object-contain" src={image} alt={title} />
+      <div
+        className="w-full sm:w-1/3 h-32 sm:h-40 bg-yellow-100 flex items-center justify-center rounded-3xl overflow-hidden"
+        style={{ aspectRatio: "16/9" }}
+      >
+        <img
+          className="w-full h-full object-contain"
+          src={image}
+          alt={title || "Quiz image"}
+        />
       </div>
 
       {/* Content Section */}
-      <div className="flex-1 flex flex-col gap-2">
+      <div className="flex-1 w-full flex flex-col gap-2">
         {/* Subject */}
         <p className="inline-flex items-center gap-1 text-sm font-medium px-3 py-1 rounded-full bg-purple-100 text-purple-700">
-           {subject}
+          {subject}
         </p>
 
         {/* Quiz Title */}
-        <div className="flex overflow-x-scroll scrollbar-hide">
-        <h5 className="text-lg font-semibold text-gray-900">{title}</h5>
-        </div>
-        
+        <h5 className="text-lg font-semibold text-gray-900 truncate">
+          {title}
+        </h5>
 
         {/* Score & Progress Bar */}
         {showScore && (
@@ -50,7 +78,11 @@ const LSCPQuizCard = ({
           {/* Tutor Avatar */}
           <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
             {tutorIcon ? (
-              <img src={tutorIcon} alt={tutorName} className="w-full h-full object-cover" />
+              <img
+                src={tutorIcon}
+                alt={tutorName}
+                className="w-full h-full object-cover"
+              />
             ) : (
               <span className="text-sm font-bold text-gray-700">
                 {tutorName?.charAt(0) || "?"}
@@ -59,15 +91,17 @@ const LSCPQuizCard = ({
           </div>
 
           {/* Tutor Name & Subject */}
-          <div className="flex flex-col">
-            <p className="text-sm font-medium text-gray-900">{tutorName}</p>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-gray-900 truncate">
+              {tutorName}
+            </p>
             <p className="text-xs text-gray-500">{tutorSubject}</p>
           </div>
 
           {/* Try Button */}
           <button
-            onClick={onTry}
-            className="ml-auto px-3 py-1 text-sm font-medium text-white bg-yellow-400 rounded-lg hover:bg-yellow-500 transition"
+            onClick={handleTryClick}
+            className="ml-auto px-3 py-1 text-sm font-medium text-black bg-yellow-400 rounded-3xl hover:bg-yellow-500 transition"
           >
             Try
           </button>

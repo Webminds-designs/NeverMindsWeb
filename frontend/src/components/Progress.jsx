@@ -8,6 +8,7 @@ import content from '../components/content/ProgressContent.json'
 
 const Progress = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedDuration, setSelectedDuration] = useState("week"); // State to track selected duration
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 const { language, toggleLanguage } = useContext(LanguageContext); 
@@ -46,25 +47,31 @@ const { language, toggleLanguage } = useContext(LanguageContext);
   ];
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex md:flex-row md:justify-center">
       {/* Sidebar */}
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
       {/* Main Content */}
       <main className="flex-1 p-5">
         <div className="flex items-center justify-end space-x-4">
-          <div className="relative flex bg-gray-200 rounded-full p-1 shadow-lg w-fit">
+          <div className="relative flex bg-gray-200 rounded-full p-1 w-fit">
             {/* Week Option */}
             <input
               type="radio"
               id="week"
               name="duration"
-              className="sr-only peer"
-              defaultChecked
+              value="week"
+              className="sr-only"
+              checked={selectedDuration === "week"}
+              onChange={() => setSelectedDuration("week")}
             />
             <label
               htmlFor="week"
-              className="flex items-center justify-center px-6 py-2 text-sm font-medium text-gray-600 bg-white rounded-full cursor-pointer transition-all peer-checked:text-white peer-checked:bg-black"
+              className={`flex items-center justify-center px-6 py-2 text-sm font-medium rounded-full cursor-pointer transition-all ${
+                selectedDuration === "week"
+                  ? "text-black bg-[#facc15]" // Black text and yellow background
+                  : "text-gray-600 bg-white" // Default style
+              }`}
             >
                 {content[language].week}
             </label>
@@ -74,11 +81,18 @@ const { language, toggleLanguage } = useContext(LanguageContext);
               type="radio"
               id="month"
               name="duration"
-              className="sr-only peer"
+              value="month"
+              className="sr-only"
+              checked={selectedDuration === "month"}
+              onChange={() => setSelectedDuration("month")}
             />
             <label
               htmlFor="month"
-              className="flex items-center justify-center px-6 py-2 text-sm font-medium text-gray-600 bg-white rounded-full cursor-pointer transition-all peer-checked:text-white peer-checked:bg-black"
+              className={`flex items-center justify-center px-6 py-2 text-sm font-medium rounded-full cursor-pointer transition-all ${
+                selectedDuration === "month"
+                  ? "text-black bg-[#facc15]" // Black text and yellow background
+                  : "text-gray-600 bg-white" // Default style
+              }`}
             >
                 {content[language].month}
             </label>
@@ -88,11 +102,18 @@ const { language, toggleLanguage } = useContext(LanguageContext);
               type="radio"
               id="year"
               name="duration"
-              className="sr-only peer"
+              value="year"
+              className="sr-only"
+              checked={selectedDuration === "year"}
+              onChange={() => setSelectedDuration("year")}
             />
             <label
               htmlFor="year"
-              className="flex items-center justify-center px-6 py-2 text-sm font-medium text-gray-600 bg-white rounded-full cursor-pointer transition-all peer-checked:text-white peer-checked:bg-black"
+              className={`flex items-center justify-center px-6 py-2 text-sm font-medium rounded-full cursor-pointer transition-all ${
+                selectedDuration === "year"
+                  ? "text-black bg-[#facc15]" // Black text and yellow background
+                  : "text-gray-600 bg-white" // Default style
+              }`}
             >
                 {content[language].year}
             </label>
@@ -100,9 +121,9 @@ const { language, toggleLanguage } = useContext(LanguageContext);
         </div>
 
         {/* Summary Section */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
           {/* Total Quizzes Attempted */}
-          <div className="p-6 bg-white shadow rounded-lg">
+          <div className="p-6 bg-white rounded-lg">
             <div className="flex justify-between items-center">
               <p className="text-gray-700 font-medium">
               {content[language].total_quizzes_attempted}
@@ -184,7 +205,7 @@ const { language, toggleLanguage } = useContext(LanguageContext);
             <h3 className="text-xl font-bold mb-4">  {content[language].recommended_quizzes}</h3>
 
             {/* Quiz List */}
-            <div className="w-full flex flex-col space-y-4">
+            <div className="w-full flex flex-col space-y-4 border-t border-gray-950 pt-4 mt-4">
               {/* Quiz 1 */}
               <div className="flex items-center space-x-3">
                 <span className="w-4 h-4 bg-pink-400 rounded-full"></span>
@@ -221,7 +242,7 @@ const { language, toggleLanguage } = useContext(LanguageContext);
           </div>
 
           {/* Recently Attempted */}
-          <div className="p-6 bg-white shadow rounded-lg relative">
+          <div className="p-6 bg-white rounded-3xl relative border border-gray-950 border-rounded-3xl">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold">  {content[language].recently_attempted}</h3>
               <button className="p-2 bg-black rounded-full hover:bg-gray-200">

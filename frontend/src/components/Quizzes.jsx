@@ -6,7 +6,6 @@ import science1img from "../assets/science.svg";
 import science2img from "../assets/science-2.svg";
 import science3img from "../assets/science-3.svg";
 import tutorIcon from "../assets/person.png";
-import anubis from "../assets/anubis.svg";
 import gramerphone from "../assets/gramophone.svg";
 import science4img from "../assets/science-4.svg";
 import science5img from "../assets/science-5.svg";
@@ -40,6 +39,7 @@ const Quizzes = () => {
       numQuestions: "10",
       icon: science1img,
       tutorName: "Dr. Charitha Munasinghe",
+      status: "notStarted",
     },
     {
       image: science2img,
@@ -50,6 +50,7 @@ const Quizzes = () => {
       numQuestions: "8",
       icon: science2img,
       tutorName: "Dr. Charitha Munasinghe",
+      status: "notStarted",
     },
     {
       image: science3img,
@@ -60,6 +61,7 @@ const Quizzes = () => {
       numQuestions: "12",
       icon: science3img,
       tutorName: "Dr. Charitha Munasinghe",
+      status: "notStarted",
     },
     {
       image: gramerphone,
@@ -70,57 +72,18 @@ const Quizzes = () => {
       numQuestions: "7",
       icon: gramerphone,
       tutorName: "LeeAnn Deemer",
-    },
-    {
-      image: anubis,
-      subject: "History",
-      title: "Through the Ages",
-      description: "Discover the greatest civilizations and their impact.",
-      duration: "30 Min",
-      numQuestions: "15",
-      icon: anubis,
-      tutorName: "Merwin Fernando",
-    },
-    {
-      image: science4img,
-      subject: "Chemistry",
-      title: "Atomic Adventures",
-      description: "Explore the structure of atoms and chemical reactions.",
-      duration: "18 Min",
-      numQuestions: "9",
-      icon: science4img,
-      tutorName: "Senanui Perera",
-    },
-    {
-      image: science5img,
-      subject: "Chemistry",
-      title: "Chemical Bonding Basics",
-      description: "Understand how elements combine to form compounds.",
-      duration: "22 Min",
-      numQuestions: "11",
-      icon: science5img,
-      tutorName: "Senanui Perera",
-    },
-    {
-      image: science6img,
-      subject: "Physics",
-      title: "Forces and Motion",
-      description: "Learn the principles of movement and energy transfer.",
-      duration: "20 Min",
-      numQuestions: "10",
-      icon: science6img,
-      tutorName: "Lakmal Jayasekara",
+      status: "notStarted",
     },
     {
       image: science7img,
       subject: "Mathematics",
       title: "Calculus Simplified",
-      description:
-        "Master the fundamentals of differentiation and integration.",
+      description: "Master the fundamentals of differentiation and integration.",
       duration: "25 Min",
       numQuestions: "12",
       icon: science7img,
       tutorName: "Anoma Rathnayake",
+      status: "completed",
     },
     {
       image: science8img,
@@ -131,6 +94,7 @@ const Quizzes = () => {
       numQuestions: "10",
       icon: science8img,
       tutorName: "Dr. Charitha Munasinghe",
+      status: "completed",
     },
     {
       image: science9img,
@@ -141,6 +105,7 @@ const Quizzes = () => {
       numQuestions: "15",
       icon: science9img,
       tutorName: "Kamal Silva",
+      status: "completed",
     },
     {
       image: science10img,
@@ -151,37 +116,29 @@ const Quizzes = () => {
       numQuestions: "9",
       icon: science10img,
       tutorName: "Nimal Perera",
+      status: "completed",
     },
     {
-      image: science3img,
+      image: science4img,
       subject: "Biology",
-      title: "Boarding Basics",
-      description: "Learn the foundation of cell functions and structures.",
-      duration: "25 Min",
-      numQuestions: "12",
-      icon: science3img,
+      title: "The Cell Structure",
+      description: "Understand the intricate details of cell biology.",
+      duration: "20 Min",
+      numQuestions: "10",
+      icon: science4img,
       tutorName: "Dr. Charitha Munasinghe",
+      status: "completed",
     },
     {
-      image: gramerphone,
-      subject: "Music",
-      title: "Harmony Hunt",
-      description: "Dive into the world of sound, rhythm, and harmony.",
-      duration: "10 Min",
-      numQuestions: "7",
-      icon: gramerphone,
-      tutorName: "LeeAnn Deemer",
-    },
-    {
-      image: science7img,
-      subject: "Mathematics",
-      title: "Calculus Simplified",
-      description:
-        "Master the fundamentals of differentiation and integration.",
-      duration: "25 Min",
-      numQuestions: "12",
-      icon: science7img,
-      tutorName: "Anoma Rathnayake",
+      image: science5img,
+      subject: "Biology",
+      title: "The Cell Structure",
+      description: "Understand the intricate details of cell biology.",
+      duration: "20 Min",
+      numQuestions: "10",
+      icon: science5img,
+      tutorName: "Dr. Charitha Munasinghe",
+      status: "completed",
     },
   ];
 
@@ -194,6 +151,7 @@ const Quizzes = () => {
       tutorName: "Dr. Charitha Munasinghe",
       tutorSubject: "Biology",
       tutorIcon: tutorIcon,
+      status: "completed", 
     },
     {
       image: science2img,
@@ -203,52 +161,49 @@ const Quizzes = () => {
       tutorName: "Dr. Charitha Munasinghe",
       tutorSubject: "Biology",
       tutorIcon: tutorIcon,
+      status: "notStarted", 
     },
     {
       image: science3img,
       subject: "Biology",
       title: "Boarding Basics",
+      score: 95,
+      tutorName: "Dr. Charitha Munasinghe",
+      tutorSubject: "Biology",
+      tutorIcon: tutorIcon,
+      status: "completed", 
+    },
+    {
+      image: science4img,
+      subject: "Biology",
+      title: "The Cell Structure",
+      score: 80,
+      tutorName: "Dr. Charitha Munasinghe",
+      tutorSubject: "Biology",
+      tutorIcon: tutorIcon,
+      status: "completed", 
+    },
+    {
+      image: science5img,
+      subject: "Biology",
+      title: "The Cell Structure",
+      score: 85,
+      tutorName: "Dr. Charitha Munasinghe",
+      tutorSubject: "Biology",
+      tutorIcon: tutorIcon,
+      status: "completed", 
+    },
+    {
+      image: science6img,
+      subject: "Biology",
+      title: "The Cell Structure",
       score: 90,
       tutorName: "Dr. Charitha Munasinghe",
       tutorSubject: "Biology",
       tutorIcon: tutorIcon,
+      status: "completed", 
     },
-    {
-      image: gramerphone,
-      subject: "Music",
-      title: "Harmony Hunt",
-      score: 65,
-      tutorName: "LeeAnn Deemer",
-      tutorSubject: "Music",
-      tutorIcon: tutorIcon,
-    },
-    {
-      image: anubis,
-      subject: "History",
-      title: "Through the Ages",
-      score: 80,
-      tutorName: "Merwin Fernando",
-      tutorSubject: "History",
-      tutorIcon: tutorIcon,
-    },
-    {
-      image: science4img,
-      subject: "Chemistry",
-      title: "Atomic Adventures",
-      score: 78,
-      tutorName: "Senanui Perera",
-      tutorSubject: "Chemistry",
-      tutorIcon: tutorIcon,
-    },
-    {
-      image: science5img,
-      subject: "Chemistry",
-      title: "Chemical Bonding Basics",
-      score: 70,
-      tutorName: "Senanui Perera",
-      tutorSubject: "Chemistry",
-      tutorIcon: tutorIcon,
-    },
+
   ];
 
   const allQuizzes = [...quizCardData, ...recommendedQuizzes];
@@ -260,20 +215,39 @@ const Quizzes = () => {
   }, []);
 
   const filteredQuizzes = useMemo(() => {
-    return (activeTab === "Public" ? publicQuizzes : privateQuizzes).filter(
-      (quiz) =>
+    let quizzes = activeTab === "Public" ? publicQuizzes : privateQuizzes;
+
+    return quizzes.filter((quiz) => {
+      const matchesSearchTerm =
         quiz.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         quiz.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        quiz.tutorName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [searchTerm, activeTab, publicQuizzes, privateQuizzes]);
+        quiz.tutorName.toLowerCase().includes(searchTerm.toLowerCase());
+
+      const matchesStatus =
+        quizStatusFilter === "all" ||
+        quiz.status === quizStatusFilter;
+
+      return matchesSearchTerm && matchesStatus;
+    });
+  }, [searchTerm, activeTab, publicQuizzes, privateQuizzes, quizStatusFilter]);
 
   const handleStartGuide = (quiz) => {
     navigate("/quizguidelines", { state: { quiz } });
   };
 
+  const scrollRecommended = (direction) => {
+    if (recommendedScrollRef.current) {
+      const { scrollLeft, clientWidth } = recommendedScrollRef.current;
+      const scrollAmount = clientWidth * 0.5;
+      recommendedScrollRef.current.scrollTo({
+        left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
-    <div className=" w-full mx-auto overflow-hidden container">
+    <div className="w-full mx-auto overflow-hidden container">
       {/* Tabs */}
       <div className="flex space-x-6 border-b pb-2 text-lg font-semibold">
         {content[language].tabs.map((tab) => (
@@ -296,23 +270,18 @@ const Quizzes = () => {
         <h2 className="text-xl font-semibold mt-4">{content[language].recommendedTitle}</h2>
         <div className="flex gap-4 mt-4 overflow-x-auto w-[1000px] md:w-[2000px] scrollbar-hide">
           {recommendedQuizzes.map((quiz, index) => (
-            <div
-              key={index}
-              className="min-w-[25%] flex-shrink-0" // 25% width for 4 cards
-              style={{ width: "calc(25% - 1rem)" }} // Adjust for gap
-            >
+            <div key={index} className="min-w-[25%] flex-shrink-0">
               <LSCPQuizCard
                 key={index}
                 index={index}
                 image={quiz.image}
                 subject={quiz.subject}
                 title={quiz.title}
-                score={quiz.score}
                 tutorName={quiz.tutorName}
-                tutorSubject={quiz.tutorSubject}
-                tutorIcon={quiz.tutorIcon}
+                tutorSubject={quiz.subject}
+                tutorIcon={tutorIcon}
                 onTry={() => handleStartGuide(quiz)}
-                showScore={true}
+                showScore={false}
               />
             </div>
           ))}

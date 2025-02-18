@@ -2,6 +2,7 @@ import React,{useContext} from "react";
 import landing from "../assets/landing.png";
 import arrow from "../assets/arrow3.png";
 import person from "../assets/person.png";
+import rectangle from "../assets/Rectangle.svg"; 
 import content from '../components/content/HeroContent.json'
 import { LanguageContext } from "../context/LanguageContext"; 
 
@@ -29,13 +30,12 @@ const Hero = () => {
           </button>
         </div>
       </div>
+
+      {/* Desktop View */}
       <div
-        className="bg-cover relative bg-center h-full min-h-screen w-full md:mt-0"
-        style={{
-          backgroundImage: `url(${landing})`,
-        }}
+        className="bg-cover relative bg-center h-full min-h-screen w-full"
+        style={{ backgroundImage: `url(${landing})` }}
       >
-        {/* Overlay for content */}
         <div className="inset-0 bg-gradient-to-r via-white/80 to-transparent flex flex-col lg:flex-row p-8 md:p-16">
           {/* Left Section - Text Content */}
           <div className="w-full text-black flex flex-col lg:items-start items-center lg:gap-y-7 lg:mt-32 lg:mb-0 mb-[600px]">
@@ -66,8 +66,15 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Powered by 15 minds - Bottom Right */}
-            <div className="absolute bottom-2 lg:bottom-5 lg:right-10 bg-white border-2 border-[#fbc72e] rounded-lg p-4 w-64 lg:w-72">
+            {/* Powered by 15 minds */}
+            <div
+              className="absolute bottom-2 lg:bottom-5 lg:right-10 bg-transparent border-2 border-transparent rounded-lg p-4 w-64 lg:w-72"
+              style={{
+                backgroundImage: `url(${rectangle})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+              }}
+            >
               <div className="mb-2">
                 {/* Profile Images */}
                 <div className="flex -space-x-2">
@@ -75,8 +82,9 @@ const Hero = () => {
                     <img
                       key={idx}
                       src={person}
-                      alt={`Profile picture of team member ${idx + 1}`}
+                      alt={`Team member ${idx + 1}`}
                       className="w-10 h-10 rounded-full border-2 border-white"
+                      loading="lazy"
                     />
                   ))}
                 </div>
@@ -90,7 +98,6 @@ const Hero = () => {
                   <span className="font-light text-xl lg:text-2xl"> {content[language].minds}</span>
                 </div>
               </div>
-
               <p className="text-gray-700 text-xs lg:text-sm">
               {content[language].credits}
               </p>
@@ -101,6 +108,7 @@ const Hero = () => {
                   src={arrow}
                   alt="Arrow icon pointing right"
                   className="w-4 h-4"
+                  loading="lazy"
                 />
               </div>
             </div>

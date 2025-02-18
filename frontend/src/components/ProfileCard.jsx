@@ -9,17 +9,18 @@ const ProfileCard = ({
   profileImage,
   greeting,
   onEdit,
-  progress, // Add progress as a prop
+  progress, 
 }) => {
-  // Extract the first name from the full name
+  
   const firstName = name.split(" ")[0];
 
-  // Calculate strokeDasharray based on progress percentage
-  const circumference = 2 * Math.PI * 16; // 2πr (r = 16 as per the SVG circle)
+  
+  const circumference = 2 * Math.PI * 16; 
+
   const strokeDasharray = `${(progress / 100) * circumference} ${circumference}`;
 
   return (
-    <div className="relative w-full bg-white border border-gray-200 rounded-3xl p-6">
+    <div className="relative w-full bg-white border border-transparent rounded-3xl p-6">
       {/* Header with Title and Dropdown Menu */}
       <div className="flex justify-between items-center">
         <button
@@ -96,6 +97,9 @@ const ProfileCard = ({
 
         {/* Contact Info */}
         <div className="w-full text-left">
+        <p className="text-sm text-gray-600 mb-2">
+            <strong>Name:</strong> {name}
+          </p>
           <p className="text-sm text-gray-600 mb-2">
             <strong>Email:</strong> {email}
           </p>

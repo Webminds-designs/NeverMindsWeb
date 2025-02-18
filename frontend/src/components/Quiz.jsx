@@ -1,41 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FaRegClock } from "react-icons/fa6"; // Timer Icon
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // Navigation Icons
-import { MdLanguage } from "react-icons/md"; // Language Icon
-import nlogo from "../assets/nlogo.png";
+import { FaBars, FaRegClock, FaUserCircle } from "react-icons/fa";
+import Breadcrumb from "./BreadCrumb";
 
 const Quiz = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Get quiz details from QuizGuideLines.jsx
   const quiz = location.state?.quiz || {
     title: "Default Quiz Title",
     description: "This is a placeholder description.",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Animal_Cell.svg", // Default icon
+    icon: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Animal_Cell.svg",
     duration: "20 Min",
-    numQuestions: 10,
+    numQuestions: 15, // Default number of questions
   };
 
-  // Convert quiz duration from minutes to seconds
-  const totalSeconds = parseInt(quiz.duration) * 60;
+  // Generate questions (all single-answer)
+  const generateQuestions = () => {
+    return Array.from({ length: quiz.numQuestions }, (_, index) => ({
+      id: index + 1,
+      text: `What is a key concept in ${quiz.title}? (Question ${index + 1})`,
+      options: ["Option A", "Option B", "Option C", "Option D"],
+    }));
+  };
 
+  const [questions, setQuestions] = useState(generateQuestions());
+  const totalSeconds = parseInt(quiz.duration) * 60;
   const [timeLeft, setTimeLeft] = useState(totalSeconds);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [selectedAnswers, setSelectedAnswers] = useState(
+    Array(quiz.numQuestions).fill(null) // Initialize as an array of null values
+  );
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   useEffect(() => {
-    let timer;
-    if (timeLeft > 0) {
-      timer = setInterval(() => {
-        setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-      }, 1000);
-    }
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          handleFinishQuiz(); // Automatically finish the quiz when time runs out
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  // Convert seconds to MM:SS format
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -44,142 +54,184 @@ const Quiz = () => {
       .padStart(2, "0")}`;
   };
 
-  return (
-    <div className="flex flex-col items-center min-h-screen w-full p-6">
-      {/* Full-Width Page Header */}
-      <div className="w-full flex justify-between items-center px-6 py-4 bg-white fixed top-0 left-0 right-0 z-10">
-        {/* Logo - Top Left */}
-        <img src={nlogo} alt="Logo" className="h-8 sm:h-8" />
+  const handleAnswerSelect = (index) => {
+    const updatedAnswers = [...selectedAnswers];
+    updatedAnswers[currentQuestion] = index; // Store the selected answer index
+    setSelectedAnswers(updatedAnswers);
+  };
 
-        {/* Language Icon - Top Right */}
-        <MdLanguage className="h-6 w-6 text-yellow-500 cursor-pointer" />
+  const handleFinishQuiz = () => {
+    navigate("/quizresult", {
+      state: {
+        quiz,
+        selectedAnswers,
+        timeSpent: totalSeconds - timeLeft,
+      },
+    });
+  };
+
+  const progressPercentage =
+    (selectedAnswers.filter((ans) => ans !== null).length / quiz.numQuestions) *
+    100;
+
+  return (
+    <div className="flex min-h-screen w-full bg-[#fffbeb]">
+      {/* Sidebar */}
+      <div
+        className={`bg-white p-4 transition-all duration-300 ${
+          isSidebarOpen ? "w-96" : "w-16"
+        }`}
+      >
+        <div className="flex items-center gap-2">
+          <button
+            className="text-gray-600 text-xl"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          >
+            <FaBars />
+          </button>
+          {isSidebarOpen && <span className="text-gray-600">Hide</span>}
+        </div>
+        {isSidebarOpen && (
+          <>
+            <h2 className="mt-4 text-[34px] font-semibold">{quiz.title}</h2>
+            <div className="flex items-center gap-2 mt-2">
+              <FaUserCircle className="text-gray-600 text-2xl" />
+              <span className="text-gray-700 font-medium">User Name</span>
+            </div>
+            <div className="mt-4 bg-gray-200 w-full rounded-full h-2">
+              <div
+                className="bg-[#ffe132] h-2 rounded-full"
+                style={{ width: `${progressPercentage}%` }}
+              ></div>
+            </div>
+            <p className="text-sm text-gray-600 mt-1">
+              {Math.round(progressPercentage)}% completed
+            </p>
+            <div className="mt-4 grid grid-cols-5 gap-2">
+              {[...Array(quiz.numQuestions)].map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-8 h-8 text-sm rounded-lg font-bold transition ${
+                    index === currentQuestion
+                      ? "bg-[#ffe132] text-white" // Highlight current question
+                      : "bg-gray-200 hover:bg-yellow-300" // Default style
+                  }`}
+                  onClick={() => setCurrentQuestion(index)}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
-      {/* Quiz Content */}
-      <div className="mt-24 w-full max-w-4xl bg-white p-6 rounded-lg relative">
-        {/* Timer - Top Right */}
-        <div className="absolute top-4 right-4 flex items-center gap-2 text-gray-700 text-lg font-semibold">
-          <FaRegClock className="h-5 w-5 text-yellow-500" />
-          <p>{formatTime(timeLeft)}</p>
+      {/* Main Content */}
+      <div className="flex-1 p-6">
+        {/* Header */}
+        <div className="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm">
+          {/* Centered Question Text */}
+          <div className="flex-1 flex justify-center">
+            <h1 className="text-xl font-semibold">
+              Question {currentQuestion + 1} of {quiz.numQuestions}
+            </h1>
+          </div>
+
+          {/* Timer and Navigation Buttons */}
+          <div className="flex items-center gap-4">
+            <FaRegClock className="text-[#ffe132] text-2xl" />
+            <p className="text-black font-bold text-[24px]">
+              {formatTime(timeLeft)}
+            </p>
+            {currentQuestion === quiz.numQuestions - 1 ? (
+              <button
+                onClick={handleFinishQuiz}
+                className="px-4 py-2 bg-[#ffe132] text-Black rounded-lg text-[18px]"
+              >
+                Submit
+              </button>
+            ) : (
+              <button
+                onClick={() =>
+                  setCurrentQuestion((prev) =>
+                    prev < quiz.numQuestions - 1 ? prev + 1 : prev
+                  )
+                }
+                disabled={currentQuestion === quiz.numQuestions - 1}
+                className="px-4 py-2 bg-[#ffe132] text-black rounded-lg disabled:opacity-50 text-[18px]"
+              >
+                Next Question
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Quiz Header */}
-        <div className="flex items-center gap-4">
-          <img src={quiz.icon} alt="Quiz Icon" className="h-16 w-16" />
-          <h1 className="text-2xl font-bold">{quiz.title}</h1>
+        {/* Breadcrumb - Centered */}
+        <div className="flex mt-4 justify-center">
+          <Breadcrumb
+            currentStep={currentQuestion + 1}
+            totalSteps={quiz.numQuestions}
+          />
         </div>
 
-        {/* Question Box */}
-        <div className="mt-6 bg-[#fefcf5] p-6 rounded-lg relative">
-          <h2 className="text-lg font-semibold">
-            Question {currentQuestion + 1}
-          </h2>
-          <p className="mt-2 text-gray-700">
-            {/* Example Question (Replace with real questions from data) */}
-            What is a key concept in {quiz.title}?
+        {/* Question Card */}
+        <div className="mt-6 bg-white p-6 rounded-lg flex flex-col relative">
+          <p className="text-lg font-semibold text-[24px] mt-10">
+            {questions[currentQuestion].text}
           </p>
 
-          {/* Answer Options */}
-          <div className="flex justify-between items-center">
-            <div className="mt-4 space-y-3 w-full">
-              {["Option A", "Option B", "Option C", "Option D"].map(
-                (option, index) => (
-                  <label
-                    key={index}
-                    className={`flex items-center p-2 rounded-lg cursor-pointer transition ${
-                      selectedAnswer === index
-                        ? "bg-yellow-100"
-                        : "hover:bg-gray-100"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="radio"
-                        name="quiz"
-                        value={index}
-                        checked={selectedAnswer === index}
-                        onChange={() => setSelectedAnswer(index)}
-                        className="hidden"
-                      />
-                      <div
-                        className={`w-5 h-5 border-2 border-[#fed448] rounded-full flex items-center justify-center ${
-                          selectedAnswer === index ? "bg-[#fed448]" : "bg-white"
-                        }`}
-                      >
-                        {selectedAnswer === index && (
-                          <div className="w-3 h-3 bg-white rounded-full"></div>
-                        )}
-                      </div>
-                      <span className="text-gray-800">{option}</span>
-                    </div>
-                  </label>
-                )
-              )}
+          <hr className="my-5 h-1 border-t border-black" />
+
+          {/* Answer Selection & Image Side by Side */}
+          <div className="flex items-center justify-between">
+            {/* Answer Options */}
+            <div className="w-3/4">
+              {questions[currentQuestion].options.map((option, index) => (
+                <label key={index} className="block mt-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name={`question-${currentQuestion}`}
+                    checked={selectedAnswers[currentQuestion] === index}
+                    onChange={() => handleAnswerSelect(index)}
+                    className="hidden"
+                  />
+                  <div className="flex items-center p-2 rounded-lg transition bg-[#fffcf2] hover:bg-gray-200">
+                    <div
+                      className={`w-5 h-5 border-2 border-[#ffe132] flex items-center justify-center ${
+                        selectedAnswers[currentQuestion] === index
+                          ? "bg-[#ffe132] border-[#ffe132]"
+                          : "bg-white"
+                      }`}
+                    ></div>
+                    <span className="ml-3">{option}</span>
+                  </div>
+                </label>
+              ))}
             </div>
-            
-            {/* Quiz Icon Right-Aligned */}
-            <img src={quiz.icon} alt="Quiz Icon" className="h-44 w-44 ml-6" />
+
+            {/* Quiz Image - Right Side */}
+            <div className="w-1/4 flex justify-end">
+              <img
+                src={quiz.icon}
+                alt="Quiz Icon"
+                className="h-60 w-60 border border-gray-900 rounded-lg p-2"
+              />
+            </div>
+          </div>
+
+          {/* Navigation Buttons - Left-Aligned */}
+          <div className="flex justify-start mt-6">
+            <button
+              onClick={() =>
+                setCurrentQuestion((prev) => Math.max(prev - 1, 0))
+              }
+              disabled={currentQuestion === 0}
+              className="px-4 py-2 bg-[#ffe132] text-black hover:bg-[#fbc72e] rounded-lg disabled:opacity-50 text-[18px]"
+            >
+              Previous Question
+            </button>
           </div>
         </div>
-
-        {/* Navigation Buttons */}
-        <div className="flex justify-between items-center mt-6">
-          <button
-            onClick={() => setCurrentQuestion((prev) => Math.max(prev - 1, 0))}
-            disabled={currentQuestion === 0}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
-              currentQuestion === 0
-                ? "bg-gray-300 cursor-not-allowed"
-                : "bg-[#fef9e6] hover:bg-yellow-100"
-            }`}
-          >
-            <FaArrowLeft className="text-[#fed448]" /> Previous
-          </button>
-          <button
-            onClick={() =>
-              setCurrentQuestion((prev) =>
-                prev < quiz.numQuestions - 1 ? prev + 1 : prev
-              )
-            }
-            className="flex items-center gap-2 bg-[#fef9e6] px-4 py-2 rounded-lg hover:bg-yellow-100 transition"
-          >
-            Next <FaArrowRight className="text-[#fed448]" />
-          </button>
-        </div>
-{/* Finish Button */}
-<div className="flex justify-end mt-6">
-          <button
-            onClick={() =>
-              navigate("/quizresult", {
-                state: { score: Math.floor(Math.random() * 100) },
-              })
-            }
-            className="bg-[#fed448] text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition flex items-center gap-2"
-          >
-            Finish
-          </button>
-        </div>
-        {/* Questions Navigation */}
-        <div className="mt-6 bg-[#fefbf0] p-4 rounded-lg">
-          <h3 className="text-lg font-semibold mb-2 text-center">Questions</h3>
-          <div className="flex gap-2 flex-wrap justify-center">
-            {[...Array(10)].map((_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => setCurrentQuestion(index)}
-                className={`w-8 h-8 flex items-center justify-center rounded-lg font-bold transition ${
-                  index === currentQuestion
-                    ? "bg-[#fed448] text-white"
-                    : "bg-gray-200 hover:bg-yellow-300"
-                }`}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        
       </div>
     </div>
   );
