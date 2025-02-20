@@ -1,32 +1,51 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import landing from "../assets/landing.png";
 import arrow from "../assets/arrow3.png";
 import person from "../assets/person.png";
-import rectangle from "../assets/Rectangle.svg"; 
-import content from '../components/content/HeroContent.json'
-import { LanguageContext } from "../context/LanguageContext"; 
+import rectangle from "../assets/Rectangle.svg";
+import content from "../components/content/HeroContent.json";
+import { LanguageContext } from "../context/LanguageContext";
 
 const Hero = () => {
-
   const { language } = useContext(LanguageContext);
-  
+
   return (
     <>
       <div className="md:hidden block p-12">
-        <h1 className="lg:text-[50px] text-3xl font-semibold leading-tight mb-4 flex flex-col text-center lg:text-left">
+        <h1
+          className={`${
+            language === "si"
+              ? "lg:text-[40px] text-2xl "
+              : "lg:text-[50px] text-3xl"
+          } font-semibold leading-tight mb-4 flex flex-col text-center lg:text-left`}
+        >
           <p>
-           {content[language].title1}<br></br>   {content[language].title2}<br></br>   {content[language].title3}
+            {content[language].title1}
+            <br />
+            {content[language].title2}
+            <br />
+            {content[language].title3}
           </p>
         </h1>
-        <span className=" text-[15px] md:text-[20px] lg:text-[24px] font-medium text-center lg:text-left mb-6">
+        <span
+          className={`${
+            language === "si"
+              ? "text-[13px] md:text-[18px] lg:text-[20px]"
+              : "text-[15px] md:text-[20px] lg:text-[24px]"
+          } font-medium text-center lg:text-left mb-6`}
+        >
           <p>
-          {content[language].description1}<br></br>
-          {content[language].description2}<br></br> {content[language].description3}
+            {content[language].description1}
+            <br />
+            {content[language].description2}
+            <br />
+            {content[language].description3}
           </p>
         </span>
+
         <div className="flex justify-center">
           <button className="bg-[#fbc72e] text-black text-[15px] lg:text-[22px] font-medium md:px-6 md:py-3 px-3 py-2 rounded-full hover:bg-yellow-500 transition">
-          {content[language].button}
+            {content[language].button}
           </button>
         </div>
       </div>
@@ -40,19 +59,32 @@ const Hero = () => {
           {/* Left Section - Text Content */}
           <div className="w-full text-black flex flex-col lg:items-start items-center lg:gap-y-7 lg:mt-32 lg:mb-0 mb-[600px]">
             <div className="hidden md:block">
-              <h1 className="lg:text-[70px] text-3xl font-semibold leading-tight mb-8 text-center lg:text-left">
+              <h1
+                className={`${
+                  language === "si"
+                    ? "lg:text-[60px] text-2xl"
+                    : "lg:text-[70px] text-3xl"
+                } font-semibold leading-tight mb-8 text-center lg:text-left`}
+              >
                 <p>
-                {content[language].title1}<br></br>   {content[language].title2}<br></br>   {content[language].title3}
+                  {content[language].title1}
+                  <br />
+                  {content[language].title2}
+                  <br />
+                  {content[language].title3}
                 </p>
               </h1>
+
               <span className="text-[15px] md:text-[28px] lg:text-[28px] font-medium text-center lg:text-left mb-8">
                 <p>
-                {content[language].description1}<br></br>
-                {content[language].description2}<br></br> {content[language].description3}
+                  {content[language].description1}
+                  <br></br>
+                  {content[language].description2}
+                  <br></br> {content[language].description3}
                 </p>
               </span>
               <button className="bg-[#fbc72e] text-black text-[15px] lg:text-[28px] font-medium md:px-6 md:py-3 px-3 py-2 rounded-full hover:bg-yellow-500 transition sm:mt-8 mt-4">
-              {content[language].button}
+                {content[language].button}
               </button>
             </div>
           </div>
@@ -62,7 +94,7 @@ const Hero = () => {
             {/* Circle Text - Top Right */}
             <div className="absolute bottom-1/4 lg:bottom-2/3 left-3 lg:left-auto lg:right-10 w-full flex justify-start lg:justify-end">
               <div className="text-black border-2 border-[#fbc72e] rounded-full px-4 py-2 w-40 h-40 text-center flex items-center text-[18px]">
-              {content[language].mobileApp}
+                {content[language].mobileApp}
               </div>
             </div>
 
@@ -90,16 +122,25 @@ const Hero = () => {
                 </div>
                 <div>
                   <span className="font-light text-xl lg:text-2xl">
-                  {content[language].poweredBy}
+                    {content[language].poweredBy}
                   </span>
                   <span className="font-medium text-2xl lg:text-4xl mx-2">
                     15
                   </span>
-                  <span className="font-light text-xl lg:text-2xl"> {content[language].minds}</span>
+                  <span className="font-light text-xl lg:text-2xl">
+                    {" "}
+                    {content[language].minds}
+                  </span>
                 </div>
               </div>
-              <p className="text-gray-700 text-xs lg:text-sm">
-              {content[language].credits}
+              <p
+                className={`text-gray-700 ${
+                  language === "si"
+                    ? "text-[10px] lg:text-xs"
+                    : "text-xs lg:text-sm"
+                }`}
+              >
+                {content[language].credits}
               </p>
 
               {/* Arrow Icon */}

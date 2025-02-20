@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import nlogo from "../assets/nlogo.png";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -7,8 +7,7 @@ import { Link } from "react-router-dom";
 import { FaTachometerAlt, FaSignOutAlt } from "react-icons/fa";
 import { MdLanguage } from "react-icons/md";
 import { LanguageContext } from "../context/LanguageContext";
-import content from '../components/content/HeaderContent.json';
-
+import content from "../components/content/HeaderContent.json";
 
 const Header = () => {
   const location = useLocation();
@@ -17,7 +16,7 @@ const Header = () => {
   const [user, setUser] = useState(null);
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const { language, toggleLanguage } = useContext(LanguageContext); 
+  const { language, toggleLanguage } = useContext(LanguageContext);
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
@@ -31,7 +30,10 @@ const Header = () => {
   };
 
   const shouldShowLanguageIcon = () => {
-    return location.pathname === "/quizguidelines" || location.pathname === "/quizzes";
+    return (
+      location.pathname === "/quizguidelines" ||
+      location.pathname === "/quizzes"
+    );
   };
 
   const isQuizPage = () => {
@@ -70,27 +72,47 @@ const Header = () => {
           <MdLanguage className="h-6 w-6 text-yellow-500 cursor-pointer" />
         ) : (
           <>
-            <nav className={`flex-1 ml-20 ${isMenuOpen ? "block" : "hidden"} lg:block`}>
-              <ul className="lg:flex hidden space-y-4 lg:space-y-0 lg:space-x-6 text-[22px] font-regular text-black">
+            <nav
+              className={`flex-1 ml-20 ${
+                isMenuOpen ? "block" : "hidden"
+              } lg:block`}
+            >
+              <ul
+                className={`lg:flex hidden space-y-4 lg:space-y-0 lg:space-x-6 ${
+                  language === "si" ? "text-[18px]" : "text-[22px]"
+                } font-regular text-black`}
+              >
                 <li>
-                  <a href="#home" className="hover:text-[#FFD448] transition-colors">
-                  {content[language].home}
+                  <a
+                    href="#home"
+                    className="hover:text-[#FFD448] transition-colors"
+                  >
+                    {content[language].home}
                   </a>
                 </li>
                 <li>
-                  <Link to="/quizzes" className="hover:text-[#FFD448] transition-colors pl-20">
-                  {content[language].quizzes}
+                  <Link
+                    to="/quizzes"
+                    className="hover:text-[#FFD448] transition-colors pl-20"
+                  >
+                    {content[language].quizzes}
                   </Link>
                 </li>
-                 
+
                 <li>
-                  <a href="#services" className="hover:text-[#FFD448] transition-colors pl-20">
-                  {content[language].services}
+                  <a
+                    href="#services"
+                    className="hover:text-[#FFD448] transition-colors pl-20"
+                  >
+                    {content[language].services}
                   </a>
                 </li>
                 <li>
-                  <Link to="/aboutus" className="hover:text-[#FFD448] transition-colors pl-20">
-                  {content[language].aboutUs}
+                  <Link
+                    to="/aboutus"
+                    className="hover:text-[#FFD448] transition-colors pl-20"
+                  >
+                    {content[language].aboutUs}
                   </Link>
                 </li>
               </ul>
@@ -100,8 +122,11 @@ const Header = () => {
               {shouldShowLanguageIcon() && (
                 <MdLanguage className="h-6 w-6 text-yellow-500 cursor-pointer" />
               )}
- {/* Language button */}
- <button onClick={toggleLanguage} className="hover:text-[#FFD448] transition-colors ">
+              {/* Language button */}
+              <button
+                onClick={toggleLanguage}
+                className="hover:text-[#FFD448] transition-colors "
+              >
                 {language === "en" ? "සිං | Eng" : "Eng | සිං"}
               </button>
               {user ? (
@@ -109,14 +134,25 @@ const Header = () => {
                   className="relative w-10 h-10 rounded-full border-2 border-[#FFD448] cursor-pointer"
                   onClick={handleProfileClick}
                 >
-                  <img src={profileImg} alt="User Profile" className="w-10 h-10 rounded-full" />
+                  <img
+                    src={profileImg}
+                    alt="User Profile"
+                    className="w-10 h-10 rounded-full"
+                  />
                   {isProfileOpen && (
                     <div className="absolute top-12 right-0 bg-white text-black py-4 px-5 rounded-lg shadow-lg z-50">
-                      <Link to="/dashboard" className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors">
-                        <FaTachometerAlt size={18} /> {content[language].dashboard}
+                      <Link
+                        to="/dashboard"
+                        className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors"
+                      >
+                        <FaTachometerAlt size={18} />{" "}
+                        {content[language].dashboard}
                       </Link>
-                      <Link to="/logout" className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors mt-2">
-                        <FaSignOutAlt size={18} />  {content[language].logout}
+                      <Link
+                        to="/logout"
+                        className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors mt-2"
+                      >
+                        <FaSignOutAlt size={18} /> {content[language].logout}
                       </Link>
                     </div>
                   )}
@@ -124,17 +160,20 @@ const Header = () => {
               ) : (
                 <>
                   <button className="text-black font-bold py-2 px-6 rounded-2xl hover:bg-yellow-300 transition duration-200">
-                  {content[language].login}
+                    {content[language].login}
                   </button>
                   <button className="bg-yellow-300 text-black font-bold py-2 px-6 rounded-2xl border border-[#FFD448] hover:bg-yellow-100 transition duration-200">
-                  {content[language].signUp}
+                    {content[language].signUp}
                   </button>
                 </>
               )}
             </div>
 
             <div className="lg:hidden flex items-center ml-auto space-x-4">
-              <button onClick={toggleMenu} className="text-gray-700 focus:outline-none">
+              <button
+                onClick={toggleMenu}
+                className="text-gray-700 focus:outline-none"
+              >
                 <RxHamburgerMenu size={30} />
               </button>
 
@@ -143,21 +182,33 @@ const Header = () => {
                   className="relative w-10 h-10 rounded-full border-2 border-[#FFD448] cursor-pointer"
                   onClick={handleProfileClick}
                 >
-                  <img src={profileImg} alt="User Profile" className="w-10 h-10 rounded-full" />
+                  <img
+                    src={profileImg}
+                    alt="User Profile"
+                    className="w-10 h-10 rounded-full"
+                  />
                   {isProfileOpen && (
                     <div className="absolute top-12 right-0 bg-white text-black py-4 px-5 rounded-lg shadow-lg z-50">
-                      <Link to="/dashboard" className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors">
-                        <FaTachometerAlt size={18} /> {content[language].dashboard}
+                      <Link
+                        to="/dashboard"
+                        className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors"
+                      >
+                        <FaTachometerAlt size={18} />{" "}
+                        {content[language].dashboard}
                       </Link>
-                      <Link to="/logout" className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors mt-2">
-                        <FaSignOutAlt size={18} />{content[language].logout}
+                      <Link
+                        to="/logout"
+                        className="flex items-center gap-2 text-gray-700 font-medium hover:text-[#FFD448] transition-colors mt-2"
+                      >
+                        <FaSignOutAlt size={18} />
+                        {content[language].logout}
                       </Link>
                     </div>
                   )}
                 </div>
               ) : (
                 <button className="text-black font-bold py-2 px-4 rounded-2xl hover:bg-yellow-300 transition duration-200">
-                 {content[language].login}
+                  {content[language].login}
                 </button>
               )}
             </div>
