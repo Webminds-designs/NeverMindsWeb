@@ -140,14 +140,28 @@ const ProfileDashboard = () => {
           {/* Showcard */}
           <div className="flex bg-[#fed448] p-6 rounded-3xl mb-16">
             <div className="flex-1">
-              <h2 className="xl:text-xl md:text-sm text-xs font-bold mb-2">
-              {content[language].title}
-              </h2>
-              <p className="xl:text-[50px] lg:text-[30px] md:text-[40px] text-[30px] font-semibold mb-4">
-              {content[language].description}
-                <br />
-                {content[language].description2}
-              </p>
+            <h2
+  className={`${
+    language === "si"
+      ? "xl:text-lg md:text-[12px] text-[10px]"
+      : "xl:text-xl md:text-sm text-xs"
+  } font-bold mb-2`}
+>
+  {content[language].title}
+</h2>
+
+<p
+  className={`${
+    language === "si"
+      ? "xl:text-[40px] lg:text-[25px] md:text-[35px] text-[28px]"
+      : "xl:text-[50px] lg:text-[30px] md:text-[40px] text-[30px]"
+  } font-semibold mb-4`}
+>
+  {content[language].description}
+  <br />
+  {content[language].description2}
+</p>
+
               <button className="flex items-center text-lg font-medium text-white hover:text-yellow bg-black py-2 px-4 rounded-full">
               {content[language].button}
                 <IonIcon icon={arrowForward} className="ml-2" />
@@ -205,39 +219,74 @@ const ProfileDashboard = () => {
 
           {/* Overall Progress */}
           <div>
-            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-12">
-            {content[language].your_overall_progress}
-            </h3>
+          <h3
+  className={`${
+    language === "si"
+      ? "xl:text-[35px] md:text-[25px] text-[20px]"
+      : "xl:text-[40px] md:text-[30px] text-[25px]"
+  } font-bold mb-12`}
+>
+  {content[language].your_overall_progress}
+</h3>
+
           </div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-10 ">
             <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
-              <h4 className="font-bold text-left md:text-[22px] text-[20px]">
-              {content[language].attempted_quizzes}
-              </h4>
+            <h4
+  className={`${
+    language === "si"
+      ? "md:text-[18px] text-[16px]"
+      : "md:text-[22px] text-[20px]"
+  } font-bold text-left`}
+>
+  {content[language].attempted_quizzes}
+</h4>
+
               <p className="text-right font-semibold md:text-[40px] text-[30px]">
                 20
               </p>
             </div>
             <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
-              <h4 className="font-bold text-left md:text-[22px] text-[20px]">
-              {content[language].completed_quizzes} 
-              </h4>
+            <h4
+  className={`${
+    language === "si"
+      ? "md:text-[18px] text-[16px]"
+      : "md:text-[22px] text-[20px]"
+  } font-bold text-left`}
+>
+  {content[language].completed_quizzes}
+</h4>
+
               <p className="text-right font-semibold md:text-[40px] text-[30px]">
                 20
               </p>
             </div>
             <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
-              <h4 className="font-bold text-left md:text-[22px] text-[20px]">
-              {content[language].number_of_favourites}  
-              </h4>
+            <h4
+  className={`${
+    language === "si"
+      ? "md:text-[18px] text-[16px]"
+      : "md:text-[22px] text-[20px]"
+  } font-bold text-left`}
+>
+  {content[language].number_of_favourites}
+</h4>
+
               <p className="text-right font-semibold md:text-[40px] text-[30px]">
                 5
               </p>
             </div>
             <div className="p-5 bg-white rounded-3xl  flex justify-between items-center border border-gray-200">
-              <h4 className="font-bold text-left md:text-[22px] text-[20px]">
-              {content[language].score_points}
-              </h4>
+            <h4
+  className={`${
+    language === "si"
+      ? "md:text-[18px] text-[16px]"
+      : "md:text-[22px] text-[20px]"
+  } font-bold text-left`}
+>
+  {content[language].score_points}
+</h4>
+
               <p className="text-right font-semibold md:text-[40px] text-[30px]">
                 200
               </p>
@@ -249,9 +298,16 @@ const ProfileDashboard = () => {
         <div className="hidden lg:flex flex-col w-4/12 p-8">
           {/* Profile Card */}
           <div className="">
-            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-4">
-            {content[language].profiles}
-            </h3>
+          <h3
+  className={`${
+    language === "si"
+      ? "xl:text-[35px] md:text-[25px] text-[20px]"
+      : "xl:text-[40px] md:text-[30px] text-[25px]"
+  } font-bold mb-4`}
+>
+  {content[language].profiles}
+</h3>
+
           </div>
           <div className="flex flex-col items-center justify-center">
             <ProfileCard
@@ -268,9 +324,16 @@ const ProfileDashboard = () => {
 
           {/* Static Table */}
           <div className="mt-8">
-            <h3 className="xl:text-[40px] md:text-[30px] text-[25px] font-bold mb-4">
-            {content[language].statistic}
-            </h3>
+          <h3
+  className={`${
+    language === "si"
+      ? "xl:text-[35px] md:text-[25px] text-[20px]"
+      : "xl:text-[40px] md:text-[30px] text-[25px]"
+  } font-bold mb-4`}
+>
+  {content[language].statistic}
+</h3>
+
           </div>
           <div className="mt-8">
             <DashBarChart />
