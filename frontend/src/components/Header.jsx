@@ -39,9 +39,9 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY && window.scrollY > 50) {
-        setVisible(false); // Hide header when scrolling down
+        setVisible(false); 
       } else {
-        setVisible(true); // Show header when scrolling up
+        setVisible(true);
       }
       setLastScrollY(window.scrollY);
     };
@@ -54,7 +54,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full p-5 font-Parkinsans bg-transparent backdrop-blur-md transition-transform duration-300 z-50 ${
+      className={`fixed top-0 left-0 w-full p-5 font-Parkinsans sm:bg-transparent sm:backdrop-blur-md transition-transform duration-300 z-50 ${
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -67,7 +67,7 @@ const Header = () => {
           <MdLanguage className="h-6 w-6 text-yellow-500 cursor-pointer" />
         ) : (
           <>
-            <nav className={`flex-1 ml-20 ${isMenuOpen ? "block" : "hidden"} lg:block`}>
+            <nav className={`lg:flex ${isMenuOpen ? "block" : "hidden"} lg:block flex-1 ml-20`}>
               <ul className="lg:flex hidden space-y-4 lg:space-y-0 lg:space-x-6 text-[22px] font-regular text-black">
                 <li>
                   <a href="#home" className="hover:text-[#FFD448] transition-colors">
@@ -126,6 +126,7 @@ const Header = () => {
               )}
             </div>
 
+            {/* Mobile Menu Toggle */}
             <div className="lg:hidden flex items-center ml-auto space-x-4">
               <button onClick={toggleMenu} className="text-gray-700 focus:outline-none">
                 <RxHamburgerMenu size={30} />

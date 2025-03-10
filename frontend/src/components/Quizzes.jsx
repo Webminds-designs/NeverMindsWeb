@@ -248,7 +248,7 @@ const Quizzes = () => {
   return (
     <div className="w-full mx-auto overflow-hidden container">
       {/* Tabs */}
-      <div className="flex space-x-6 border-b pb-2 text-lg font-semibold mt-20">
+      <div className="flex space-x-6 border-b pb-2 text-lg font-semibold mt-20 mx-2">
         {["Public", "Private"].map((tab) => (
           <span
             key={tab}
@@ -265,8 +265,8 @@ const Quizzes = () => {
       </div>
 
       {/* Recommended Quizzes Section */}
-      <div className="mb-6 relative">
-        <h2 className="text-xl font-semibold mt-4">Recommended Quizzes</h2>
+      <div className="mb-6 relative mx-2">
+        <h2 className="text-xl font-semibold mt-4 mx-2">Recommended Quizzes</h2>
         <div className="flex justify-end gap-2 mt-2">
           <button
             aria-label="Scroll left"
@@ -362,7 +362,7 @@ const Quizzes = () => {
             <button className="text-gray-600 flex items-center gap-1">
               <FaSort /> Sort by
             </button>
-            <button className="text-gray-600 bg-yellow-500 p-1 rounded">
+            <button className="text-gray-600 bg-yellow-400 p-1 rounded">
               <IoGrid />
             </button>
           </div>
@@ -370,7 +370,7 @@ const Quizzes = () => {
       </div>
 
       {/* Quizzes Grid Section */}
-      <div className="flex justify-center items-center mt-6">
+      <div className="flex justify-center items-center mt-6 mb-6">
         {filteredQuizzes.length === 0 ? (
           <p className="text-center text-gray-600">No quizzes found</p>
         ) : (

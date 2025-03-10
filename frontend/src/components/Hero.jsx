@@ -2,8 +2,8 @@ import React from "react";
 import landing from "../assets/landing.png"; 
 import arrow from "../assets/arrow3.png";
 import person from "../assets/person.png";
-import rectangle from "../assets/Rectangle.svg"; 
-import mobileApp from "../assets/mobileApp.svg"; 
+import rectangle from "../assets/Rectangle.png"; 
+import mobileApp from "../assets/mobileApp.png"; 
 
 const Hero = () => {
   return (
@@ -51,21 +51,22 @@ const Hero = () => {
           </div>
 
           {/* Right Section */}
-          <div className="w-full flex flex-col justify-center items-center">
+          <div className="w-full flex flex-col justify-center items-center relative bg-red-500">
             {/* Mobile App Coming Soon */}
             <div
-              className="absolute  bottom-1/4 lg:bottom-2/3 left-3 lg:left-auto lg:right-10 flex justify-start lg:justify-end"
+              className="absolute  bottom-1/4 lg:bottom-2/3 left-3 lg:left-auto lg:right-8 flex justify-start lg:justify-end"
               style={{
+                height: 200,
                 width: 200,
                 backgroundImage: `url(${mobileApp})`,
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
               }}
             >
-              <div className="text-black border-2 bg-transparent border-transparent rounded-full px-4 py-2 w-36 h-36 text-center flex items-center text-[18px]">
+            </div>
+            <div className="absolute bottom-1/4 lg:bottom-2/3 left-3 lg:top-6 lg:left-auto lg:right-12 text-black border-2 bg-transparent border-transparent rounded-full px-4 py-2 w-36 h-36 text-center flex items-center text-[18px]">
                 Mobile app coming soon!
               </div>
-            </div>
 
             {/* Powered by 15 minds */}
             <div
@@ -115,7 +116,7 @@ const Hero = () => {
                 />
               </div>
             </div>
-          </div>
+          </div>*
         </div>
       </div>
     </>

@@ -34,7 +34,7 @@ const LSCPQuizCard = ({
 
   return (
     <div
-      className={`w-full bg-white border border-gray-400 rounded-3xl shadow-sm overflow-hidden flex flex-col sm:flex-row p-4 items-center sm:items-start gap-4 `}
+      className={`w-full bg-white border border-gray-400 rounded-3xl shadow-sm overflow-hidden flex flex-col sm:flex-row p-4 items-center sm:items-start gap-4 cursor-pointer`}
     >
       {/* Image Section */}
       <div

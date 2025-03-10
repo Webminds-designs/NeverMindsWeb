@@ -30,10 +30,10 @@ const LatestQuizzes = () => {
                 gridClass = "md:row-span-2 md:col-span-3 rounded-3xl";
                 break;
               case 3:
-                gridClass = "md:row-span-2 md:col-span-3 rounded-3xl";
+                gridClass = "md:row-span-1 md:col-span-3 rounded-3xl";
                 break;
               case 4:
-                gridClass = "md:row-span-2 md:col-span-3 rounded-3xl";
+                gridClass = "md:row-span-1 md:col-span-3 rounded-3xl";
                 break;
               default:
                 gridClass = "";
