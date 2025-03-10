@@ -1,9 +1,8 @@
 import React from "react";
-import landing from "../assets/landing.png"; 
+import landing from "../assets/landing.png";
 import arrow from "../assets/arrow3.png";
 import person from "../assets/person.png";
-import rectangle from "../assets/Rectangle.png"; 
-import mobileApp from "../assets/mobileApp.png"; 
+import mobileApp from "../assets/mobileApp.png";
 
 const Hero = () => {
   return (
@@ -49,12 +48,11 @@ const Hero = () => {
               Get Started
             </button>
           </div>
-
           {/* Right Section */}
-          <div className="w-full flex flex-col justify-center items-center relative bg-red-500">
+          <div className="w-full flex flex-col justify-center items-center lg:relative">
             {/* Mobile App Coming Soon */}
             <div
-              className="absolute  bottom-1/4 lg:bottom-2/3 left-3 lg:left-auto lg:right-8 flex justify-start lg:justify-end"
+              className="absolute bottom-1/4 lg:bottom-2/3 left-3 lg:left-auto lg:right-4 flex justify-start lg:justify-end"
               style={{
                 height: 200,
                 width: 200,
@@ -62,19 +60,19 @@ const Hero = () => {
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
               }}
-            >
+            ></div>
+            <div className="absolute bottom-1/4 lg:bottom-2/3 left-3 lg:top-6 lg:left-auto lg:right-12 text-black border-2 bg-transparent border-transparent rounded-3xl px-4 py-2 w-36 h-36 text-center flex items-center text-[17px]">
+              Mobile app coming soon!
             </div>
-            <div className="absolute bottom-1/4 lg:bottom-2/3 left-3 lg:top-6 lg:left-auto lg:right-12 text-black border-2 bg-transparent border-transparent rounded-full px-4 py-2 w-36 h-36 text-center flex items-center text-[18px]">
-                Mobile app coming soon!
-              </div>
 
             {/* Powered by 15 minds */}
             <div
-              className="absolute bottom-2 lg:bottom-5 lg:right-10 bg-transparent border-2 border-transparent rounded-lg p-4 w-64 lg:w-72"
+              className="absolute bottom-2 lg:-bottom-60 right-0 bg-transparent rounded-3xl p-4 w-64 lg:w-72"
               style={{
-                backgroundImage: `url(${rectangle})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
+                borderImage:
+                  "linear-gradient(to top right, transparent, #fbc72e) 1", // Fading border effect
+                borderWidth: "2px",
+                borderStyle: "solid",
               }}
             >
               <div className="mb-2">
@@ -116,7 +114,8 @@ const Hero = () => {
                 />
               </div>
             </div>
-          </div>*
+          </div>
+          *
         </div>
       </div>
     </>
