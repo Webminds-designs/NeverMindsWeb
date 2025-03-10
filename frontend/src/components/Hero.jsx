@@ -69,10 +69,12 @@ const Hero = () => {
             <div
               className="absolute bottom-2 lg:-bottom-60 right-0 bg-transparent rounded-3xl p-4 w-64 lg:w-72"
               style={{
-                borderImage:
-                  "linear-gradient(to top right, transparent, #fbc72e) 1", // Fading border effect
                 borderWidth: "2px",
                 borderStyle: "solid",
+                borderColor: "#fbc72e", // Use borderColor instead of borderImage
+                borderRadius: "1.5rem", // Equivalent to Tailwind's rounded-3xl
+                borderImage:
+                  "linear-gradient(to top right, transparent, #fbc72e) 1",
               }}
             >
               <div className="mb-2">
@@ -89,13 +91,13 @@ const Hero = () => {
                   ))}
                 </div>
                 <div>
-                  <span className="font-light text-xl lg:text-2xl">
+                  <span className="font-normal text-xl lg:text-2xl">
                     Powered by
                   </span>
                   <span className="font-medium text-2xl lg:text-4xl mx-2">
                     15
                   </span>
-                  <span className="font-light text-xl lg:text-2xl">minds</span>
+                  <span className="font-normal text-xl lg:text-2xl">minds</span>
                 </div>
               </div>
               <p className="text-gray-700 text-xs lg:text-sm">
@@ -115,7 +117,6 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          *
         </div>
       </div>
     </>
