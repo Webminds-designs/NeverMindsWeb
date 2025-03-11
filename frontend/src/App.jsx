@@ -13,6 +13,7 @@ import Quiz from "./components/Quiz";
 import QuizResult from "./components/QuizResult";
 import Account from "./components/Account";
 import Services from "./components/Services";
+import QuizOTPVerification from "./components/QuizOTPVerification";
 
 
 function App() {
@@ -48,14 +49,14 @@ function App() {
 
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/services" element={<Services/>} />
+        <Route path="/quizotpverification" element={<QuizOTPVerification />} />
         
         
         
         
         
 
-        {/* if user not null then show dashboard*/}
-        {/* {user && <Route path="/dashboard" element={<Dashboard />} />} */}
+  
       </Routes>
   );
 }
