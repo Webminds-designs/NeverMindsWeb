@@ -67,7 +67,7 @@ const Hero = () => {
 
             {/* Powered by 15 minds */}
             <div
-              className="absolute bottom-2 lg:-bottom-60 right-0 bg-transparent rounded-3xl p-4 w-64 lg:w-72"
+              className="absolute bottom-2 lg:-bottom-44 right-0 bg-transparent rounded-3xl p-4 w-64 lg:w-72 bg-white"
               style={{
                 borderWidth: "2px",
                 borderStyle: "solid",

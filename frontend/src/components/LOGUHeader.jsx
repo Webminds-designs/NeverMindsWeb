@@ -8,12 +8,14 @@ const LOGUHeader = () => {
   const shouldHideSearchBar =
     location.pathname === "/account" ||
     location.pathname === "/badges" ||
-    location.pathname === "/progress";
+    location.pathname === "/progress"||
+    location.pathname === "/favourites";
 
   const shouldAlignTopRight =
     location.pathname === "/account" ||
     location.pathname === "/badges" ||
-    location.pathname === "/progress";
+    location.pathname === "/progress"||
+    location.pathname === "/favourites";
 
   return (
     <div className="bg-white rounded-lg p-4 md:p-6 w-full">

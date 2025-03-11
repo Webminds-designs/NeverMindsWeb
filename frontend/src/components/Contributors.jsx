@@ -3,7 +3,7 @@ import { BentoGrid, BentoGridItem } from "./ui/bento-grid";
 import logo from "../assets/logo-white.png";
 import vector from "../assets/01.png";
 
-// ✅ Import images
+// Import images
 import box0img from "../assets/i1.png";
 import box1img from "../assets/i2.png";
 import box2img from "../assets/i3.png";
@@ -47,7 +47,7 @@ export function Contributors() {
         </p>
       </div>
 
-      {/* ✅ Updated BentoGrid with Fixed Image Overlap */}
+      {/* Updated BentoGrid with Fixed Image Overlap */}
       <BentoGrid className="max-w-4xl px-4 md:px-0 mx-auto gap-4">
         {items.map((item, i) => {
           let gridClass = "";
@@ -94,7 +94,7 @@ export function Contributors() {
   );
 }
 
-// ✅ Updated items with images only
+// Updated items with images only
 const items = [
   { image: box0img },
   { image: box1img },

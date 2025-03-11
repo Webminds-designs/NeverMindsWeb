@@ -1,7 +1,7 @@
 import React from "react";
 import { BentoGrid, BentoGridItem } from "./ui/servise-Bentogrid";
-import { MdOutlineFavoriteBorder } from "react-icons/md"; // Heart Icon
-import educationIcon from "../assets/education.svg"; 
+import { FaHeart } from "react-icons/fa";
+import educationIcon from "../assets/education.svg";
 import person from "../assets/person.png"; // Default person image
 
 const LatestQuizzes = () => {
@@ -68,9 +68,11 @@ const QuizCard = ({ quiz }) => (
     </div>
 
     {/* Subject Badge */}
-    <span className="mt-4 px-3 py-1 rounded-2xl text-sm font-medium bg-black text-white w-max">
-      {quiz.subject}
-    </span>
+    <span className="mt-4 px-3 py-1 rounded-lg text-sm font-medium text-white w-max 
+    bg-gray-500/30 backdrop-blur-2xl">
+  {quiz.subject}
+</span>
+
 
     {/* Quiz Title */}
     <h3 className="text-[20px] sm:text-[24px] font-semibold mt-2">
@@ -82,7 +84,7 @@ const QuizCard = ({ quiz }) => (
       {/* Author Info */}
       <div className="flex items-center">
         <img
-          src={quiz.authorImage || person} 
+          src={quiz.authorImage || person}
           alt={quiz.author}
           className="w-8 h-8 rounded-full mr-3"
         />
@@ -95,8 +97,8 @@ const QuizCard = ({ quiz }) => (
       {/* Action Buttons */}
       <div className="flex items-center space-x-4">
         {/* Heart Icon */}
-        <button className="text-red-600 text-xl">
-          <MdOutlineFavoriteBorder />
+        <button className="text-red-600 text-xl bg-white rounded-full p-1">
+          <FaHeart />
         </button>
 
         {/* Try Button */}
@@ -114,7 +116,7 @@ const quizItems = [
     title: "Earth’s Blueprint",
     subject: "Geography",
     author: "Senani Perera",
-    authorImage: person, 
+    authorImage: person,
     isNew: false,
   },
   {
@@ -122,7 +124,7 @@ const quizItems = [
     subject: "History",
     author: "Senani Perera",
     authorImage: person,
-    isNew: true, 
+    isNew: true,
   },
   {
     title: "Breaking the Formula Barrier",
