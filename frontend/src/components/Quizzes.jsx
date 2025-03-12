@@ -16,7 +16,6 @@ import science9img from "../assets/science-9.svg";
 import science10img from "../assets/science-10.svg";
 import { IoSearchSharp } from "react-icons/io5";
 import { FaFilter, FaSort } from "react-icons/fa";
-import { IoGrid } from "react-icons/io5";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 
 const Quizzes = () => {
@@ -362,9 +361,7 @@ const Quizzes = () => {
             <button className="text-gray-600 flex items-center gap-1">
               <FaSort /> Sort by
             </button>
-            <button className="text-gray-600 bg-yellow-400 p-1 rounded">
-              <IoGrid />
-            </button>
+            
           </div>
         </div>
       </div>
