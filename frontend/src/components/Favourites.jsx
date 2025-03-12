@@ -44,11 +44,11 @@ const Favourites = () => {
   );
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen">
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-      <main className="flex-1 flex flex-col items-center p-8">
-        <div className="w-full max-w-3xl mb-6">
+      <main className="flex-1 flex flex-col items-center p-4 md:p-8">
+        <div className="w-full max-w-3xl mb-6 px-4 md:px-0">
           <input
             type="text"
             placeholder="Search by title, subject, or tutor..."
@@ -61,7 +61,7 @@ const Favourites = () => {
         {filteredQuizzes.length === 0 ? (
           <p className="text-center text-gray-600">No quizzes match your search.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 md:px-8">
             {filteredQuizzes.map((quiz, index) => (
               <QuizCard
                 key={index}
