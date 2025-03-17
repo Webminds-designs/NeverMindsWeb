@@ -31,7 +31,9 @@ const QuizCard = ({
       isPrivate,
     };
 
-    if (isPrivate) {
+    console.log(isPrivate)
+
+    if (quiz.isPrivate) {
       console.log(`Navigating to OTP Verification for Private Quiz: ${title}`);
       navigate("/quizotpverification", { state: { quiz } });
     } else {

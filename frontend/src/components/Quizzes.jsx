@@ -250,6 +250,7 @@ const Quizzes = () => {
   }, [searchTerm, activeTab, publicQuizzes, privateQuizzes, quizStatusFilter]);
 
   const handleStartGuide = (quiz) => {
+    console.log(quiz)
     if (!quiz) {
       console.error("No quiz data! Cannot navigate.");
       return;
@@ -346,6 +347,7 @@ const Quizzes = () => {
                 tutorIcon={tutorIcon}
                 onTry={() => handleStartGuide(quiz)}
                 showScore={false}
+                isPrivate={quiz.isPrivate}
               />
             </div>
           ))}
@@ -437,6 +439,7 @@ const Quizzes = () => {
                 tutorIcon={tutorIcon}
                 onTry={() => handleStartGuide(quiz)}
                 showScore={false}
+                isPrivate={quiz.isPrivate}
               />
             ))}
           </div>
