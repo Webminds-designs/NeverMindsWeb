@@ -21,7 +21,7 @@ useEffect(() => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 max-w-screen-lg mx-auto mt-10">
+    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 max-w-screen-lg mx-auto mt-10 sm:mt-20">
       {/* Quiz Header */}
       <div className="max-w-2xl w-full flex flex-col items-center">
         <img

@@ -48,7 +48,7 @@ export function Contributors() {
       </div>
 
       {/* Updated BentoGrid with Fixed Image Overlap */}
-      <BentoGrid className="max-w-4xl px-4 md:px-0 mx-auto gap-4">
+      <BentoGrid className="max-w-4xl px-5 md:px-0 mx-auto gap-4">
         {items.map((item, i) => {
           let gridClass = "";
 
@@ -82,7 +82,7 @@ export function Contributors() {
                 <img
                   src={item.image}
                   alt={`Grid Image ${i + 1}`}
-                  className="w-full h-full max-h-72 object-cover rounded-2xl"
+                  className="w-full h-full max-h-80 object-cover rounded-2xl"
                 />
               }
               className={gridClass}

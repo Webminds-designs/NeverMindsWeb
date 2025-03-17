@@ -17,19 +17,21 @@ export const BentoGridItem = ({ className, title, header }) => {
   return (
     <div
       className={cn(
-        "row-span-1 rounded-3xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 bg-[#1b191c] justify-between flex flex-col space-y-4",
+        "rounded-3xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 bg-[#1b191c] justify-between flex flex-col",
         className
       )}
     >
       {header}
 
-      <div className="group-hover/bento:translate-x-2 transition duration-200">
-
-        <div className="font-bold text-black mb-2 mt-2">
-          {title}
+      {/* Only render title if it exists to avoid extra empty space */}
+      {title && (
+        <div className="group-hover/bento:translate-x-2 transition duration-200">
+          <div className="font-bold text-black mb-2 mt-2 truncate line-clamp-2">
+            {title}
+          </div>
         </div>
-        
-      </div>
+      )}
     </div>
   );
 };
+
