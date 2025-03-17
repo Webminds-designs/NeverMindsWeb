@@ -15,20 +15,15 @@ const LSCPQuizCard = ({
 }) => {
   const navigate = useNavigate();
 
-  // Function to cycle background colors
-  
-
-  // Updated onTry function to handle navigation
   const handleTryClick = () => {
     const quiz = {
       title,
-      description: "This is a placeholder description.", // Update as necessary
-      icon: image || "https://via.placeholder.com/150",  // Placeholder icon
-      duration: "20 Min",  // Adjust duration
-      numQuestions: 10,    // Adjust number of questions
+      description: "This is a placeholder description.",
+      icon: image || "https://via.placeholder.com/150",
+      duration: "20 Min",
+      numQuestions: 10,
     };
 
-    // Navigate to the quiz guide lines page
     navigate("/quizguidelines", { state: { quiz } });
   };
 
@@ -56,9 +51,7 @@ const LSCPQuizCard = ({
         </p>
 
         {/* Quiz Title */}
-        <h5 className="text-lg font-semibold text-gray-900 truncate">
-          {title}
-        </h5>
+        <h5 className="text-lg font-bold text-gray-900 truncate">{title}</h5>
 
         {/* Score & Progress Bar */}
         {showScore && (

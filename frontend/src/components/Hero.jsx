@@ -1,14 +1,12 @@
 import React from "react";
 import landing from "../assets/landing.png";
-import arrow from "../assets/arrow3.png";
-import person from "../assets/person.png";
-import mobileApp from "../assets/mobileApp.png";
+import landing2 from "../assets/landing2.png";
 
 const Hero = () => {
   return (
     <>
       {/* Mobile View */}
-      <div className="md:hidden block px-4 md:px-12 py-12">
+      <div className="lg:hidden block px-4 lg:px-12 pt-20">
         <h1 className="text-3xl lg:text-[50px] font-semibold leading-tight mb-4 text-center">
           Challenge Your <br /> Knowledge Beyond <br /> Limits
         </h1>
@@ -24,20 +22,21 @@ const Hero = () => {
             Get Started
           </button>
         </div>
+        <img src={landing2} alt={landing} className="w-full" />
       </div>
 
       {/* Desktop View */}
       <div
-        className="bg-cover relative bg-center h-full min-h-screen w-full"
+        className="hidden lg:block bg-cover relative bg-center h-full min-h-screen w-full mt-15 pt-10 lg:mt-10"
         style={{ backgroundImage: `url(${landing})` }}
       >
         <div className="inset-0 bg-gradient-to-r via-white/80 to-transparent flex flex-col lg:flex-row p-8 md:p-16">
           {/* Left Section - Text Content */}
           <div className="w-full text-black flex flex-col items-center lg:items-start lg:gap-y-7 lg:mt-32">
-            <h1 className="hidden md:block text-3xl lg:text-[70px] font-semibold leading-tight mb-8 text-center lg:text-left">
+            <h1 className="text-3xl lg:text-[70px] font-semibold leading-tight mb-8 text-center lg:text-left">
               Challenge Your <br /> Knowledge Beyond <br /> Limits
             </h1>
-            <p className="hidden md:block text-[15px] md:text-[28px] font-regular text-center lg:text-left mb-8">
+            <p className=" text-[15px] md:text-[28px] font-regular text-center lg:text-left mb-8">
               Dive into a variety of quizzes tailored to your <br />
               interests and skill levels. Ready to test your limits?
             </p>
@@ -47,75 +46,6 @@ const Hero = () => {
             >
               Get Started
             </button>
-          </div>
-          {/* Right Section */}
-          <div className="w-full flex flex-col justify-center items-center lg:relative">
-            {/* Mobile App Coming Soon */}
-            <div
-              className="absolute bottom-1/4 lg:bottom-2/3 left-3 lg:left-auto lg:right-4 flex justify-start lg:justify-end"
-              style={{
-                height: 200,
-                width: 200,
-                backgroundImage: `url(${mobileApp})`,
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
-              }}
-            ></div>
-            <div className="absolute bottom-1/4 lg:bottom-2/3 left-3 lg:top-6 lg:left-auto lg:right-12 text-black border-2 bg-transparent border-transparent rounded-3xl px-4 py-2 w-36 h-36 text-center flex items-center text-[17px]">
-              Mobile app coming soon!
-            </div>
-
-            {/* Powered by 15 minds */}
-            <div
-              className="absolute bottom-2 lg:-bottom-44 right-0 bg-transparent rounded-3xl p-4 w-64 lg:w-72 bg-white"
-              style={{
-                borderWidth: "2px",
-                borderStyle: "solid",
-                borderColor: "#fbc72e", // Use borderColor instead of borderImage
-                borderRadius: "1.5rem", // Equivalent to Tailwind's rounded-3xl
-                borderImage:
-                  "linear-gradient(to top right, transparent, #fbc72e) 1",
-              }}
-            >
-              <div className="mb-2">
-                {/* Profile Images */}
-                <div className="flex -space-x-2">
-                  {[...Array(3)].map((_, idx) => (
-                    <img
-                      key={idx}
-                      src={person}
-                      alt={`Team member ${idx + 1}`}
-                      className="w-10 h-10 rounded-full border-2 border-white"
-                      loading="lazy"
-                    />
-                  ))}
-                </div>
-                <div>
-                  <span className="font-normal text-xl lg:text-2xl">
-                    Powered by
-                  </span>
-                  <span className="font-medium text-2xl lg:text-4xl mx-2">
-                    15
-                  </span>
-                  <span className="font-normal text-xl lg:text-2xl">minds</span>
-                </div>
-              </div>
-              <p className="text-gray-700 text-xs lg:text-sm">
-                This app is a testament to the dedication and creativity of 15
-                incredible minds, united to empower students through engaging
-                quizzes.
-              </p>
-
-              {/* Arrow Icon */}
-              <div className="flex justify-end">
-                <img
-                  src={arrow}
-                  alt="Arrow icon pointing right"
-                  className="w-4 h-4"
-                  loading="lazy"
-                />
-              </div>
-            </div>
           </div>
         </div>
       </div>

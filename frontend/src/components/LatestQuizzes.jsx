@@ -2,11 +2,11 @@ import React from "react";
 import { BentoGrid, BentoGridItem } from "./ui/servise-Bentogrid";
 import { FaHeart } from "react-icons/fa";
 import educationIcon from "../assets/education.svg";
-import person from "../assets/person.png";
+import person from "../assets/girl.jpg";
 
 const LatestQuizzes = () => {
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white py-10">
       <div className="max-w-screen-xl mx-auto text-center px-6">
         {/* Section Title */}
         <h2 className="text-[32px] sm:text-[40px] md:text-[96px] font-regular text-black mb-6">
@@ -24,7 +24,7 @@ const LatestQuizzes = () => {
                 gridClass = "sm:col-span-2 md:col-span-3 md:row-span-1 lg:row-span-1 lg:col-span-3 rounded-3xl";
                 break;
               case 1:
-                gridClass = "sm:col-span-2 md:col-span-6 md:row-span-1 lg:row-span-2 lg:col-span-6 rounded-3xl";
+                gridClass = "sm:col-span-2 md:col-span-6 md:row-span-1 lg:row-span-1 lg:col-span-6 rounded-3xl";
                 break;
               case 2:
                 gridClass = "sm:col-span-2 md:col-span-3 md:row-span-1 lg:row-span-1 lg:col-span-3 rounded-3xl";
@@ -55,7 +55,7 @@ const LatestQuizzes = () => {
 };
 
 const QuizCard = ({ quiz }) => (
-  <div className="relative flex flex-col bg-[#ffc726] rounded-3xl p-4 sm:p-6 w-full">
+  <div className="relative flex flex-col p-4 sm:p-6 w-full">
     {/* Quiz Image Container */}
     <div className="relative w-full flex justify-center bg-white rounded-3xl p-4">
       {quiz.isNew && (

@@ -29,13 +29,13 @@ const Services = () => {
         </p>
 
         {/* BentoGrid Section */}
-        <BentoGrid className="max-w-7xl px-4 md:px-0 mx-auto">
+        <BentoGrid className="max-w-7xl md:px-0 mx-auto">
           {serviceItems.map((item, i) => (
             <BentoGridItem
               key={i}
               title={item.title}
               header={item.header}
-              className={gridClasses[i]} // Uses predefined grid layout
+              className={gridClasses[i]}
             />
           ))}
         </BentoGrid>
@@ -44,7 +44,7 @@ const Services = () => {
   );
 };
 
-// ✅ Define Skeleton Component Before Using It
+//Define Skeleton Component Before Using It
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#000000]"></div>
 );
@@ -172,7 +172,7 @@ const serviceItems = [
           </p>
         </div>
         {/* Image Positioned at Top Right */}
-        <div className="absolute bottom-2 left-4 sm:bottom-20 sm:left-4">
+        <div className="absolute bottom-2 left-4 sm:left-4">
           <img
             src={trophy}
             alt="Rewards Icon"

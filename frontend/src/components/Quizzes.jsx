@@ -32,6 +32,7 @@ const Quizzes = () => {
       image: science1img,
       subject: "Biology",
       title: "Building Blocks of Life",
+      isPrivate: true,
       description: "Explore the essential components of living organisms.",
       duration: "20 Min",
       numQuestions: "10",
@@ -43,6 +44,7 @@ const Quizzes = () => {
       image: science2img,
       subject: "Biology",
       title: "Cracking the Code of Viruses",
+      isPrivate: true,
       description: "Understand viruses and how they impact health.",
       duration: "15 Min",
       numQuestions: "8",
@@ -54,6 +56,7 @@ const Quizzes = () => {
       image: science3img,
       subject: "Biology",
       title: "Boarding Basics",
+      isPrivate: true,
       description: "Learn the foundation of cell functions and structures.",
       duration: "25 Min",
       numQuestions: "12",
@@ -65,6 +68,7 @@ const Quizzes = () => {
       image: gramerphone,
       subject: "Music",
       title: "Harmony Hunt",
+      isPrivate: true,
       description: "Dive into the world of sound, rhythm, and harmony.",
       duration: "10 Min",
       numQuestions: "7",
@@ -76,7 +80,9 @@ const Quizzes = () => {
       image: science7img,
       subject: "Mathematics",
       title: "Calculus Simplified",
-      description: "Master the fundamentals of differentiation and integration.",
+      isPrivate: true,
+      description:
+        "Master the fundamentals of differentiation and integration.",
       duration: "25 Min",
       numQuestions: "12",
       icon: science7img,
@@ -87,6 +93,7 @@ const Quizzes = () => {
       image: science8img,
       subject: "Biology",
       title: "The Cell Structure",
+      isPrivate: true,
       description: "Understand the intricate details of cell biology.",
       duration: "20 Min",
       numQuestions: "10",
@@ -98,6 +105,7 @@ const Quizzes = () => {
       image: science9img,
       subject: "History",
       title: "Ancient Civilizations",
+      isPrivate: false,
       description: "Explore the rise and fall of historical empires.",
       duration: "30 Min",
       numQuestions: "15",
@@ -109,6 +117,7 @@ const Quizzes = () => {
       image: science10img,
       subject: "Geography",
       title: "Mapping the World",
+      isPrivate: false,
       description: "Learn about the Earth's landscapes and geographic wonders.",
       duration: "18 Min",
       numQuestions: "9",
@@ -120,6 +129,7 @@ const Quizzes = () => {
       image: science4img,
       subject: "Biology",
       title: "The Cell Structure",
+      isPrivate: false,
       description: "Understand the intricate details of cell biology.",
       duration: "20 Min",
       numQuestions: "10",
@@ -131,6 +141,7 @@ const Quizzes = () => {
       image: science5img,
       subject: "Biology",
       title: "The Cell Structure",
+      isPrivate: false,
       description: "Understand the intricate details of cell biology.",
       duration: "20 Min",
       numQuestions: "10",
@@ -145,71 +156,81 @@ const Quizzes = () => {
       image: science1img,
       subject: "Biology",
       title: "Building Blocks of Life",
+      isPrivate: true,
       score: 85,
       tutorName: "Dr. Charitha Munasinghe",
       tutorSubject: "Biology",
       tutorIcon: tutorIcon,
-      status: "completed", 
+      status: "completed",
     },
     {
       image: science2img,
       subject: "Biology",
       title: "Cracking the Code of Viruses",
+      isPrivate: true,
       score: 72,
       tutorName: "Dr. Charitha Munasinghe",
       tutorSubject: "Biology",
       tutorIcon: tutorIcon,
-      status: "notStarted", 
+      status: "notStarted",
     },
     {
       image: science3img,
       subject: "Biology",
       title: "Boarding Basics",
+      isPrivate: true,
       score: 95,
       tutorName: "Dr. Charitha Munasinghe",
       tutorSubject: "Biology",
       tutorIcon: tutorIcon,
-      status: "completed", 
+      status: "completed",
     },
     {
       image: science4img,
       subject: "Biology",
       title: "The Cell Structure",
+      isPrivate: false,
       score: 80,
       tutorName: "Dr. Charitha Munasinghe",
       tutorSubject: "Biology",
       tutorIcon: tutorIcon,
-      status: "completed", 
+      status: "completed",
     },
     {
       image: science5img,
       subject: "Biology",
       title: "The Cell Structure",
+      isPrivate: true,
       score: 85,
       tutorName: "Dr. Charitha Munasinghe",
       tutorSubject: "Biology",
       tutorIcon: tutorIcon,
-      status: "completed", 
+      status: "completed",
     },
     {
       image: science6img,
       subject: "Biology",
       title: "The Cell Structure",
+      isPrivate: true,
       score: 90,
       tutorName: "Dr. Charitha Munasinghe",
       tutorSubject: "Biology",
       tutorIcon: tutorIcon,
-      status: "completed", 
+      status: "completed",
     },
-
   ];
 
   const allQuizzes = [...quizCardData, ...recommendedQuizzes];
 
   useEffect(() => {
-    const shuffled = [...allQuizzes].sort(() => Math.random() - 0.5);
-    setPublicQuizzes(shuffled.slice(0, Math.ceil(shuffled.length / 2)));
-    setPrivateQuizzes(shuffled.slice(Math.ceil(shuffled.length / 2)));
+    const publicQuizzes = allQuizzes.filter((quiz) => !quiz.isPrivate);
+    const privateQuizzes = allQuizzes.filter((quiz) => quiz.isPrivate);
+
+    console.log("Public Quizzes:", publicQuizzes);
+    console.log("Private Quizzes:", privateQuizzes);
+
+    setPublicQuizzes(publicQuizzes);
+    setPrivateQuizzes(privateQuizzes);
   }, []);
 
   const filteredQuizzes = useMemo(() => {
@@ -222,15 +243,31 @@ const Quizzes = () => {
         quiz.tutorName.toLowerCase().includes(searchTerm.toLowerCase());
 
       const matchesStatus =
-        quizStatusFilter === "all" ||
-        quiz.status === quizStatusFilter;
+        quizStatusFilter === "all" || quiz.status === quizStatusFilter;
 
       return matchesSearchTerm && matchesStatus;
     });
   }, [searchTerm, activeTab, publicQuizzes, privateQuizzes, quizStatusFilter]);
 
   const handleStartGuide = (quiz) => {
-    navigate("/quizguidelines", { state: { quiz } });
+    if (!quiz) {
+      console.error("No quiz data! Cannot navigate.");
+      return;
+    }
+
+    if (quiz.isPrivate) {
+      console.log(
+        "Navigating to OTP Verification for private quiz:",
+        quiz.title
+      );
+      navigate("/quizotpverification", { state: { quiz } });
+    } else {
+      console.log(
+        "Navigating directly to Quiz Guidelines for public quiz:",
+        quiz.title
+      );
+      navigate("/quizguidelines", { state: { quiz } });
+    }
   };
 
   const scrollRecommended = (direction) => {
@@ -238,16 +275,19 @@ const Quizzes = () => {
       const { scrollLeft, clientWidth } = recommendedScrollRef.current;
       const scrollAmount = clientWidth * 0.5;
       recommendedScrollRef.current.scrollTo({
-        left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+        left:
+          direction === "left"
+            ? scrollLeft - scrollAmount
+            : scrollLeft + scrollAmount,
         behavior: "smooth",
       });
     }
   };
 
   return (
-    <div className="w-full mx-auto overflow-hidden container">
+    <div className="container w-full mx-auto overflow-hidden px-2 sm:px-4 lg:px-6 mt-10">
       {/* Tabs */}
-      <div className="flex space-x-6 border-b pb-2 text-lg font-semibold mt-20 mx-2">
+      <div className="flex space-x-4 sm:space-x-6 border-b pb-2 text-base sm:text-lg font-semibold mt-8 sm:mt-12">
         {["Public", "Private"].map((tab) => (
           <span
             key={tab}
@@ -264,27 +304,37 @@ const Quizzes = () => {
       </div>
 
       {/* Recommended Quizzes Section */}
-      <div className="mb-6 relative mx-2">
-        <h2 className="text-xl font-semibold mt-4 mx-2">Recommended Quizzes</h2>
-        <div className="flex justify-end gap-2 mt-2">
-          <button
-            aria-label="Scroll left"
-            onClick={() => scrollRecommended("left")}
-            className="p-2 bg-yellow-400 rounded-full hover:bg-gray-300"
-          >
-            <IoChevronBackOutline size={20} />
-          </button>
-          <button
-            aria-label="Scroll right"
-            onClick={() => scrollRecommended("right")}
-            className="p-2 bg-yellow-400 rounded-full hover:bg-gray-300"
-          >
-            <IoChevronForwardOutline size={20} />
-          </button>
+      <div className="mb-6 relative mt-4 sm:mt-6">
+        <div className=" flex justify-between items-center px-2">
+          <h2 className="text-lg sm:text-xl font-semibold">
+            Recommended Quizzes
+          </h2>
+          <div className="flex gap-2">
+            <button
+              aria-label="Scroll left"
+              onClick={() => scrollRecommended("left")}
+              className="p-1 sm:p-2 bg-yellow-400 rounded-full hover:bg-gray-300"
+            >
+              <IoChevronBackOutline className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+            <button
+              aria-label="Scroll right"
+              onClick={() => scrollRecommended("right")}
+              className="p-1 sm:p-2 bg-yellow-400 rounded-full hover:bg-gray-300"
+            >
+              <IoChevronForwardOutline className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+          </div>
         </div>
-        <div ref={recommendedScrollRef} className="flex gap-4 mt-4 overflow-x-auto w-full scrollbar-hide">
+        <div
+          ref={recommendedScrollRef}
+          className="flex gap-4 mt-4 overflow-x-auto w-full scrollbar-hide pb-4"
+        >
           {recommendedQuizzes.map((quiz, index) => (
-            <div key={index} className="min-w-[25%] flex-shrink-0">
+            <div
+              key={index}
+              className="min-w-[280px] sm:min-w-[30%] flex-shrink-0"
+            >
               <LSCPQuizCard
                 key={index}
                 index={index}
@@ -304,19 +354,21 @@ const Quizzes = () => {
 
       {/* Filters & Search */}
       <div className="mb-6">
-        <div className="flex items-center justify-between mt-6">
-          <div className="flex items-center gap-3 px-5">
-            <span className="text-gray-600">All Materials</span>
-            <select className="border px-2 py-1 rounded-md text-gray-600">
-              <option>200</option>
-            </select>
-            <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4 mt-4 sm:mt-6">
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600 text-sm sm:text-base">
+                All Materials
+              </span>
+              <select className="border px-2 py-1 rounded-md text-gray-600 text-sm sm:text-base">
+                <option>200</option>
+              </select>
+            </div>
+            <div className="flex gap-2 overflow-x-auto scrollbar-hide">
               <button
                 className={`${
-                  quizStatusFilter === "all"
-                    ? "bg-yellow-300"
-                    : "bg-gray-200"
-                } text-black font-medium px-4 py-1 rounded-md`}
+                  quizStatusFilter === "all" ? "bg-yellow-300" : "bg-gray-200"
+                } text-black font-medium px-3 py-1 text-sm sm:text-base rounded-md whitespace-nowrap`}
                 onClick={() => setQuizStatusFilter("all")}
               >
                 All Quizzes
@@ -326,7 +378,7 @@ const Quizzes = () => {
                   quizStatusFilter === "notStarted"
                     ? "bg-yellow-300"
                     : "bg-gray-200"
-                } text-black font-medium px-4 py-1 rounded-md`}
+                } text-black font-medium px-3 py-1 text-sm sm:text-base rounded-md whitespace-nowrap`}
                 onClick={() => setQuizStatusFilter("notStarted")}
               >
                 Not Started
@@ -336,7 +388,7 @@ const Quizzes = () => {
                   quizStatusFilter === "completed"
                     ? "bg-yellow-300"
                     : "bg-gray-200"
-                } text-black font-medium px-4 py-1 rounded-md`}
+                } text-black font-medium px-3 py-1 text-sm sm:text-base rounded-md whitespace-nowrap`}
                 onClick={() => setQuizStatusFilter("completed")}
               >
                 Completed
@@ -344,34 +396,35 @@ const Quizzes = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <IoSearchSharp className="absolute left-3 top-2 text-gray-400" />
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <div className="relative flex-1">
+              <IoSearchSharp className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search quizzes..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none text-sm sm:text-base"
               />
             </div>
-            <button className="text-gray-600 flex items-center gap-1">
-              <FaFilter /> Filter
-            </button>
-            <button className="text-gray-600 flex items-center gap-1">
-              <FaSort /> Sort by
-            </button>
-            
+            <div className="hidden sm:flex items-center gap-3">
+              <button className="text-gray-600 flex items-center gap-1 text-sm sm:text-base">
+                <FaFilter /> Filter
+              </button>
+              <button className="text-gray-600 flex items-center gap-1 text-sm sm:text-base">
+                <FaSort /> Sort by
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Quizzes Grid Section */}
-      <div className="flex justify-center items-center mt-6 mb-6">
+      <div className="container mx-auto flex justify-center items-center mt-4 sm:mt-6 mb-6">
         {filteredQuizzes.length === 0 ? (
           <p className="text-center text-gray-600">No quizzes found</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 w-full">
             {filteredQuizzes.map((quiz, index) => (
               <QuizCard
                 key={index}

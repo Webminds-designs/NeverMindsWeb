@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const QuizGuideLines = () => {
-  const navigate = useNavigate();
   const location = useLocation();
+const navigate = useNavigate();
+const quiz = location.state?.quiz;
 
-  const quiz = location.state?.quiz || {
-    title: "Default Quiz Title",
-    description: "This is a placeholder description.",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Animal_Cell.svg",
-    duration: "20 Min",
-    numQuestions: "10",
-  };
+useEffect(() => {
+  if (!quiz) {
+    console.error("No quiz data found! Redirecting to quizzes...");
+    navigate("/quizzes");
+  } else {
+    console.log("Quiz Data in Guidelines Page:", quiz);
+  }
+}, [quiz, navigate]);
+
 
   const handleStartQuiz = () => {
     navigate("/quiz", { state: { quiz, startTimer: true } });
@@ -22,15 +25,18 @@ const QuizGuideLines = () => {
       {/* Quiz Header */}
       <div className="max-w-2xl w-full flex flex-col items-center">
         <img
-          src={quiz.icon}
+          src={
+            quiz?.icon ||
+            "https://upload.wikimedia.org/wikipedia/commons/5/5a/Animal_Cell.svg"
+          }
           alt="Quiz Icon"
           className="w-56 h-56 sm:w-72 sm:h-72 lg:w-96 lg:h-96 object-cover rounded-lg mb-6"
         />
         <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold mt-4">
-          {quiz.title}
+          {quiz?.title || "Default Quiz Title"}
         </h1>
         <p className="text-gray-700 text-base sm:text-lg md:text-xl font-semibold mt-2">
-          {quiz.description}
+          {quiz?.description || "This is a placeholder description."}
         </p>
       </div>
 
@@ -38,7 +44,8 @@ const QuizGuideLines = () => {
       <div className="mt-6 max-w-xl w-full">
         <ul className="text-gray-800 text-sm sm:text-base md:text-lg space-y-3 sm:space-y-4">
           <li>
-            <b>Focus Up:</b> Read each question carefully to make the best choice.
+            <b>Focus Up:</b> Read each question carefully to make the best
+            choice.
           </li>
           <li>
             <b>Mind the Clock:</b> The timer is your guide—don’t let it run out.
@@ -47,7 +54,8 @@ const QuizGuideLines = () => {
             <b>One Shot:</b> You’ve got one attempt, so make it count!
           </li>
           <li>
-            <b>No Do-Overs:</b> Once you answer, you can’t change your selection.
+            <b>No Do-Overs:</b> Once you answer, you can’t change your
+            selection.
           </li>
         </ul>
       </div>
@@ -55,10 +63,10 @@ const QuizGuideLines = () => {
       {/* Quiz Details */}
       <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
         <p className="font-semibold text-blue-500 text-base sm:text-lg md:text-xl">
-          {quiz.numQuestions} Questions
+          {quiz?.numQuestions || "10"} Questions
         </p>
         <p className="font-semibold text-blue-500 text-base sm:text-lg md:text-xl">
-          {quiz.duration} minutes
+          {quiz?.duration || "20 Min"} minutes
         </p>
       </div>
 
