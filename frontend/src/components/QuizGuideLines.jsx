@@ -3,22 +3,28 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const QuizGuideLines = () => {
   const location = useLocation();
-const navigate = useNavigate();
-const quiz = location.state?.quiz;
+  const navigate = useNavigate();
+  const quiz = location.state?.quiz;
 
-useEffect(() => {
-  if (!quiz) {
-    console.error("No quiz data found! Redirecting to quizzes...");
-    navigate("/quizzes");
-  } else {
-    console.log("Quiz Data in Guidelines Page:", quiz);
-  }
-}, [quiz, navigate]);
-
-
+  useEffect(() => {
+    console.log("✅ Received Quiz Data in Guidelines Page:", quiz); // Debug log
+  
+    if (!quiz || !quiz.questions || quiz.questions.length === 0) {
+      console.error("No quiz data found! Redirecting to quizzes...");
+      navigate("/quizzes");
+    }
+  }, [quiz, navigate]);
+  
   const handleStartQuiz = () => {
-    navigate("/quiz", { state: { quiz, startTimer: true } });
+    if (!quiz || !quiz.questions || quiz.questions.length === 0) {
+      console.error("No quiz data available. Cannot start quiz.");
+      return;
+    }
+  
+    console.log("✅ Quiz data before starting:", quiz); // Debug log
+    navigate("/quiz", { state: { quiz } });
   };
+  
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 max-w-screen-lg mx-auto mt-10 sm:mt-20">

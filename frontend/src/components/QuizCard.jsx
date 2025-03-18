@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { quizCardData, recommendedQuizzes } from "../data/quizCardData";
 
 const QuizCard = ({
   index,
@@ -20,33 +21,42 @@ const QuizCard = ({
     return colors[index % colors.length] || "bg-gray-100";
   };
 
-  
   const handleTryClick = () => {
+    const fullQuizData = [...quizCardData, ...recommendedQuizzes].find((q) => q.title === title);
+  
+    if (!fullQuizData) {
+      console.error(`❌ No matching quiz found for title: ${title}`);
+      return;
+    }
+  
     const quiz = {
-      title,
-      description: "This is a placeholder description.",
+      ...fullQuizData, // Ensure all quiz properties are included
       icon: image || "https://via.placeholder.com/150",
-      duration: "20 Min",
-      numQuestions: 10,
-      isPrivate,
     };
-
-    console.log(isPrivate)
-
+  
+    console.log("Navigating with Quiz Data:", quiz); // Debug log before navigation
+  
     if (quiz.isPrivate) {
-      console.log(`Navigating to OTP Verification for Private Quiz: ${title}`);
       navigate("/quizotpverification", { state: { quiz } });
     } else {
-      console.log(`Navigating to Quiz Guidelines for Public Quiz: ${title}`);
       navigate("/quizguidelines", { state: { quiz } });
     }
   };
+  
 
   return (
     <div className="w-full sm:w-74 bg-white border border-gray-400 rounded-3xl transition-transform hover:scale-105 cursor-pointer my-4">
       {/* Card Image */}
-      <div className={`h-48 rounded-3xl m-2 flex items-center justify-center ${getCardBackgroundColor(index)}`}>
-        <img className="h-full object-contain p-4" src={image} alt={title || "Quiz image"} />
+      <div
+        className={`h-48 rounded-3xl m-2 flex items-center justify-center ${getCardBackgroundColor(
+          index
+        )}`}
+      >
+        <img
+          className="h-full object-contain p-4"
+          src={image}
+          alt={title || "Quiz image"}
+        />
       </div>
 
       <div className="p-6">
@@ -64,7 +74,10 @@ const QuizCard = ({
         {showScore && (
           <>
             <div className="my-3 w-full bg-gray-300 rounded-full h-2 relative">
-              <div className="h-2 rounded-full bg-black transition-all" style={{ width: `${score}%` }} />
+              <div
+                className="h-2 rounded-full bg-black transition-all"
+                style={{ width: `${score}%` }}
+              />
             </div>
             <div className="flex justify-between items-center mb-4">
               <span className="text-gray-500 text-sm font-medium">Score:</span>
@@ -78,7 +91,11 @@ const QuizCard = ({
           {/* Tutor Profile Icon */}
           <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-300 flex items-center justify-center">
             {tutorIcon ? (
-              <img src={tutorIcon} alt={tutorName} className="w-full h-full object-cover" />
+              <img
+                src={tutorIcon}
+                alt={tutorName}
+                className="w-full h-full object-cover"
+              />
             ) : (
               <span className="text-lg font-bold text-gray-700">
                 {tutorName?.charAt(0) || "?"}
@@ -88,7 +105,9 @@ const QuizCard = ({
 
           {/* Tutor Name & Subject */}
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-gray-900 truncate">{tutorName}</p>
+            <p className="text-sm font-semibold text-gray-900 truncate">
+              {tutorName}
+            </p>
             <p className="text-xs text-gray-500">{tutorSubject}</p>
           </div>
 

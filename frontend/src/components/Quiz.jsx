@@ -6,46 +6,57 @@ import Breadcrumb from "./BreadCrumb";
 const Quiz = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const quiz = location.state?.quiz || {
-    title: "Default Quiz Title",
-    description: "This is a placeholder description.",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Animal_Cell.svg",
-    duration: "20 Min",
-    numQuestions: 15,
-  };
+  const quiz = location.state?.quiz;
 
-  const generateQuestions = () => {
-    return Array.from({ length: quiz.numQuestions }, (_, index) => ({
-      id: index + 1,
-      text: `What is a key concept in ${quiz.title}? (Question ${index + 1})`,
-      options: ["Option A", "Option B", "Option C", "Option D"],
-    }));
-  };
+  useEffect(() => {
+    console.log("✅ Received Quiz Data in Quiz Page:", quiz);
 
-  const [questions, setQuestions] = useState(generateQuestions());
-  const totalSeconds = parseInt(quiz.duration) * 60;
+    if (!quiz || !quiz.questions || quiz.questions.length === 0) {
+      console.error("❌ No quiz data found! Redirecting to quizzes...");
+      setTimeout(() => navigate("/quizzes"), 500);
+    }
+  }, [quiz, navigate]);
+
+  if (!quiz || !quiz.questions) {
+    return (
+      <div className="text-center text-lg font-semibold">
+        Loading quiz data...
+      </div>
+    );
+  }
+
+  // ✅ FIX: Ensure timer starts correctly
+  const totalSeconds = isNaN(parseInt(quiz.duration))
+    ? 1200
+    : parseInt(quiz.duration) * 60;
+
   const [timeLeft, setTimeLeft] = useState(totalSeconds);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState(
-    Array(quiz.numQuestions).fill(null)
+    Array(quiz.questions.length).fill([])
   );
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
+  // ✅ Start Timer when Quiz Loads
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          handleFinishQuiz();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
+    if (timeLeft > 0) {
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            handleFinishQuiz();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
   }, [timeLeft]);
 
+  // ✅ Timer Format Function
   const formatTime = (seconds) => {
+    if (isNaN(seconds)) return "00 : 00";
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${minutes.toString().padStart(2, "0")} : ${secs
@@ -53,9 +64,22 @@ const Quiz = () => {
       .padStart(2, "0")}`;
   };
 
+  const isMultipleAnswer =
+    quiz.questions[currentQuestion].correctAnswers.length > 1;
+
   const handleAnswerSelect = (index) => {
     const updatedAnswers = [...selectedAnswers];
-    updatedAnswers[currentQuestion] = index;
+
+    if (isMultipleAnswer) {
+      updatedAnswers[currentQuestion] = updatedAnswers[
+        currentQuestion
+      ].includes(index)
+        ? updatedAnswers[currentQuestion].filter((i) => i !== index)
+        : [...updatedAnswers[currentQuestion], index];
+    } else {
+      updatedAnswers[currentQuestion] = [index];
+    }
+
     setSelectedAnswers(updatedAnswers);
   };
 
@@ -70,7 +94,8 @@ const Quiz = () => {
   };
 
   const progressPercentage =
-    (selectedAnswers.filter((ans) => ans !== null).length / quiz.numQuestions) *
+    (selectedAnswers.filter((ans) => ans.length > 0).length /
+      quiz.questions.length) *
     100;
 
   return (
@@ -108,8 +133,8 @@ const Quiz = () => {
             <p className="text-sm text-gray-600 mt-1">
               {Math.round(progressPercentage)}% completed
             </p>
-            <div className="mt-4 grid grid-cols-3 lg:grid-cols-5 gap-2">
-              {[...Array(quiz.numQuestions)].map((_, index) => (
+            <div className="mt-4 grid grid-cols-3 lg:grid-cols-5">
+              {quiz.questions.map((_, index) => (
                 <button
                   key={index}
                   className={`w-8 h-8 text-sm rounded-lg font-bold transition ${
@@ -132,7 +157,7 @@ const Quiz = () => {
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-center bg-white p-4 rounded-lg shadow-sm gap-4">
           <h1 className="text-lg lg:text-xl font-semibold">
-            Question {currentQuestion + 1} of {quiz.numQuestions}
+            Question {currentQuestion + 1} of {quiz.questions.length}
           </h1>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
@@ -141,7 +166,7 @@ const Quiz = () => {
                 {formatTime(timeLeft)}
               </p>
             </div>
-            {currentQuestion === quiz.numQuestions - 1 ? (
+            {currentQuestion === quiz.questions.length - 1 ? (
               <button
                 onClick={handleFinishQuiz}
                 className="px-3 py-2 lg:px-4 lg:py-2 bg-[#ffe132] text-black rounded-lg text-sm lg:text-[18px]"
@@ -163,64 +188,41 @@ const Quiz = () => {
         <div className="flex mt-4 justify-center">
           <Breadcrumb
             currentStep={currentQuestion + 1}
-            totalSteps={quiz.numQuestions}
+            totalSteps={quiz.questions.length}
           />
         </div>
 
         {/* Question Card */}
         <div className="mt-6 bg-white p-4 lg:p-6 rounded-lg flex flex-col relative">
           <p className="text-lg lg:text-[24px] font-semibold mt-6 lg:mt-10">
-            {questions[currentQuestion].text}
+            {quiz.questions[currentQuestion].text}
           </p>
 
           <hr className="my-5 h-1 border-t border-black" />
 
           {/* Answer Section */}
-          <div className="flex flex-col lg:flex-row items-center justify-between">
-            <div className="w-full lg:w-3/4">
-              {questions[currentQuestion].options.map((option, index) => (
-                <label key={index} className="block mt-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name={`question-${currentQuestion}`}
-                    checked={selectedAnswers[currentQuestion] === index}
-                    onChange={() => handleAnswerSelect(index)}
-                    className="hidden"
-                  />
-                  <div className="flex items-center p-2 rounded-lg transition bg-[#fffcf2] hover:bg-gray-200">
-                    <div
-                      className={`w-5 h-5 border-2 border-[#ffe132] flex items-center justify-center ${
-                        selectedAnswers[currentQuestion] === index
-                          ? "bg-[#ffe132]"
-                          : "bg-white"
-                      }`}
-                    ></div>
-                    <span className="ml-3 text-sm lg:text-base">{option}</span>
-                  </div>
-                </label>
-              ))}
-            </div>
+          <div className="w-full">
+  {quiz.questions[currentQuestion].options.map((option, index) => (
+    <label key={index} className="block mt-2 cursor-pointer flex items-center">
+      <input
+        type={isMultipleAnswer ? "checkbox" : "radio"}
+        name={`question-${currentQuestion}`}
+        checked={selectedAnswers[currentQuestion].includes(index)}
+        onChange={() => handleAnswerSelect(index)}
+        className="hidden"
+      />
+      <div
+        className={`w-5 h-5 border-2 rounded-md flex items-center justify-center mr-2 transition-all ${
+          selectedAnswers[currentQuestion].includes(index)
+            ? "bg-yellow-400 border-yellow-500"
+            : "border-gray-400 bg-white"
+        }`}
+      ></div>
+      <span className="text-sm lg:text-base">{option}</span>
+    </label>
+  ))}
+</div>
 
-            {/* Image Section */}
-            <div className="w-full lg:w-1/4 flex justify-center lg:justify-end mt-6 lg:mt-0">
-              <img
-                src={quiz.icon}
-                alt="Quiz Icon"
-                className="h-48 w-48 lg:h-60 lg:w-60 border border-gray-900 rounded-lg p-2"
-              />
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <div className="flex justify-start mt-6">
-            <button
-              onClick={() => setCurrentQuestion((prev) => Math.max(prev - 1, 0))}
-              disabled={currentQuestion === 0}
-              className="px-4 py-2 bg-[#ffe132] text-black hover:bg-[#fbc72e] rounded-lg disabled:opacity-50 text-sm lg:text-[18px]"
-            >
-              Previous Question
-            </button>
-          </div>
         </div>
       </div>
     </div>
