@@ -201,28 +201,30 @@ const Quiz = () => {
           <hr className="my-5 h-1 border-t border-black" />
 
           {/* Answer Section */}
-          <div className="w-full">
-  {quiz.questions[currentQuestion].options.map((option, index) => (
-    <label key={index} className="block mt-2 cursor-pointer flex items-center">
-      <input
-        type={isMultipleAnswer ? "checkbox" : "radio"}
-        name={`question-${currentQuestion}`}
-        checked={selectedAnswers[currentQuestion].includes(index)}
-        onChange={() => handleAnswerSelect(index)}
-        className="hidden"
-      />
-      <div
-        className={`w-5 h-5 border-2 rounded-md flex items-center justify-center mr-2 transition-all ${
-          selectedAnswers[currentQuestion].includes(index)
-            ? "bg-yellow-400 border-yellow-500"
-            : "border-gray-400 bg-white"
-        }`}
-      ></div>
-      <span className="text-sm lg:text-base">{option}</span>
-    </label>
-  ))}
-</div>
-
+          <div className="w-full flex flex-col gap-2">
+            {quiz.questions[currentQuestion].options.map((option, index) => (
+              <label
+                key={index}
+                className="flex items-center gap-3 cursor-pointer"
+              >
+                <input
+                  type={isMultipleAnswer ? "checkbox" : "radio"}
+                  name={`question-${currentQuestion}`}
+                  checked={selectedAnswers[currentQuestion].includes(index)}
+                  onChange={() => handleAnswerSelect(index)}
+                  className="hidden"
+                />
+                <div
+                  className={`w-5 h-5 border-2 rounded-md transition-all flex items-center justify-center ${
+                    selectedAnswers[currentQuestion].includes(index)
+                      ? "bg-yellow-400 border-yellow-500"
+                      : "border-gray-400 bg-white"
+                  }`}
+                ></div>
+                <span className="text-sm lg:text-base">{option}</span>
+              </label>
+            ))}
+          </div>
         </div>
       </div>
     </div>
