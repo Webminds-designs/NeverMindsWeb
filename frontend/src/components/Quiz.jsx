@@ -133,7 +133,7 @@ const Quiz = () => {
             <p className="text-sm text-gray-600 mt-1">
               {Math.round(progressPercentage)}% completed
             </p>
-            <div className="mt-4 grid grid-cols-3 lg:grid-cols-5">
+            <div className="mt-4 grid grid-cols-3 lg:grid-cols-5 mx-4 gap-2">
               {quiz.questions.map((_, index) => (
                 <button
                   key={index}
@@ -201,29 +201,47 @@ const Quiz = () => {
           <hr className="my-5 h-1 border-t border-black" />
 
           {/* Answer Section */}
-          <div className="w-full flex flex-col gap-2">
-            {quiz.questions[currentQuestion].options.map((option, index) => (
-              <label
-                key={index}
-                className="flex items-center gap-3 cursor-pointer"
-              >
-                <input
-                  type={isMultipleAnswer ? "checkbox" : "radio"}
-                  name={`question-${currentQuestion}`}
-                  checked={selectedAnswers[currentQuestion].includes(index)}
-                  onChange={() => handleAnswerSelect(index)}
-                  className="hidden"
+          <div className="flex flex-col md:flex-row items-center justify-between w-full">
+            {/* Answer Options */}
+            <div
+              className={`w-full ${
+                quiz.questions[currentQuestion].hasIcon ? "md:w-3/4" : "w-full"
+              }`}
+            >
+              {quiz.questions[currentQuestion].options.map((option, index) => (
+                <label key={index} className="block mt-3 cursor-pointer">
+                  <div className="flex items-center p-3 w-full rounded-md transition bg-[#fffcf2] hover:bg-gray-200">
+                    {/* Custom Square Checkbox */}
+                    <div
+                      className={`w-5 h-5 border-2 flex items-center justify-center rounded-sm mr-3 ${
+                        selectedAnswers[currentQuestion].includes(index)
+                          ? "bg-[#ffe132] border-[#ffe132]"
+                          : "bg-white border-gray-400"
+                      }`}
+                    ></div>
+                    <span className="text-sm md:text-base">{option}</span>
+                  </div>
+                  <input
+                    type={isMultipleAnswer ? "checkbox" : "radio"}
+                    name={`question-${currentQuestion}`}
+                    checked={selectedAnswers[currentQuestion].includes(index)}
+                    onChange={() => handleAnswerSelect(index)}
+                    className="hidden"
+                  />
+                </label>
+              ))}
+            </div>
+
+            {/* Show quiz icon for specific questions */}
+            {quiz.questions[currentQuestion].hasIcon && (
+              <div className="flex justify-center items-center mt-4 md:mt-0 w-full md:w-1/4">
+                <img
+                  src={quiz.icon}
+                  alt="Question Icon"
+                  className="w-28 h-28 md:w-36 md:h-36 lg:w-44 lg:h-44 border border-gray-300 rounded-lg p-2"
                 />
-                <div
-                  className={`w-5 h-5 border-2 rounded-md transition-all flex items-center justify-center ${
-                    selectedAnswers[currentQuestion].includes(index)
-                      ? "bg-yellow-400 border-yellow-500"
-                      : "border-gray-400 bg-white"
-                  }`}
-                ></div>
-                <span className="text-sm lg:text-base">{option}</span>
-              </label>
-            ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
