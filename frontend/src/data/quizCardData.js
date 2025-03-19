@@ -20,8 +20,10 @@ export const quizCardData = [
     description: "Explore the essential components of living organisms.",
     duration: "20 Min",
     numQuestions: 10,
+    score: 90,
     icon: science1img,
     tutorName: "Dr. Charitha Munasinghe",
+    tutorIcon: tutorIcon,
     status: "notStarted",
     guidelines: [
       "Read each question carefully before answering.",
@@ -33,7 +35,7 @@ export const quizCardData = [
       {
         text: "What is the basic unit of life?",
         options: ["Cell", "Atom", "Molecule", "Organ"],
-        correctAnswers: [0], 
+        correctAnswers: [0],
         hasIcon: true,
       },
       {
@@ -49,7 +51,7 @@ export const quizCardData = [
           "Waste removal",
           "Oxygen transport",
         ],
-        correctAnswers: [0], 
+        correctAnswers: [0],
         hasIcon: true,
       },
       {
@@ -68,8 +70,10 @@ export const quizCardData = [
       "Explore the major systems of the human body and their functions.",
     duration: "20 Min",
     numQuestions: 10,
+    score: 50,
     icon: science4img,
     tutorName: "Dr. Sarah Green",
+    tutorIcon: tutorIcon,
     status: "notStarted",
     questions: [
       {
@@ -135,17 +139,19 @@ export const quizCardData = [
     ],
   },
 
-  
   {
     image: science9img,
     subject: "History",
     title: "Ancient Civilizations",
     isPrivate: true,
-    description: "Explore the ancient empires and their historical significance.",
+    description:
+      "Explore the ancient empires and their historical significance.",
     duration: "25 Min",
     numQuestions: 10,
+    score: 70,
     icon: science9img,
     tutorName: "Prof. William Harris",
+    tutorIcon: tutorIcon,
     status: "completed",
     guidelines: [
       "History questions may include multiple-choice and true/false.",
@@ -225,8 +231,10 @@ export const quizCardData = [
     description: "Learn about countries, landscapes, and geographical wonders.",
     duration: "18 Min",
     numQuestions: 10,
+    score: 32,
     icon: science10img,
     tutorName: "Dr. Mark Richards",
+    tutorIcon: tutorIcon,
     status: "notStarted",
     questions: [
       {
@@ -291,8 +299,10 @@ export const quizCardData = [
       "Discover different types of musical instruments and their history.",
     duration: "15 Min",
     numQuestions: 10,
+    score: 100,
     icon: gramerphone,
     tutorName: "Ms. Emily Carter",
+    tutorIcon: tutorIcon,
     status: "notStarted",
     questions: [
       {
@@ -330,8 +340,10 @@ export const quizCardData = [
     description: "Understand viruses and how they impact health.",
     duration: "15 Min",
     numQuestions: 10,
+    score: 12,
     icon: science2img,
     tutorName: "Dr. Charitha Munasinghe",
+    tutorIcon: tutorIcon,
     status: "notStarted",
     questions: [
       {
@@ -354,8 +366,10 @@ export const quizCardData = [
     description: "Learn the foundation of cell functions and structures.",
     duration: "25 Min",
     numQuestions: 10,
+    score: 95,
     icon: science3img,
     tutorName: "Dr. Charitha Munasinghe",
+    tutorIcon: tutorIcon,
     status: "notStarted",
     questions: [
       {
@@ -390,6 +404,7 @@ export const recommendedQuizzes = [
     isPrivate: false,
     score: 90,
     tutorName: "Dr. Charitha Munasinghe",
+    tutorIcon: tutorIcon,
     tutorSubject: "Physics",
     tutorIcon: tutorIcon,
     status: "completed",
@@ -472,6 +487,7 @@ export const recommendedQuizzes = [
     isPrivate: true,
     score: 85,
     tutorName: "Dr. Charitha Munasinghe",
+    tutorIcon: tutorIcon,
     tutorSubject: "Biology",
     tutorIcon: tutorIcon,
     status: "completed",
@@ -500,6 +516,7 @@ export const recommendedQuizzes = [
     isPrivate: true,
     score: 90,
     tutorName: "Dr. Charitha Munasinghe",
+    tutorIcon: tutorIcon,
     tutorSubject: "Physics",
     tutorIcon: tutorIcon,
     status: "completed",
@@ -523,6 +540,7 @@ export const recommendedQuizzes = [
     isPrivate: true,
     score: 85,
     tutorName: "Anoma Rathnayake",
+    tutorIcon: tutorIcon,
     tutorSubject: "Mathematics",
     tutorIcon: tutorIcon,
     status: "completed",
@@ -546,6 +564,7 @@ export const recommendedQuizzes = [
     isPrivate: true,
     score: 88,
     tutorName: "Dr. Charitha Munasinghe",
+    tutorIcon: tutorIcon,
     tutorSubject: "Chemistry",
     tutorIcon: tutorIcon,
     status: "completed",
@@ -563,3 +582,44 @@ export const recommendedQuizzes = [
     ],
   },
 ];
+
+export const tutorsData = [
+  { name: "Dr. John Doe", subject: "Mathematics", profileIcon: tutorIcon },
+  { name: "Dr. Jane Smith", subject: "Physics", profileIcon: tutorIcon },
+  { name: "Dr. Alex Brown", subject: "Chemistry", profileIcon: tutorIcon }
+];
+
+export const recentlyAttemptedQuizzes = [
+  {
+    title: "Time Travelers",
+    category: "History",
+    color: "bg-blue-200 text-blue-700",
+  },
+  {
+    title: "History Hunters",
+    category: "History",
+    color: "bg-blue-300 text-blue-800",
+  },
+  {
+    title: "Inside the Cell",
+    category: "Biology",
+    color: "bg-green-200 text-green-700",
+  },
+  {
+    title: "Rhythm & Beats",
+    category: "Music",
+    color: "bg-red-200 text-red-700",
+  },
+  {
+    title: "Symphony of Sounds",
+    category: "Music",
+    color: "bg-pink-200 text-pink-700",
+  },
+  {
+    title: "Atomic Adventures",
+    category: "Chemistry",
+    color: "bg-purple-300 text-purple-700",
+  },
+];
+
+export default quizCardData;

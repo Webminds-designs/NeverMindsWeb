@@ -8,7 +8,7 @@ const Badges = () => {
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
-    <div className="relative flex flex-col lg:flex-row h-screen w-full items-center justify-center px-4 md:px-10 lg:px-20">
+    <div className="relative flex flex-col lg:flex-row h-screen w-full items-center justify-center px-4 md:px-10 lg:px-20 mt-10">
       {/* Sidebar */}
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 

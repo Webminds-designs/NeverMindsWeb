@@ -61,14 +61,14 @@ const Hero = () => {
 
             {/* Powered by 15 minds */}
             <div
-              className="absolute bottom-0 bg-transparent bg-blur lg:-bottom-43 right-0 left-52 xl:bottom-12 xl:right-0 xl:left-1/2 rounded-lg p-4 w-64 lg:w-72"
+              className="absolute bottom-0  lg:-bottom-43 right-0 left-52 xl:bottom-12 xl:right-0 xl:left-1/2 rounded-lg p-4 w-64 lg:w-72"
               style={{
                 borderWidth: "2px",
                 borderStyle: "solid",
                 borderImage:
                   "linear-gradient(to bottom left, rgba(251, 199, 46, 1), rgba(251, 199, 46, 0)) 1",
                 borderRadius: "0.5rem",
-                backdropFilter: "blur(10px)",
+                
               }}
             >
               <div className="mb-2">

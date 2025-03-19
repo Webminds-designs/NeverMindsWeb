@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-import { AiOutlinePlus } from "react-icons/ai";
 import { MdOutlineDelete } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import Sidebar from "./SideBar";
@@ -28,17 +27,23 @@ const Account = () => {
     const value = e.target.value;
     setEmail(value);
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setEmailError(!re.test(value) && value ? "Please enter a valid email address" : "");
+    setEmailError(
+      !re.test(value) && value ? "Please enter a valid email address" : ""
+    );
   };
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setNewPassword(value);
-    setPasswordError(value.length > 0 && value.length < 8 ? "Password must be at least 8 characters" : "");
+    setPasswordError(
+      value.length > 0 && value.length < 8
+        ? "Password must be at least 8 characters"
+        : ""
+    );
   };
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen px-4 sm:px-8 lg:px-10">
+    <div className="flex flex-col lg:flex-row min-h-screen px-4 sm:px-8 lg:px-10 mt-8">
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
       <div className="flex-1 p-4 sm:p-6 bg-white rounded-lg w-full container mx-auto">
@@ -51,15 +56,25 @@ const Account = () => {
         {/* Profile Picture Section */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <img src={userimg} alt="Profile" className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover" />
+            <img
+              src={userimg}
+              alt="Profile"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
+            />
             <div>
               <p className="font-semibold">Profile Picture</p>
-              <p className="text-sm font-semibold text-gray-500">PNG, JPEG under 15MB</p>
+              <p className="text-sm font-semibold text-gray-500">
+                PNG, JPEG under 15MB
+              </p>
             </div>
           </div>
           <div className="flex flex-wrap gap-2 font-semibold">
-            <button className="bg-gray-100 px-4 py-2 rounded-md text-sm">Upload new picture</button>
-            <button className="bg-gray-200 px-4 py-2 rounded-md text-sm">Delete</button>
+            <button className="bg-gray-100 px-4 py-2 rounded-md text-sm">
+              Upload new picture
+            </button>
+            <button className="bg-gray-200 px-4 py-2 rounded-md text-sm">
+              Delete
+            </button>
           </div>
         </div>
 
@@ -67,10 +82,20 @@ const Account = () => {
         <div className="mt-6">
           <h2 className="font-semibold">Full name</h2>
           <div className="flex flex-col sm:flex-row gap-4 mt-2">
-            <input type="text" value={firstName} onChange={handleNameChange(setFirstName)}
-              className="border border-gray-300 px-4 py-2 w-full rounded-md" placeholder="First name" />
-            <input type="text" value={lastName} onChange={handleNameChange(setLastName)}
-              className="border border-gray-300 px-4 py-2 w-full rounded-md" placeholder="Last name" />
+            <input
+              type="text"
+              value={firstName}
+              onChange={handleNameChange(setFirstName)}
+              className="border border-gray-300 px-4 py-2 w-full rounded-md"
+              placeholder="First name"
+            />
+            <input
+              type="text"
+              value={lastName}
+              onChange={handleNameChange(setLastName)}
+              className="border border-gray-300 px-4 py-2 w-full rounded-md"
+              placeholder="Last name"
+            />
           </div>
         </div>
         <hr className="border-yellow-500 my-4" />
@@ -79,17 +104,28 @@ const Account = () => {
         <div className="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center">
           <div className="w-full sm:w-3/4">
             <h2 className="font-semibold">Contact email</h2>
-            <p className="text-sm font-semibold text-gray-500">Manage your account's email address</p>
+            <p className="text-sm font-semibold text-gray-500">
+              Manage your account's email address
+            </p>
             <div className="relative mt-2">
               <FaEnvelope className="absolute left-3 top-3 text-yellow-500" />
-              <input type="email" value={email} onChange={validateEmail} onBlur={validateEmail}
-                className={`border ${emailError ? "border-red-500" : "border-gray-300"} pl-10 pr-4 py-2 w-full rounded-md`}
-                placeholder="Email address" />
-              {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+              <input
+                type="email"
+                value={email}
+                onChange={validateEmail}
+                onBlur={validateEmail}
+                className={`border ${
+                  emailError ? "border-red-500" : "border-gray-300"
+                } pl-10 pr-4 py-2 w-full rounded-md`}
+                placeholder="Email address"
+              />
+              {emailError && (
+                <p className="text-red-500 text-sm mt-1">{emailError}</p>
+              )}
             </div>
           </div>
           <button className="mt-2 sm:mt-0 font-semibold bg-gray-100 px-4 py-2 rounded-md text-sm flex items-center gap-2">
-            <AiOutlinePlus /> Add another email
+            Add another email
           </button>
         </div>
         <hr className="border-yellow-500 my-4" />
@@ -97,20 +133,35 @@ const Account = () => {
         {/* Password Section */}
         <div className="mt-6">
           <h2 className="font-semibold">Password</h2>
-          <p className="text-sm font-semibold text-gray-500">Modify your current password</p>
+          <p className="text-sm font-semibold text-gray-500">
+            Modify your current password
+          </p>
           <div className="flex flex-col sm:flex-row justify-between items-center mt-4">
             <div className="flex flex-col sm:flex-row gap-4 w-full">
               <div className="relative w-full sm:w-1/2">
                 <FaLock className="absolute left-3 top-3 text-yellow-500" />
-                <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)}
-                  className="border border-gray-300 pl-10 pr-4 py-2 w-full rounded-md" placeholder="Current password" />
+                <input
+                  type="password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  className="border border-gray-300 pl-10 pr-4 py-2 w-full rounded-md"
+                  placeholder="Current password"
+                />
               </div>
               <div className="relative w-full sm:w-1/2">
                 <FaLock className="absolute left-3 top-3 text-yellow-500" />
-                <input type="password" value={newPassword} onChange={handlePasswordChange}
-                  className={`border ${passwordError ? "border-red-500" : "border-gray-300"} pl-10 pr-4 py-2 w-full rounded-md`}
-                  placeholder="New Password" />
-                {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={handlePasswordChange}
+                  className={`border ${
+                    passwordError ? "border-red-500" : "border-gray-300"
+                  } pl-10 pr-4 py-2 w-full rounded-md`}
+                  placeholder="New Password"
+                />
+                {passwordError && (
+                  <p className="text-red-500 text-sm mt-1">{passwordError}</p>
+                )}
               </div>
             </div>
             <div className="flex gap-2 mt-4 sm:mt-0">
@@ -128,7 +179,9 @@ const Account = () => {
         {/* Account Security Section */}
         <div className="mt-6">
           <h2 className="font-semibold">Account security</h2>
-          <p className="text-sm font-semibold text-gray-500">Manage your account security</p>
+          <p className="text-sm font-semibold text-gray-500">
+            Manage your account security
+          </p>
           <div className="mt-3 flex flex-wrap gap-4">
             <button className="flex items-center font-semibold gap-2 bg-gray-100 px-4 py-2 rounded-md text-sm">
               <BiLogOut /> Log out

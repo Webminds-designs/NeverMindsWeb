@@ -22,27 +22,28 @@ const QuizCard = ({
   };
 
   const handleTryClick = () => {
-    const fullQuizData = [...quizCardData, ...recommendedQuizzes].find((q) => q.title === title);
-  
+    const fullQuizData = [...quizCardData, ...recommendedQuizzes].find(
+      (q) => q.title === title
+    );
+
     if (!fullQuizData) {
       console.error(`❌ No matching quiz found for title: ${title}`);
       return;
     }
-  
+
     const quiz = {
       ...fullQuizData, // Ensure all quiz properties are included
       icon: image || "https://via.placeholder.com/150",
     };
-  
+
     console.log("Navigating with Quiz Data:", quiz); // Debug log before navigation
-  
+
     if (quiz.isPrivate) {
       navigate("/quizotpverification", { state: { quiz } });
     } else {
       navigate("/quizguidelines", { state: { quiz } });
     }
   };
-  
 
   return (
     <div className="w-full sm:w-74 bg-white border border-gray-400 rounded-3xl transition-transform hover:scale-105 cursor-pointer my-4">
@@ -73,9 +74,9 @@ const QuizCard = ({
         {/* Score & Progress Bar */}
         {showScore && (
           <>
-            <div className="my-3 w-full bg-gray-300 rounded-full h-2 relative">
+            <div className="my-3 w-full bg-gray-300 rounded-full h-1 relative">
               <div
-                className="h-2 rounded-full bg-black transition-all"
+                className="h-1 rounded-full bg-black transition-all"
                 style={{ width: `${score}%` }}
               />
             </div>
@@ -103,12 +104,12 @@ const QuizCard = ({
             )}
           </div>
 
-          {/* Tutor Name & Subject */}
+          {/* Tutor Name & Subject (Truncated) */}
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-gray-900 truncate">
               {tutorName}
             </p>
-            <p className="text-xs text-gray-500">{tutorSubject}</p>
+            <p className="text-xs text-gray-500 truncate">{tutorSubject}</p>
           </div>
 
           {/* Try Button */}

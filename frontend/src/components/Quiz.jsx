@@ -133,7 +133,7 @@ const Quiz = () => {
             <p className="text-sm text-gray-600 mt-1">
               {Math.round(progressPercentage)}% completed
             </p>
-            <div className="mt-4 grid grid-cols-3 lg:grid-cols-5 mx-4 gap-2">
+            <div className="mt-4 grid grid-cols-6 md:grid-cols-12 lg:grid-cols-7 mx-4 gap-2">
               {quiz.questions.map((_, index) => (
                 <button
                   key={index}

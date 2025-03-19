@@ -45,7 +45,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </div>
 
             {/* Overview Section */}
-            <ul className="mt-4 px-6 space-y-4">
+            <ul className="mt-4 px-6 space-y-4 sm:mt-12">
               <li className="text-gray-500 text-sm uppercase font-bold tracking-wide">
                 Overview
               </li>
@@ -94,7 +94,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
       {/* Menu Icon */}
       <div
-        className="w-16 h-16 mt-7 flex items-center justify-center text-black cursor-pointer hover:scale-110 transition-transform duration-300"
+        className="w-10 h-10 sm:w-16 sm:h-16 ml-2 mt-6 sm:mt-7 flex items-center justify-center text-black cursor-pointer hover:scale-110 transition-transform duration-300"
         onClick={toggleSidebar}
       >
         {!isOpen && (
