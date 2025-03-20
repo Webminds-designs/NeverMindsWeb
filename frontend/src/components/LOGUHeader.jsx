@@ -29,11 +29,11 @@ const LOGUHeader = () => {
       >
         {/* Left Section: Search Bar (Hidden on Specific Pages) */}
         {!shouldHideSearchBar && (
-          <div className="w-full lg:w-8/12 max-w-full sm:ml-7 p-2 md:p-4">
+          <div className="w-full lg:w-8/12 max-w-full sm:ml-10 p-2 md:p-4">
             <input
               type="text"
               placeholder="Search your course..."
-              className="w-full p-3 md:p-4 rounded-3xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="w-full p-3 md:p-4 mx-5 rounded-3xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               aria-label="Search your course"
             />
           </div>
@@ -60,7 +60,7 @@ const LOGUHeader = () => {
               src={profileImg}
               alt="Dulsi Rathnayake's profile"
             />
-            <span className="font-semibold text-sm md:text-base lg:text-lg">
+            <span className="font-semibold text-sm md:text-base lg:text-md">
               Dulsi Rathnayake
             </span>
           </div>

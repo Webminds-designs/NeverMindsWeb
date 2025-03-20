@@ -188,12 +188,12 @@ const serviceItems = [
   // Box 6
   {
     title: (
-      <div className="flex flex-col items-center text-left text-black p-6 h-full">
+      <div className="flex flex-col items-center text-left text-black p-6 sm:px-2 sm:py-4 h-full">
         {/* Image (Centered) */}
         <img src={creativity} alt="Learning Fun" className="w-40 h-40 mb-6" />
 
         {/* Title (Multi-Line) */}
-        <h3 className="text-[38px] sm:text-[50px] md:text-[40px] text-center font-semibold leading-tight mb-4">
+        <h3 className="text-[38px] sm:text-[50px] md:text-[30px] lg:text-[50px] text-center font-semibold leading-tight mb-4">
           Exclusive <br /> Tutor <br /> Promotions.
         </h3>
 

@@ -94,7 +94,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
       {/* Menu Icon */}
       <div
-        className="w-10 h-10 sm:w-16 sm:h-16 ml-2 mt-6 sm:mt-7 flex items-center justify-center text-black cursor-pointer hover:scale-110 transition-transform duration-300"
+        className="w-8 h-8 sm:w-16 sm:h-16 ml-2 mt-9 sm:mt-9 flex items-center justify-center text-black cursor-pointer hover:scale-110 transition-transform duration-300"
         onClick={toggleSidebar}
       >
         {!isOpen && (

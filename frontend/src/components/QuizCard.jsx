@@ -106,10 +106,12 @@ const QuizCard = ({
 
           {/* Tutor Name & Subject (Truncated) */}
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-gray-900 truncate">
+            <p className="text-sm font-semibold text-gray-900 truncate max-w-[120px]">
               {tutorName}
             </p>
-            <p className="text-xs text-gray-500 truncate">{tutorSubject}</p>
+            <p className="text-xs text-gray-500 truncate max-w-[120px]">
+              {tutorSubject}
+            </p>
           </div>
 
           {/* Try Button */}
