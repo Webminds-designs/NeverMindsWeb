@@ -11,19 +11,10 @@ import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from "react-icons
 import quizCardData from "../data/quizCardData";
 import { tutorsData } from "../data/quizCardData";
 import profileImage from "../assets/girl.jpg";
-import Tutors from "./Tutors";
-import {
-  IoIosArrowDropleftCircle,
-  IoIosArrowDroprightCircle,
-} from "react-icons/io";
+import showcardimg from "../assets/star-2.svg";
 import { LanguageContext } from "../context/LanguageContext";
 import content from '../components/content/ProfileDashboardContent.json'
 
-const tutorsData = [
-  { name: "Dr. John Doe", subject: "Mathematics", profileIcon: tutorIcon },
-  { name: "Dr. Jane Smith", subject: "Physics", profileIcon: tutorIcon },
-  { name: "Dr. Alex Brown", subject: "Chemistry", profileIcon: tutorIcon }
-];
 const ProfileDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { language, toggleLanguage } = useContext(LanguageContext); 

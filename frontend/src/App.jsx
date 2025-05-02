@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import Badges from "./components/Badges";
 import Progress from "./components/Progress";
@@ -12,6 +12,7 @@ import QuizGuideLines from "./components/QuizGuideLines";
 import Quiz from "./components/Quiz";
 import QuizResult from "./components/QuizResult";
 import Account from "./components/Account";
+import Services from "./components/Services";
 import { LanguageProvider } from "./context/LanguageContext";
 import QuizOTPVerification from "./components/QuizOTPVerification";
 
@@ -40,26 +41,19 @@ function App() {
           <Route path="/dashboard" element={<ProfileDashboard />} />
           <Route path="/account" element={<Account />} />
         </Route>
-        
+
         <Route path="/" element={<QuizzesMain />}>
-          <Route path="home" element={<Home />} /> 
+          <Route path="home" element={<Home />} />
           <Route path="quizzes" element={<Quizzes />} />
           <Route path="quizguidelines" element={<QuizGuideLines />} />
-          <Route path="quizresult" element={<QuizResult />} />  
+          <Route path="quizresult" element={<QuizResult />} />
         </Route>
 
         <Route path="/quiz" element={<Quiz />} />
-        <Route path="/services" element={<Services/>} />
+        <Route path="/services" element={<Services />} />
         <Route path="/quizotpverification" element={<QuizOTPVerification />} />
-        
-        
-        
-        
-        
-
-  
       </Routes>
-      </LanguageProvider>
+    </LanguageProvider>
   );
 }
 
