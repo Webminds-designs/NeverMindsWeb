@@ -15,24 +15,17 @@ import Account from "./components/Account";
 import Services from "./components/Services";
 import { LanguageProvider } from "./context/LanguageContext";
 import QuizOTPVerification from "./components/QuizOTPVerification";
-
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
-  //set local storage for user
-  const user = {
-    id: 1,
-    name: "John Doe",
-    email: "e@gmail.com",
-  };
-
-  //   //user null
-  //   const user = null;
-
-  localStorage.setItem("user", JSON.stringify(user));
-
   return (
     <LanguageProvider>
       <Routes>
+        {/* Auth Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        
         <Route path="/" element={<Dashboard />}>
           <Route index element={<Home />} />
           <Route path="/badges" element={<Badges />} />
@@ -48,7 +41,7 @@ function App() {
           <Route path="quizguidelines" element={<QuizGuideLines />} />
           <Route path="quizresult" element={<QuizResult />} />
         </Route>
-
+        
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/services" element={<Services />} />
         <Route path="/quizotpverification" element={<QuizOTPVerification />} />
