@@ -1,13 +1,16 @@
-import React from 'react';
-import teampic from '../assets/knight.png';
-import i2 from '../assets/i2.png';
-import i3 from '../assets/i3.png';
-import i4 from '../assets/i4.png';
-import i5 from '../assets/i5.png';
+import React, { useContext } from "react";
+import teampic from "../assets/knight.png";
+import i2 from "../assets/i2.png";
+import i3 from "../assets/i3.png";
+import i4 from "../assets/i4.png";
+import i5 from "../assets/i5.png";
+import { LanguageContext } from "../context/LanguageContext";
+import content from "../components/content/ContactTeam.json";
 
 const teamImages = [i2, i3, i4, i5];
 
 const ContactTeam = () => {
+  const { language } = useContext(LanguageContext);
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 items-center py-8 md:pl-0 px-6 md:pr-20 bg-white">
       {/* Left Section - Image */}
@@ -21,8 +24,14 @@ const ContactTeam = () => {
 
       {/* Right Section - Content */}
       <div className="w-full md:col-span-8 text-center md:text-left">
-        <h1 className="text-[36px] md:text-[55px] lg:text-[80px] font-regular text-center mb-4">
-          Contact Our Friendly Team
+        <h1
+          className={`${
+            language === "si"
+              ? "text-[32px] md:text-[48px] lg:text-[70px]"
+              : "text-[36px] md:text-[55px] lg:text-[80px]"
+          } font-regular text-center mb-4`}
+        >
+          {content[language].title}
         </h1>
 
         {/* Grid for Team Members */}
@@ -32,19 +41,22 @@ const ContactTeam = () => {
               key={i}
               className="h-40 md:h-80 w-full rounded-3xl overflow-hidden hover:shadow-lg hover:scale-105 transition-all duration-300"
             >
-              <img 
-                src={image} 
-                alt={`Team Member ${i + 1}`} 
+              <img
+                src={image}
+                alt={`Team Member ${i + 1}`}
                 className="h-full w-full object-cover"
               />
             </div>
           ))}
         </div>
-
-        <p className="text-gray-700 text-[18px] md:text-[24px] lg:text-[30px] text-center hover:text-gray-900 transition-colors duration-300">
-          We're here to help! Whether you have questions, need assistance, or want
-          to share feedback, our team is always ready to provide the support you
-          need. Reach out to us today!
+        <p
+          className={`${
+            language === "si"
+              ? "text-[16px] md:text-[20px] lg:text-[26px]"
+              : "text-[18px] md:text-[24px] lg:text-[30px]"
+          } text-gray-700 text-center hover:text-gray-900 transition-colors duration-300`}
+        >
+          {content[language].description}
         </p>
       </div>
     </div>

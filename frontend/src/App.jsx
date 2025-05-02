@@ -12,7 +12,7 @@ import QuizGuideLines from "./components/QuizGuideLines";
 import Quiz from "./components/Quiz";
 import QuizResult from "./components/QuizResult";
 import Account from "./components/Account";
-import Services from "./components/Services";
+import { LanguageProvider } from "./context/LanguageContext";
 import QuizOTPVerification from "./components/QuizOTPVerification";
 
 
@@ -30,6 +30,7 @@ function App() {
   localStorage.setItem("user", JSON.stringify(user));
 
   return (
+    <LanguageProvider>
       <Routes>
         <Route path="/" element={<Dashboard />}>
           <Route index element={<Home />} />
@@ -58,6 +59,7 @@ function App() {
 
   
       </Routes>
+      </LanguageProvider>
   );
 }
 

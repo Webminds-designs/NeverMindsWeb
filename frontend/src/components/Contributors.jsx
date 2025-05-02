@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BentoGrid, BentoGridItem } from "./ui/bento-grid";
 import logo from "../assets/logo-white.png";
 import vector from "../assets/01.png";
+import { LanguageContext } from "../context/LanguageContext";
+import content from "../components/content/ContributorsContent.json";
 
 // Import images
 import box0img from "../assets/i1.png";
@@ -12,16 +14,33 @@ import box4img from "../assets/i5.png";
 import box5img from "../assets/i6.png";
 
 export function Contributors() {
+  const { language } = useContext(LanguageContext);
   return (
     <div className="bg-[#f9c226] min-w-screen min-h-screen py-8 sm:px-5">
       <div className="max-w-4xl px-4 md:px-0 flex flex-col mx-auto text-black mt-4">
         <div className="flex flex-row gap-6 md:gap-24">
           <div className="flex flex-col items-center md:items-start mb-1 ml-6 md:ml-0">
-            <h1 className="text-3xl md:text-7xl font-medium left-0 mb-4">
-              Meet the Minds
+            <h1
+              className={`${
+                language === "si"
+                  ? "text-3xl md:text-6xl"
+                  : "text-3xl md:text-7xl"
+              } font-medium left-0 mb-4`}
+            >
+              {content[language].title}
             </h1>
+
             <div className="flex flex-row gap-5 mb-6">
-              <h1 className="text-3xl md:text-7xl font-medium">Behind the</h1>
+              <h1
+                className={`${
+                  language === "si"
+                    ? "text-3xl md:text-6xl"
+                    : "text-3xl md:text-7xl"
+                } font-medium`}
+              >
+                {content[language].subtitle}
+              </h1>
+
               <img
                 src={logo}
                 alt="Logo"
@@ -38,13 +57,14 @@ export function Contributors() {
           </div>
         </div>
 
-        <p className="text-lg font-sans font-semibold mb-10 text-center md:text-left">
-          At NeverMinds, we're a passionate team united by one goal: to create
-          fun, engaging, and thought-provoking experiences. From developers to
-          content creators, each of us brings something unique to the table to
-          challenge and inspire you. Get to know the people behind the app, and
-          see how curiosity drives everything we do!
-        </p>
+        <p
+  className={`${
+    language === "si" ? "text-base" : "text-lg"
+  } font-sans font-semibold mb-10 text-center md:text-left`}
+>
+  {content[language].description}
+</p>
+
       </div>
 
       {/* Updated BentoGrid with Fixed Image Overlap */}

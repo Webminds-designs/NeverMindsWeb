@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         Parkinsans: ["Parkinsans", "sans-serif"], // Add your custom font here
+        sinhala: ['Noto Sans Sinhala', 'sans-serif'],
       },
     },
   },

@@ -1,12 +1,17 @@
-import React from "react";
+import React,{useContext} from "react";
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {homeOutline,heartOutline,trophyOutline,barChartOutline,personOutline,settingsOutline,logOutOutline} from "ionicons/icons";
 import { FaBars } from "react-icons/fa";
 import logo from "../assets/nlogo2.png";
+import { LanguageContext } from "../context/LanguageContext";
+import content from '../components/content/SlideBarContent.json'
+
 
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
+   const { language, toggleLanguage } = useContext(LanguageContext); 
+  
   return (
     <div className="fixed top-0 left-0 h-screen z-50">
       <div
@@ -47,27 +52,27 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             {/* Overview Section */}
             <ul className="mt-4 px-6 space-y-4 sm:mt-12">
               <li className="text-gray-500 text-sm uppercase font-bold tracking-wide">
-                Overview
+              {content[language].overview}
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={homeOutline} size="large" />
-                <Link to="/dashboard"className="text-lg font-medium">Dashboard</Link>
+                <Link to="/dashboard"className="text-lg font-medium"> {content[language].dashboard}</Link>
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={heartOutline} size="large" />
-                <Link to="/favourites"className="text-lg font-medium">Favourites</Link>
+                <Link to="/favourites"className="text-lg font-medium"> {content[language].favourites}</Link>
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={trophyOutline} size="large" />
-                <Link to="/badges"className="text-lg font-medium">Badges</Link>
+                <Link to="/badges"className="text-lg font-medium"> {content[language].badges}</Link>
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={barChartOutline} size="large" />
-                <Link to="/progress"className="text-lg font-medium">Progress</Link>
+                <Link to="/progress"className="text-lg font-medium"> {content[language].progress}</Link>
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={personOutline} size="large" />
-                <Link to="/account"className="text-lg font-medium">Account</Link> 
+                <Link to="/account"className="text-lg font-medium"> {content[language].account}</Link> 
               </li>
             </ul>
 
@@ -76,16 +81,16 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               {/* Settings Section */}
               <ul className="mt-6 space-y-4">
                 <li className="text-gray-500 text-sm uppercase font-bold tracking-wide">
-                  Settings
+                   {content[language].settings}
                 </li>
                 <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                   <IonIcon icon={settingsOutline} size="large" />
-                  <span className="text-lg font-medium">Settings</span>
+                  <span className="text-lg font-medium"> {content[language].settings}</span>
                 </li>
               </ul>
               <button className="flex items-center gap-4 w-full text-lg font-medium text-red-600 hover:text-red-800 hover:bg-gray-100 rounded-lg py-3 px-3 transition-all duration-300">
                 <IonIcon icon={logOutOutline} size="large" />
-                <span>Logout</span>
+                <span> {content[language].logout}</span>
               </button>
             </div>
           </div>

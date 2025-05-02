@@ -1,93 +1,52 @@
-import React from "react";
+import React, { useContext } from "react";
 import landing from "../assets/landing.png";
-import landing2 from "../assets/landing2.png";
 import arrow from "../assets/arrow3.png";
 import person from "../assets/person.png";
+import rectangle from "../assets/Rectangle.svg";
+import content from "../components/content/HeroContent.json";
+import { LanguageContext } from "../context/LanguageContext";
 
 const Hero = () => {
+  const { language } = useContext(LanguageContext);
+
   return (
     <>
-      {/* Mobile View */}
-      <div className="lg:hidden block px-4 lg:px-12 pt-20">
-        <div className="relative">
-          {/* Mobile App Coming Soon - Circular Design */}
-          <div className="absolute bottom-0 right-0 flex items-center justify-center w-16 h-16 md:w-28 md:h-28 lg:w-40 lg:h-40 border-2 border-yellow-400 rounded-full">
-            <p className="text-center text-black text-[8px] sm:text-[10px] lg:text-lg font-semibold">
-              Mobile app <br /> coming soon!
-            </p>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-semibold leading-tight mb-4 text-center">
-            Challenge Your <br /> Knowledge Beyond <br /> Limits
-          </h1>
-          <p className="text-sm md:text-lg font-medium text-center mb-6">
-            Dive into a variety of quizzes tailored to your <br /> interests and
-            skill levels. Ready to test your limits?
+      <div className="md:hidden block p-12">
+        <h1
+          className={`${
+            language === "si"
+              ? "lg:text-[40px] text-2xl "
+              : "lg:text-[50px] text-3xl"
+          } font-semibold leading-tight mb-4 flex flex-col text-center lg:text-left`}
+        >
+          <p>
+            {content[language].title1}
+            <br />
+            {content[language].title2}
+            <br />
+            {content[language].title3}
           </p>
-          <div className="flex justify-center">
-            <button
-              className="bg-[#fbc72e] text-black text-sm md:text-lg font-medium px-4 py-2 md:px-6 md:py-3 rounded-full hover:bg-yellow-500 transition"
-              aria-label="Get Started"
-            >
-              Get Started
-            </button>
-          </div>
-        </div>
+        </h1>
+        <span
+          className={`${
+            language === "si"
+              ? "text-[13px] md:text-[18px] lg:text-[20px]"
+              : "text-[15px] md:text-[20px] lg:text-[24px]"
+          } font-medium text-center lg:text-left mb-6`}
+        >
+          <p>
+            {content[language].description1}
+            <br />
+            {content[language].description2}
+            <br />
+            {content[language].description3}
+          </p>
+        </span>
 
-        <img src={landing2} alt="Mobile Hero" className="w-full mt-6" />
         <div className="flex justify-center">
-          {/* Right Section */}
-          <div className="w-full flex flex-col justify-center items-center relative ">
-            {/* Powered by 15 minds */}
-            <div
-              className="rounded-lg p-4 w-64 lg:w-72 my-4"
-              style={{
-                borderWidth: "2px",
-                borderStyle: "solid",
-                borderImage:
-                  "linear-gradient(to bottom left, rgba(251, 199, 46, 1), rgba(251, 199, 46, 0)) 1",
-                borderRadius: "0.5rem",
-              }}
-            >
-              <div className="mb-2">
-                {/* Profile Images - Fully Rounded */}
-                <div className="flex -space-x-2">
-                  {[...Array(3)].map((_, idx) => (
-                    <img
-                      key={idx}
-                      src={person}
-                      alt={`Team member ${idx + 1}`}
-                      className="w-10 h-10 rounded-full border-2 border-white shadow-md"
-                      loading="lazy"
-                    />
-                  ))}
-                </div>
-                <div>
-                  <span className="font-normal text-xl lg:text-2xl">
-                    Powered by
-                  </span>
-                  <span className="font-medium text-2xl lg:text-4xl mx-2">
-                    15
-                  </span>
-                  <span className="font-normal text-xl lg:text-2xl">minds</span>
-                </div>
-              </div>
-              <p className="text-gray-700 text-xs lg:text-sm">
-                This app is a testament to the dedication and creativity of 15
-                incredible minds, united to empower students through engaging
-                quizzes.
-              </p>
-
-              {/* Arrow Icon */}
-              <div className="flex justify-end">
-                <img
-                  src={arrow}
-                  alt="Arrow icon pointing right"
-                  className="w-4 h-4"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </div>
+          <button className="bg-[#fbc72e] text-black text-[15px] lg:text-[22px] font-medium md:px-6 md:py-3 px-3 py-2 rounded-full hover:bg-yellow-500 transition">
+            {content[language].button}
+          </button>
         </div>
       </div>
 
@@ -98,29 +57,45 @@ const Hero = () => {
       >
         <div className="inset-0 bg-gradient-to-r via-white/80 to-transparent flex flex-col lg:flex-row p-8 md:p-16">
           {/* Left Section - Text Content */}
-          <div className="w-full text-black flex flex-col items-center lg:items-start lg:gap-y-7 lg:mt-32">
-            <h1 className="text-4xl lg:text-6xl font-semibold leading-tight mb-6 lg:mb-8 text-center lg:text-left">
-              Challenge Your <br /> Knowledge Beyond <br /> Limits
-            </h1>
-            <p className="text-lg lg:text-2xl font-regular text-center lg:text-left mb-6 lg:mb-8">
-              Dive into a variety of quizzes tailored to your <br />
-              interests and skill levels. Ready to test your limits?
-            </p>
-            <button
-              className="hidden md:flex items-center bg-[#fbc72e] text-black text-lg lg:text-2xl font-semibold px-4 py-2 md:px-6 md:py-3 rounded-full hover:bg-yellow-500 transition"
-              aria-label="Get Started"
-            >
-              Get Started
-            </button>
+          <div className="w-full text-black flex flex-col lg:items-start items-center lg:gap-y-7 lg:mt-32 lg:mb-0 mb-[600px]">
+            <div className="hidden md:block">
+              <h1
+                className={`${
+                  language === "si"
+                    ? "lg:text-[60px] text-2xl"
+                    : "lg:text-[70px] text-3xl"
+                } font-semibold leading-tight mb-8 text-center lg:text-left`}
+              >
+                <p>
+                  {content[language].title1}
+                  <br />
+                  {content[language].title2}
+                  <br />
+                  {content[language].title3}
+                </p>
+              </h1>
+
+              <span className="text-[15px] md:text-[28px] lg:text-[28px] font-medium text-center lg:text-left mb-8">
+                <p>
+                  {content[language].description1}
+                  <br></br>
+                  {content[language].description2}
+                  <br></br> {content[language].description3}
+                </p>
+              </span>
+              <button className="bg-[#fbc72e] text-black text-[15px] lg:text-[28px] font-medium md:px-6 md:py-3 px-3 py-2 rounded-full hover:bg-yellow-500 transition sm:mt-8 mt-4">
+                {content[language].button}
+              </button>
+            </div>
           </div>
 
           {/* Right Section */}
-          <div className="w-full h-screen flex flex-col justify-center items-center relative">
-            {/* Mobile App Coming Soon - Circular Design */}
-            <div className="absolute top-6 right-0 flex items-center justify-center w-40 h-40 border-2 border-yellow-400 rounded-full">
-              <p className="text-center text-black text-sm lg:text-lg font-semibold">
-                Mobile app <br /> coming soon!
-              </p>
+          <div className="w-full flex flex-col justify-center items-center">
+            {/* Circle Text - Top Right */}
+            <div className="absolute bottom-1/4 lg:bottom-2/3 left-3 lg:left-auto lg:right-10 w-full flex justify-start lg:justify-end">
+              <div className="text-black border-2 border-[#fbc72e] rounded-full px-4 py-2 w-40 h-40 text-center flex items-center text-[18px]">
+                {content[language].mobileApp}
+              </div>
             </div>
 
             {/* Powered by 15 minds */}
@@ -148,19 +123,26 @@ const Hero = () => {
                   ))}
                 </div>
                 <div>
-                  <span className="font-normal text-xl lg:text-2xl">
-                    Powered by
+                  <span className="font-light text-xl lg:text-2xl">
+                    {content[language].poweredBy}
                   </span>
                   <span className="font-medium text-2xl lg:text-4xl mx-2">
                     15
                   </span>
-                  <span className="font-normal text-xl lg:text-2xl">minds</span>
+                  <span className="font-light text-xl lg:text-2xl">
+                    {" "}
+                    {content[language].minds}
+                  </span>
                 </div>
               </div>
-              <p className="text-gray-700 text-xs lg:text-sm">
-                This app is a testament to the dedication and creativity of 15
-                incredible minds, united to empower students through engaging
-                quizzes.
+              <p
+                className={`text-gray-700 ${
+                  language === "si"
+                    ? "text-[10px] lg:text-xs"
+                    : "text-xs lg:text-sm"
+                }`}
+              >
+                {content[language].credits}
               </p>
 
               {/* Arrow Icon */}

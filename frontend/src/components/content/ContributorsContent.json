@@ -1,0 +1,29 @@
+{
+    "en": {
+      "title": "Meet the Minds",
+      "subtitle": "Behind the",
+      "description": "At NeverMinds, we're a passionate team united by one goal: to create fun, engaging, and thought-provoking experiences. From developers to content creators, each of us brings something unique to the table to challenge and inspire you. Get to know the people behind the app, and see how curiosity drives everything we do!",
+      "contributors": [
+        { "title": "The Dawn of Innovation" },
+        { "title": "The Digital Revolution" },
+        { "title": "The Art of Design" },
+        { "title": "The Power of Communication" },
+        { "title": "The Pursuit of Knowledge" },
+        { "title": "The Joy of Creation" }
+      ]
+    },
+    "si": {
+      "title": "අපේ මනසන් හමුවන්න",
+      "subtitle": "පසුබැස සිටින",
+      "description": "NeverMinds හිදී, අපි සියලුදෙනාම එක් ලක්‍ෂයක් වටා එකමුතු වූ උද්‍යාමශීලී කණ්ඩායමකි: විනෝදජනක, අමන්දානන්ද සහ සිතුවිලිවලට ආධාරක හැඳිනීම් නිර්මාණය කිරීම. සංවර්ධකයින් සිට අන්තර්ගත නිර්මාණකරුවන් දක්වා, අපේ කණ්ඩායමේ සියල්ලන්ම ඔබේ බුද්ධිය හා සිතිවිලි අභියෝගයට සහ ආවේණික දෙයක් මේසය වෙත ගෙන ඒමට කැප වී ඇත. යෙදුම පිටුපස සිටින පුද්ගලයින් හඳුනා ගන්න, සහ අපගේ කාන්තා නිර්මාණය ප්‍රේරිත කරන්නේ කෙසේදැයි බැලිය හැක!",
+      "contributors": [
+        { "title": "නව්‍යකරණයේ ආරම්භය" },
+        { "title": "ඩිජිටල් විප්ලවය" },
+        { "title": "සන්ධාන කලාව" },
+        { "title": "සන්නිවේදනයේ බලය" },
+        { "title": "දැනුම හඹා යෑම" },
+        { "title": "නිර්මාණයේ සතුට" }
+      ]
+    }
+  }
+  

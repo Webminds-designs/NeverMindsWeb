@@ -1,0 +1,19 @@
+{
+    "en": {
+      "coming_soon": "Coming Soon!",
+      "subheading": "Get ready to celebrate your milestones like never before!",
+      "email_placeholder": "Please enter your email address",
+      "notify_me": "Notify me",
+      "footer_text": "Stay tuned for the badge rollout - your achievements are about to shine!",
+       "placeholder":"Please enter your email address"
+    },
+    "si": {
+      "coming_soon": "ළඟදීම පැමිණේ!",
+      "subheading": "ඔබේ වටිනා මොහොතන් සමරන්න නව ආකාරයකින්!",
+      "email_placeholder": "කරුණාකර ඔබේ විද්‍යුත් තැපැල් ලිපිනය ඇතුළත් කරන්න",
+      "notify_me": "මට දැනුම් දෙන්න",
+      "footer_text": "බැජ් rollout එක සඳහා සූදානම් වන්න - ඔබේ සාර්ථකතා දැකුම්කලු වනු ඇත!",
+      "placeholder":"  විද්‍යුත් තැපෑල ඇතුලත් කරන්න"
+    }
+  }
+  

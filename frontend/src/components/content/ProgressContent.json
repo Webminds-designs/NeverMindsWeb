@@ -1,0 +1,39 @@
+{
+    "en": {
+      "week": "Week",
+      "month": "Month",
+      "year": "Year",
+      "total_quizzes_attempted": "Total Quizzes Attempted",
+      "available_to_attempt": "Available to attempt:",
+      "start_new_quiz": "Start a new Quiz",
+      "average_score": "Average Score",
+      "time_spent_studying": "Time Spent Studying",
+      "total_topics_mastered": "Total Topics Mastered",
+      "recommended_quizzes": "Recommended Quizzes",
+      "strengthen_algebra_skills": "Strengthen your skills in Algebra II",
+      "advanced_biology_concepts": "Advanced Biology Concepts",
+      "try": "Try",
+      "activity_by_time": "Activity by time",
+      "recently_attempted": "Recently Attempted",
+      "quizzes": "Quizzes"
+    },
+    "si": {
+      "week": "සතිය",
+      "month": "මාසය",
+      "year": "වසර",
+      "total_quizzes_attempted": "මුළු ප්‍රශ්නෝත්තර පරීක්ෂණ ප්‍රමාණය",
+      "available_to_attempt": "පරීක්ෂා කළ හැකි ප්‍රමාණය:",
+      "start_new_quiz": "නව පරීක්ෂණයක් ආරම්භ කරන්න",
+      "average_score": "සාමාන්‍ය ලකුණු",
+      "time_spent_studying": "අධ්‍යයනය සඳහා ගත වූ වේලාව",
+      "total_topics_mastered": "කළමනාකරණය කළ මුළු විෂය කරුණු",
+      "recommended_quizzes": "නිර්දේශිත ප්‍රශ්නෝත්තර",
+      "strengthen_algebra_skills": "ඔබේ බීජ ගණිතය හැකියාවන් වැඩි දියුණු කරන්න",
+      "advanced_biology_concepts": "උසස් ජීව විද්‍යා සංකල්ප",
+      "try": "උත්සාහ කරන්න",
+      "activity_by_time": "කාලය අනුව ක්‍රියාකාරිත්වය",
+      "recently_attempted": "මෑතකදී උත්සාහ කළ",
+       "quizzes": "ප්‍රශ්නාවලි"
+    }
+  }
+  

@@ -1,0 +1,23 @@
+{
+    "en": {
+      "home": "Home",
+      "quizzes": "Quizzes",
+      "services": "Services",
+      "aboutUs": "About Us",
+      "dashboard": "Dashboard",
+      "login": "Login",
+      "signUp": "Sign Up",
+      "logout":"Logout"
+    },
+    "si": {
+      "home": "මුල් පිටුව",
+      "quizzes": "ප්‍රශ්න පත්‍ර",
+      "services": "සේවාවන්",
+      "aboutUs": "අප ගැන",
+      "dashboard": "පුවරුව",
+      "login": "පිවිසෙන්න",
+      "signUp": "ලියාපදිංචි වන්න",
+      "logout":"පිටවීම"
+    }
+  }
+  
