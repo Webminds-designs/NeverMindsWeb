@@ -3,9 +3,11 @@ import Search from '../assets/magnifier.png';
 import edit from '../assets/edit.svg';
 import { Link } from 'react-router-dom';
 import NewQuiz from '../components/NewQuiz';
+import { useQuiz } from '../context/context.jsx';  
+
 
 const Quizzes = () => {
-  
+   const { quizDetails } = useQuiz();
   const [newQuizzes, setNewQuizzes] = useState([]);
   const [allQuizzes, setAllQuizzes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -143,13 +145,24 @@ const Quizzes = () => {
   const filteredQuizzes = allQuizzes.filter((quiz) =>
     quiz.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const openModal = () => {
+    if (quizDetails !== null) {
+        setIsModalOpen(true);
+    } else {
+        console.log("Quiz details are null. Modal cannot be opened.");
+    }
+};
 
-  const openModal = () => setIsModalOpen(true); 
+useEffect(() => {
+    if (quizDetails !== null) {
+        openModal();
+    }
+}, [quizDetails]);
   const closeModal = () => setIsModalOpen(false);
 
   return (
     <div className="flex-1 ml-64 p-8">
-      <div className="bg-gray-100 p-4">
+      <div className="p-4">
         {/* New Quizzes Section */}
         <div>
           <h2 className="text-xl font-bold mb-4">New Quizzes</h2>
@@ -183,7 +196,7 @@ const Quizzes = () => {
           <div className="relative p-3">
             <input
               type="text"
-              placeholder="Search for Users"
+              placeholder="Search Quizzes"
               className="pl-4 pr-10 py-2 rounded-full focus:outline-none focus:ring-2 w-full focus:ring-gray-200"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -196,7 +209,7 @@ const Quizzes = () => {
           {/* New Button */}
           <div className=" mb-4">
            
-            <button    onClick={openModal} className="bg-yellow-400 text-white font-bold py-2 px-4 rounded-full">
+            <button     onClick={() => setIsModalOpen(true)}  className="bg-yellow-400 text-white font-bold py-2 px-4 rounded-full">
               New
             </button>
           </div>

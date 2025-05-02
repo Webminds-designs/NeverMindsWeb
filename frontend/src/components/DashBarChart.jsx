@@ -65,7 +65,7 @@ const DashBarChart = () => {
   }, []);
 
   return (
-    <div className="relative flex flex-col rounded-3xl bg-white bg-clip-border text-gray-700">
+    <div className="relative flex flex-col rounded-3xl bg-[#fefaec] bg-clip-border text-gray-700">
       <div className="pt-6 px-6 pb-4">
         <div id="bar-chart"></div>
       </div>

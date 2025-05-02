@@ -1,75 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { FaRegClock } from "react-icons/fa";
-import { LuMessageCircleQuestion } from "react-icons/lu";
-
 
 const QuizGuideLines = () => {
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
+  const quiz = location.state?.quiz;
 
-  // Get quiz details from navigation state
-  const quiz = location.state?.quiz || {
-    title: "Default Quiz Title",
-    description: "This is a placeholder description.",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Animal_Cell.svg", // Default icon
-    duration: "20 Min",
-    numQuestions: "10",
-  };
-
+  useEffect(() => {
+    console.log("✅ Received Quiz Data in Guidelines Page:", quiz); // Debug log
+  
+    if (!quiz || !quiz.questions || quiz.questions.length === 0) {
+      console.error("No quiz data found! Redirecting to quizzes...");
+      navigate("/quizzes");
+    }
+  }, [quiz, navigate]);
+  
   const handleStartQuiz = () => {
-    navigate("/quiz", { state: { quiz, startTimer: true } }); // Pass quiz data to Quiz page
+    if (!quiz || !quiz.questions || quiz.questions.length === 0) {
+      console.error("No quiz data available. Cannot start quiz.");
+      return;
+    }
+  
+    console.log("✅ Quiz data before starting:", quiz); // Debug log
+    navigate("/quiz", { state: { quiz } });
   };
+  
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      {/* Full-Width Page Header */}
-      <div className="w-full flex items-center justify-between px-6 py-4 fixed top-0 left-0 right-0">
-        
-
-        
-      </div>
-
+    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 max-w-screen-lg mx-auto mt-10 sm:mt-20">
       {/* Quiz Header */}
-      <div className="mt-4 flex flex-col items-center text-center max-w-3xl">
+      <div className="max-w-2xl w-full flex flex-col items-center">
         <img
-          src={quiz.icon}
+          src={
+            quiz?.icon ||
+            "https://upload.wikimedia.org/wikipedia/commons/5/5a/Animal_Cell.svg"
+          }
           alt="Quiz Icon"
-          className="h-445 w-44 object-cover"
+          className="w-56 h-56 sm:w-72 sm:h-72 lg:w-96 lg:h-96 object-cover rounded-lg mb-6"
         />
-        <h1 className="text-[50px] font-semibold mt-4">{quiz.title}</h1>
-        <p className="text-gray-700 text-[20px] font-semibold mt-2 px-4 sm:px-0">
-          {quiz.description}
+        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold mt-4">
+          {quiz?.title || "Default Quiz Title"}
+        </h1>
+        <p className="text-gray-700 text-base sm:text-lg md:text-xl font-semibold mt-2">
+          {quiz?.description || "This is a placeholder description."}
         </p>
       </div>
 
-      {/* Quiz Details */}
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
-        {/* Duration */}
-        <div className="flex flex-col items-center">
-          <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white text-lg">
-            <FaRegClock size={30} />
-          </div>
-          <p className="font-semibold mt-2 text-[20px]">Duration</p>
-          <p className="text-gray-800">{quiz.duration}</p>
-        </div>
-
-        {/* Number of Questions */}
-        <div className="flex flex-col items-center">
-          <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white text-lg">
-            <LuMessageCircleQuestion size={30} />
-          </div>
-          <p className="font-semibold mt-2 text-[20px]">Number of questions</p>
-          <p className="text-gray-800">{quiz.numQuestions}</p>
-        </div>
-      </div>
-
       {/* Quiz Instructions */}
-      <div className="mt-6 text-left max-w-lg w-full px-4 sm:px-0">
-        <h2 className="text-lg font-semibold text-center text-[35px] mb-6">
-          Quiz Instructions
-        </h2>
-        <ul className="mt-2 text-gray-800 space-y-3 text-[17px]">
+      <div className="mt-6 max-w-xl w-full">
+        <ul className="text-gray-800 text-sm sm:text-base md:text-lg space-y-3 sm:space-y-4">
           <li>
             <b>Focus Up:</b> Read each question carefully to make the best
             choice.
@@ -87,10 +66,20 @@ const QuizGuideLines = () => {
         </ul>
       </div>
 
+      {/* Quiz Details */}
+      <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+        <p className="font-semibold text-blue-500 text-base sm:text-lg md:text-xl">
+          {quiz?.numQuestions || "10"} Questions
+        </p>
+        <p className="font-semibold text-blue-500 text-base sm:text-lg md:text-xl">
+          {quiz?.duration || "20 Min"} minutes
+        </p>
+      </div>
+
       {/* Start Button */}
       <button
         onClick={handleStartQuiz}
-        className="mt-6 bg-yellow-400 text-black font-bold py-2 px-6 rounded-2xl hover:bg-yellow-300 transition duration-200"
+        className="mt-6 bg-yellow-400 text-black font-bold py-2 sm:py-3 px-6 sm:px-8 text-sm sm:text-lg rounded-xl hover:bg-yellow-300 transition duration-200"
       >
         Start
       </button>

@@ -1,178 +1,140 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import QuizCard from "./QuizCard";
-import science1img from "../assets/science.svg";
-import science2img from "../assets/science-2.svg";
-import science3img from "../assets/science-3.svg";
+import LSCPQuizCard from "./LSCPQuizCard";
+import { quizCardData, recommendedQuizzes } from "../data/quizCardData";
+import { IoSearchSharp } from "react-icons/io5";
+import { FaFilter, FaSort } from "react-icons/fa";
+import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 import tutorIcon from "../assets/person.png";
-import anubis from "../assets/anubis.svg";
-import gramerphone from "../assets/gramophone.svg";
-import science4img from "../assets/science-4.svg";
-import science5img from "../assets/science-5.svg";
-import science6img from "../assets/science-6.svg";
-import science7img from "../assets/science-7.svg";
-import science8img from "../assets/science-8.svg";
-import science9img from "../assets/science-9.svg";
-import science10img from "../assets/science-10.svg";
 
 const Quizzes = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState("Public");
+  const [publicQuizzes, setPublicQuizzes] = useState([]);
+  const [privateQuizzes, setPrivateQuizzes] = useState([]);
+  const [quizStatusFilter, setQuizStatusFilter] = useState("all");
+  const recommendedScrollRef = useRef(null);
 
-  const quizCardData = [
-    {
-      image: science1img,
-      subject: "Biology",
-      title: "Building Blocks of Life",
-      description: "Explore the essential components of living organisms.",
-      duration: "20 Min",
-      numQuestions: "10",
-      icon: science1img,
-      tutorName: "Dr. Charitha Munasinghe",
-    },
-    {
-      image: science2img,
-      subject: "Biology",
-      title: "Cracking the Code of Viruses",
-      description: "Understand viruses and how they impact health.",
-      duration: "15 Min",
-      numQuestions: "8",
-      icon: science2img,
-      tutorName: "Dr. Charitha Munasinghe",
-    },
-    {
-      image: science3img,
-      subject: "Biology",
-      title: "Boarding Basics",
-      description: "Learn the foundation of cell functions and structures.",
-      duration: "25 Min",
-      numQuestions: "12",
-      icon: science3img,
-      tutorName: "Dr. Charitha Munasinghe",
-    },
-    {
-      image: gramerphone,
-      subject: "Music",
-      title: "Harmony Hunt",
-      description: "Dive into the world of sound, rhythm, and harmony.",
-      duration: "10 Min",
-      numQuestions: "7",
-      icon: gramerphone,
-      tutorName: "LeeAnn Deemer",
-    },
-    {
-      image: anubis,
-      subject: "History",
-      title: "Through the Ages",
-      description: "Discover the greatest civilizations and their impact.",
-      duration: "30 Min",
-      numQuestions: "15",
-      icon: anubis,
-      tutorName: "Merwin Fernando",
-    },
-    {
-      image: science4img,
-      subject: "Chemistry",
-      title: "Atomic Adventures",
-      description: "Explore the structure of atoms and chemical reactions.",
-      duration: "18 Min",
-      numQuestions: "9",
-      icon: science4img,
-      tutorName: "Senanui Perera",
-    },
-    {
-      image: science5img,
-      subject: "Chemistry",
-      title: "Chemical Bonding Basics",
-      description: "Understand how elements combine to form compounds.",
-      duration: "22 Min",
-      numQuestions: "11",
-      icon: science5img,
-      tutorName: "Senanui Perera",
-    },
-    {
-      image: science6img,
-      subject: "Physics",
-      title: "Forces and Motion",
-      description: "Learn the principles of movement and energy transfer.",
-      duration: "20 Min",
-      numQuestions: "10",
-      icon: science6img,
-      tutorName: "Lakmal Jayasekara",
-    },
-    {
-      image: science7img,
-      subject: "Mathematics",
-      title: "Calculus Simplified",
-      description: "Master the fundamentals of differentiation and integration.",
-      duration: "25 Min",
-      numQuestions: "12",
-      icon: science7img,
-      tutorName: "Anoma Rathnayake",
-    },
-    {
-      image: science8img,
-      subject: "Biology",
-      title: "The Cell Structure",
-      description: "Understand the intricate details of cell biology.",
-      duration: "20 Min",
-      numQuestions: "10",
-      icon: science8img,
-      tutorName: "Dr. Charitha Munasinghe",
-    },
-    {
-      image: science9img,
-      subject: "History",
-      title: "Ancient Civilizations",
-      description: "Explore the rise and fall of historical empires.",
-      duration: "30 Min",
-      numQuestions: "15",
-      icon: science9img,
-      tutorName: "Kamal Silva",
-    },
-    {
-      image: science10img,
-      subject: "Geography",
-      title: "Mapping the World",
-      description: "Learn about the Earth's landscapes and geographic wonders.",
-      duration: "18 Min",
-      numQuestions: "9",
-      icon: science10img,
-      tutorName: "Nimal Perera",
-    },
-  ];
+  
+  const allQuizzes = [...quizCardData, ...recommendedQuizzes];
 
-  const filteredQuizzes = quizCardData.filter(
-    (quiz) =>
-      quiz.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      quiz.subject.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    const publicQuizzes = allQuizzes.filter((quiz) => !quiz.isPrivate);
+    const privateQuizzes = allQuizzes.filter((quiz) => quiz.isPrivate);
+
+    console.log("Public Quizzes:", publicQuizzes);
+    console.log("Private Quizzes:", privateQuizzes);
+
+    setPublicQuizzes(publicQuizzes);
+    setPrivateQuizzes(privateQuizzes);
+  }, []);
+
+  const filteredQuizzes = useMemo(() => {
+    let quizzes = activeTab === "Public" ? publicQuizzes : privateQuizzes;
+
+    return quizzes.filter((quiz) => {
+      const matchesSearchTerm =
+        quiz.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        quiz.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        quiz.tutorName.toLowerCase().includes(searchTerm.toLowerCase());
+
+      const matchesStatus =
+        quizStatusFilter === "all" || quiz.status === quizStatusFilter;
+
+      return matchesSearchTerm && matchesStatus;
+    });
+  }, [searchTerm, activeTab, publicQuizzes, privateQuizzes, quizStatusFilter]);
 
   const handleStartGuide = (quiz) => {
-    navigate("/quizguidelines", { state: { quiz } });
+    console.log(quiz)
+    if (!quiz) {
+      console.error("No quiz data! Cannot navigate.");
+      return;
+    }
+
+    if (quiz.isPrivate) {
+      console.log(
+        "Navigating to OTP Verification for private quiz:",
+        quiz.title
+      );
+      navigate("/quizotpverification", { state: { quiz } });
+    } else {
+      console.log(
+        "Navigating directly to Quiz Guidelines for public quiz:",
+        quiz.title
+      );
+      navigate("/quizguidelines", { state: { quiz } });
+    }
+  };
+
+  const scrollRecommended = (direction) => {
+    if (recommendedScrollRef.current) {
+      const { scrollLeft, clientWidth } = recommendedScrollRef.current;
+      const scrollAmount = clientWidth * 0.5;
+      recommendedScrollRef.current.scrollTo({
+        left:
+          direction === "left"
+            ? scrollLeft - scrollAmount
+            : scrollLeft + scrollAmount,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
-    <>
-      {/* Search Bar */}
-      <div className="mb-6 flex justify-center">
-        <input
-          type="text"
-          placeholder="Search quizzes..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full max-w-md px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-        />
+    <div className="container w-full mx-auto overflow-hidden px-2 sm:px-4 lg:px-6 mt-10">
+      {/* Tabs */}
+      <div className="flex space-x-4 sm:space-x-6 border-b pb-2 text-base sm:text-lg font-semibold mt-8 sm:mt-12">
+        {["Public", "Private"].map((tab) => (
+          <span
+            key={tab}
+            className={`pb-1 cursor-pointer transition-all duration-300 ${
+              activeTab === tab
+                ? "border-b-2 border-black"
+                : "text-gray-500 hover:text-black"
+            }`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab} Quizzes
+          </span>
+        ))}
       </div>
 
-      <div className="flex-1 flex justify-center items-center p-8">
-        <main >
-          {filteredQuizzes.length === 0 ? (
-            <p className="text-center text-gray-600">No quizzes found</p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-              {filteredQuizzes.map((quiz, index) => (
-                <QuizCard
+      {/* Recommended Quizzes Section */}
+      <div className="mb-6 relative mt-4 sm:mt-6">
+        <div className=" flex justify-between items-center px-2">
+          <h2 className="text-lg sm:text-xl font-semibold">
+            Recommended Quizzes
+          </h2>
+          <div className="flex gap-2">
+            <button
+              aria-label="Scroll left"
+              onClick={() => scrollRecommended("left")}
+              className="p-1 sm:p-2 bg-yellow-400 rounded-full hover:bg-gray-300"
+            >
+              <IoChevronBackOutline className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+            <button
+              aria-label="Scroll right"
+              onClick={() => scrollRecommended("right")}
+              className="p-1 sm:p-2 bg-yellow-400 rounded-full hover:bg-gray-300"
+            >
+              <IoChevronForwardOutline className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+          </div>
+        </div>
+        <div
+          ref={recommendedScrollRef}
+          className="flex gap-4 mt-4 overflow-x-auto w-full scrollbar-hide pb-4"
+        >
+          {recommendedQuizzes.map((quiz, index) => (
+            <div
+              key={index}
+              className="min-w-[280px] sm:min-w-[30%] flex-shrink-0"
+            >
+              <LSCPQuizCard
                 key={index}
                 index={index}
                 image={quiz.image}
@@ -182,15 +144,106 @@ const Quizzes = () => {
                 tutorSubject={quiz.subject}
                 tutorIcon={tutorIcon}
                 onTry={() => handleStartGuide(quiz)}
-                showScore={false} // Hide progress bar & score
+                showScore={false}
+                isPrivate={quiz.isPrivate}
               />
-              
-              ))}
             </div>
-          )}
-        </main>
+          ))}
+        </div>
       </div>
-    </>
+
+      {/* Filters & Search */}
+      <div className="mb-6">
+        <div className="flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4 mt-4 sm:mt-6">
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600 text-sm sm:text-base">
+                All Materials
+              </span>
+              <select className="border px-2 py-1 rounded-md text-gray-600 text-sm sm:text-base">
+                <option>200</option>
+              </select>
+            </div>
+            <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+              <button
+                className={`${
+                  quizStatusFilter === "all" ? "bg-yellow-300" : "bg-gray-200"
+                } text-black font-medium px-3 py-1 text-sm sm:text-base rounded-md whitespace-nowrap`}
+                onClick={() => setQuizStatusFilter("all")}
+              >
+                All Quizzes
+              </button>
+              <button
+                className={`${
+                  quizStatusFilter === "notStarted"
+                    ? "bg-yellow-300"
+                    : "bg-gray-200"
+                } text-black font-medium px-3 py-1 text-sm sm:text-base rounded-md whitespace-nowrap`}
+                onClick={() => setQuizStatusFilter("notStarted")}
+              >
+                Not Started
+              </button>
+              <button
+                className={`${
+                  quizStatusFilter === "completed"
+                    ? "bg-yellow-300"
+                    : "bg-gray-200"
+                } text-black font-medium px-3 py-1 text-sm sm:text-base rounded-md whitespace-nowrap`}
+                onClick={() => setQuizStatusFilter("completed")}
+              >
+                Completed
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <div className="relative flex-1">
+              <IoSearchSharp className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search quizzes..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none text-sm sm:text-base"
+              />
+            </div>
+            <div className="hidden sm:flex items-center gap-3">
+              <button className="text-gray-600 flex items-center gap-1 text-sm sm:text-base">
+                <FaFilter /> Filter
+              </button>
+              <button className="text-gray-600 flex items-center gap-1 text-sm sm:text-base">
+                <FaSort /> Sort by
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quizzes Grid Section */}
+      <div className="container mx-auto flex justify-center items-center mt-4 sm:mt-6 mb-6">
+        {filteredQuizzes.length === 0 ? (
+          <p className="text-center text-gray-600">No quizzes found</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 w-full">
+            {filteredQuizzes.map((quiz, index) => (
+              <QuizCard
+                key={index}
+                index={index}
+                image={quiz.image}
+                subject={quiz.subject}
+                title={quiz.title}
+                tutorName={quiz.tutorName}
+                tutorSubject={quiz.subject}
+                tutorIcon={tutorIcon}
+                onTry={() => handleStartGuide(quiz)}
+                showScore={false}
+                isPrivate={quiz.isPrivate}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
