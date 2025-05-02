@@ -44,7 +44,6 @@ const Login = () => {
     if (!emailValidationError && !passwordValidationError) {
       try {
         const result = await login({ email, password }).unwrap();
-        // Store token and user data in local storage
         localStorage.setItem("token", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
         toast.success("Login successful!");
