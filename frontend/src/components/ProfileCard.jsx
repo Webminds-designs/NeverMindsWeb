@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { RiEditCircleFill } from "react-icons/ri";
 
 const ProfileCard = ({
@@ -9,55 +9,15 @@ const ProfileCard = ({
   profileImage,
   greeting,
   onEdit,
-  progress,
-  role,
+  progress, 
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({
-    name,
-    email,
-    phone,
-    address,
-  });
-
+  
   const firstName = name.split(" ")[0];
-  const circumference = 2 * Math.PI * 16;
-  const strokeDasharray = `${
-    (progress / 100) * circumference
-  } ${circumference}`;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  
+  const circumference = 2 * Math.PI * 16; 
 
-  const handleSubmit = () => {
-    // Create appropriate payload based on role
-    let payload;
-
-    if (role === "student") {
-      payload = {
-        guardianContact: formData.phone,
-      };
-    } else if (role === "teacher") {
-      payload = {
-        contactNo: formData.phone,
-      };
-    } else {
-      // Default payload if role is not specified
-      payload = {
-        phone: formData.phone,
-      };
-    }
-
-    onEdit(payload);
-    setIsEditing(false);
-  };
-
-  const handleCancel = () => {
-    setFormData({ name, email, phone, address });
-    setIsEditing(false);
-  };
+  const strokeDasharray = `${(progress / 100) * circumference} ${circumference}`;
 
   return (
     <div className="relative w-full bg-white border border-transparent rounded-3xl p-6">
@@ -97,7 +57,7 @@ const ProfileCard = ({
               cy="18"
               r="16"
               fill="none"
-              stroke="#e5e7eb"
+              stroke="#e5e7eb" /* Light gray background */
               strokeWidth="2"
             ></circle>
 
@@ -107,11 +67,11 @@ const ProfileCard = ({
               cy="18"
               r="16"
               fill="none"
-              stroke="#facc15"
+              stroke="#facc15" /* Yellow for progress */
               strokeWidth="2"
-              strokeDasharray={strokeDasharray}
+              strokeDasharray={strokeDasharray} /* Dynamic progress */
               strokeLinecap="round"
-              transform="rotate(-90 18 18)"
+              transform="rotate(-90 18 18)" /* Rotate for progress to start at the top */
             ></circle>
           </svg>
 
@@ -119,7 +79,7 @@ const ProfileCard = ({
           <div className="absolute inset-4 rounded-full overflow-hidden">
             <img
               className="w-full h-full object-cover"
-              src={profileImage}
+              src={profileImage} /* Replace with your profile image URL */
               alt={`${name}'s profile`}
             />
           </div>
@@ -136,91 +96,31 @@ const ProfileCard = ({
         </h5>
 
         {/* Contact Info */}
-        {isEditing ? (
-          <div className="w-full space-y-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                disabled
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                disabled
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                {role === "student" ? "Guardian Contact" : "Contact Number"}
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-              />
-            </div>
-            <div className="flex space-x-2 pt-3">
-              <button
-                onClick={handleSubmit}
-                className="flex-1 bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600"
-              >
-                Save
-              </button>
-              <button
-                onClick={handleCancel}
-                className="flex-1 bg-gray-200 text-gray-800 py-2 rounded-md hover:bg-gray-300"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="w-full text-left">
-            <p className="text-sm text-gray-600 mb-2">
-              <strong>Name:</strong> {name}
-            </p>
-            <p className="text-sm text-gray-600 mb-2">
-              <strong>Email:</strong> {email}
-            </p>
-            <p className="text-sm text-gray-600 mb-2">
-              <strong>Phone:</strong> {phone}
-            </p>
-            <p className="text-sm text-gray-600">
-              <strong>Role:</strong>{" "}
-              {role && role.charAt(0).toUpperCase() + role.slice(1)}
-            </p>
-          </div>
-        )}
+        <div className="w-full text-left">
+        <p className="text-sm text-gray-600 mb-2">
+            <strong>Name:</strong> {name}
+          </p>
+          <p className="text-sm text-gray-600 mb-2">
+            <strong>Email:</strong> {email}
+          </p>
+          <p className="text-sm text-gray-600 mb-2">
+            <strong>Phone:</strong> {phone}
+          </p>
+          <p className="text-sm text-gray-600">
+            <strong>Address:</strong> {address}
+          </p>
+        </div>
       </div>
 
       {/* Edit Button with Icon Only */}
-      {!isEditing && (
-        <div className="absolute bottom-4 right-4">
-          <button
-            onClick={() => setIsEditing(true)}
-            className="p-2 text-[#f9c226] bg-white rounded-full hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-300"
-          >
-            <RiEditCircleFill className="text-3xl" />
-          </button>
-        </div>
-      )}
+      <div className="absolute bottom-4 right-4">
+        <button
+          onClick={onEdit}
+          className="p-2 text-[#f9c226] bg-white rounded-full hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+        >
+          <RiEditCircleFill className="text-3xl" />
+        </button>
+      </div>
     </div>
   );
 };
