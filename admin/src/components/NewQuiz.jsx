@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import pen from '../assets/pen.svg';
 import close from '../assets/close.png';
-import { useQuiz } from '../context/context';
+import toast from 'react-hot-toast';
+import { useCreateQuizMutation, useGetAllQuizzesQuery } from '../redux/slices/quizSlice';
 
 const NewQuiz = ({ closeModal }) => {
+
+    const [createQuiz] = useCreateQuizMutation();
+    const { data: quizzes } = useGetAllQuizzesQuery();
+    
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -15,14 +20,13 @@ const NewQuiz = ({ closeModal }) => {
     const [instructionsInput, setInstructionsInput] = useState('');
     const [tags, setTags] = useState([]);
     const [tagInput, setTagInput] = useState('');
-    const { quizDetails, setQuizDetails } = useQuiz();
     const [filteredSubjects, setFilteredSubjects] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
     const [passedMarks, setPassedMarks] = useState('')
 
-// drag and drop 
+    // drag and drop 
     const handleDragOver = (e) => {
         e.preventDefault();
     };
@@ -40,45 +44,52 @@ const NewQuiz = ({ closeModal }) => {
             reader.readAsDataURL(file);
         }
     };
-// image handle
+    // image handle
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file && file.type.startsWith("image/")) {
             const reader = new FileReader();
-            setLoading(true);
             reader.onload = () => {
-                setImage(reader.result);
-                setLoading(false);
+                setImage({
+                    url: reader.result,
+                    type: file.type,
+                    name: file.name
+                });
             };
             reader.readAsDataURL(file);
         }
     };
 
-//instructions add
+    //instructions add
     const handleInstructionsAdd = () => {
         if (instructionsInput && !instructions.includes(instructionsInput)) {
-            setInstructions([...instructions, instructionsInput]);
-            setInstructionsInput('');
+            // Ensure we don't exceed a reasonable number of instructions
+            if (instructions.length < 5) {
+                setInstructions([...instructions, instructionsInput]);
+                setInstructionsInput('');
+            } else {
+                alert('Maximum of 5 instructions allowed');
+            }
         }
     };
-//instructions delete
+    //instructions delete
     const handleInstructionsDelete = (instructionToDelete) => {
         setInstructions(
             instructions.filter((instruction) => instruction !== instructionToDelete)
         );
     };
-// tag add
+    // tag add
     const handleTagAdd = () => {
         if (tagInput && !tags.includes(tagInput)) {
             setTags([...tags, tagInput]);
             setTagInput('');
         }
     };
-//tag delete
+    //tag delete
     const handleTagDelete = (tagToDelete) => {
         setTags(tags.filter((tag) => tag !== tagToDelete));
     };
-// select subject
+    // select subject
     const subjects = [
         'Biology',
         'Physics',
@@ -87,34 +98,64 @@ const NewQuiz = ({ closeModal }) => {
         'Computer Science',
         'English',
     ];
-// select input  subject
+
     const handleInputChange = (e) => {
         const value = e.target.value;
         setSubject(value);
 
         if (value.trim()) {
-            setFilteredSubjects(
-                subjects.filter((sub) =>
-                    sub.toLowerCase().includes(value.toLowerCase())
-                )
+            const filtered = subjects.filter(sub =>
+                sub.toLowerCase().includes(value.toLowerCase())
             );
-            setDropdownVisible(true);
+            setFilteredSubjects(filtered);
+            setDropdownVisible(filtered.length > 0);
         } else {
             setFilteredSubjects([]);
             setDropdownVisible(false);
         }
     };
-// select subject
+    // select subject
     const handleSelect = (selectedSubject) => {
-        setSubject(selectedSubject); 
-        setFilteredSubjects([]); 
-        setDropdownVisible(false); 
+        setSubject(selectedSubject);
+        setFilteredSubjects([]);
+        setDropdownVisible(false);
     };
 
-    const handleSave = () => {
-        const quizDetails = { title, description, subject, timer,passedMarks, isPrivate, instructions, tags, image };
-        setQuizDetails(quizDetails);  // Save globally
-        navigate('/question');
+    const handleSave = async () => {
+        // Format timer to HH:MM:SS
+        const formattedTimer = `${String(timer.hours).padStart(2, '0')}:${String(timer.minutes).padStart(2, '0')}:00`;
+
+        const quizDetails = {
+            title,
+            description,
+            guidlines: instructions, // Match the schema field name
+            type: isPrivate ? 'private' : 'public',
+            banner: image, // Will be handled by backend
+            imageVector: subject.toLowerCase().replace(' ', '_') + '_vector.png',
+            quizTags: tags,
+            timeDuration: formattedTimer,
+            passedMarks: parseInt(passedMarks),
+            isPrivate // Additional frontend field
+        };
+
+        console.log('Quiz Details:', quizDetails);
+
+        // Validate required fields
+        if (!title || !subject || !timer || !passedMarks) {
+            alert('Please fill in all required fields');
+            return;
+        }
+
+        try {
+            const result = await createQuiz(quizDetails).unwrap();
+            if (result) {
+                toast.success('Quiz created successfully!');
+                closeModal();
+            }
+        } catch (error) {
+            console.error('Error creating quiz:', error);
+            toast.error('Failed to create quiz. Please try again.');
+        }
     };
 
     //cancel Model
@@ -157,9 +198,9 @@ const NewQuiz = ({ closeModal }) => {
                                             ></path>
                                         </svg>
                                     </div>
-                                ) : image || quizDetails?.image ? (
+                                ) : image ? (
                                     <img
-                                        src={image || quizDetails?.image}
+                                        src={image}
                                         alt="Preview"
                                         className="w-full h-full object-cover"
                                     />
@@ -191,7 +232,7 @@ const NewQuiz = ({ closeModal }) => {
                         className="w-full border border-gray-800 rounded-xl p-2"
                         type="text"
                         placeholder="Enter Quiz Title"
-                        value={title || quizDetails?.title || ''}
+                        value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
 
@@ -200,7 +241,7 @@ const NewQuiz = ({ closeModal }) => {
                         className="w-full border border-gray-800 rounded-xl p-2"
                         type="text"
                         placeholder="Enter Quiz Description"
-                        value={description || quizDetails?.title || ''}
+                        value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
                     <div className="relative w-full">
@@ -209,10 +250,10 @@ const NewQuiz = ({ closeModal }) => {
                             className="w-full border border-gray-800 rounded-xl p-2"
                             type="text"
                             placeholder="Enter Quiz Subject"
-                            value={subject || quizDetails?.subject || ''}
+                            value={subject}
                             onChange={handleInputChange}
                             onFocus={() => setDropdownVisible(true)}
-                            onBlur={() => setTimeout(() => setDropdownVisible(false), 150)} 
+                            onBlur={() => setTimeout(() => setDropdownVisible(false), 150)}
                         />
 
                         {/* Dropdown Menu */}
@@ -252,7 +293,7 @@ const NewQuiz = ({ closeModal }) => {
                             </button>
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            {(instructions.length > 0 ? instructions : quizDetails?.instructions || []).map((instruction, index) => (
+                            {(instructions.length > 0 ? instructions :  []).map((instruction, index) => (
                                 <div
                                     key={index}
                                     className="bg-yellow-200 px-1 text-gray-700 rounded-full flex items-center space-x-2"
@@ -284,13 +325,13 @@ const NewQuiz = ({ closeModal }) => {
                         <div className="flex items-center space-x-4">
                             <div className="flex flex-row">
                                 <label className="text-gray-700 mr-2 content-center" htmlFor="hours">
-                                    Hours 
+                                    Hours
                                 </label>
                                 <input
                                     className="w-16 border border-gray-800 rounded-xl p-2"
                                     id="hours"
                                     type="number"
-                                    value={timer.hours || quizDetails?.timer.hours || '0'}
+                                    value={timer.hours || '0'}
                                     onChange={(e) =>
                                         setTimer({ ...timer, hours: parseInt(e.target.value) })
                                     }
@@ -304,7 +345,7 @@ const NewQuiz = ({ closeModal }) => {
                                     className="w-16 border border-gray-800 rounded-xl p-2"
                                     id="minutes"
                                     type="number"
-                                    value={timer.minutes || quizDetails?.timer.minutes || '0'}
+                                    value={timer.minutes || '0'}
                                     onChange={(e) =>
                                         setTimer({ ...timer, minutes: parseInt(e.target.value) })
                                     }
@@ -313,20 +354,20 @@ const NewQuiz = ({ closeModal }) => {
                         </div>
 
                         <div className="flex items-center justify-end">
-                        <div className="flex flex-row items-center">
-  <label className="text-gray-700 mr-2" htmlFor="passedMarks">
-    Passed Marks
-  </label>
-  <input
-    className="w-16 border border-gray-800 rounded-xl p-2"
-    id="passedMarks"
-    type="number"
-    value={passedMarks || quizDetails?.passedMarks || '0'}
-    onChange={(e) =>
-      setPassedMarks(parseInt(e.target.value, 10) || 0)
-    }
-  />
-</div>
+                            <div className="flex flex-row items-center">
+                                <label className="text-gray-700 mr-2" htmlFor="passedMarks">
+                                    Passed Marks
+                                </label>
+                                <input
+                                    className="w-16 border border-gray-800 rounded-xl p-2"
+                                    id="passedMarks"
+                                    type="number"
+                                    value={passedMarks || '0'}
+                                    onChange={(e) =>
+                                        setPassedMarks(parseInt(e.target.value, 10) || 0)
+                                    }
+                                />
+                            </div>
 
                             <label className="text-gray-700 m-3" htmlFor="private">
                                 Private
@@ -335,7 +376,7 @@ const NewQuiz = ({ closeModal }) => {
                                 <input
                                     id="private"
                                     type="checkbox"
-                                    checked={isPrivate || quizDetails?.isPrivate || ''}
+                                    checked={isPrivate || ''}
                                     onChange={() => setIsPrivate(!isPrivate)}
                                     className="sr-only peer"
                                 />
@@ -363,7 +404,7 @@ const NewQuiz = ({ closeModal }) => {
                             </button>
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            {(tags.length > 0 ? tags : quizDetails?.tags || []).map((tag, index) => (
+                            {(tags.length > 0 ? tags : []).map((tag, index) => (
                                 <div
                                     key={index}
                                     className="bg-yellow-200 px-2 text-gray-700 rounded-full flex items-center space-x-2"

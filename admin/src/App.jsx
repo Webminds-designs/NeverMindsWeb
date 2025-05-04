@@ -10,29 +10,33 @@ import Quizzes from "./pages/Quizzes";
 import Statistics from "./pages/Statistics";
 import Questions from "./components/Questions";
 import Marks from "./pages/Marks";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   const location = useLocation();
-  
+
   return (
     <QuizProvider>
-    <div>
-      {/* Conditionally render the navigator */}
-      {location.pathname !== "/question"  && <DashboardNavigater />}
+      <div>
+        {/* Conditionally render the navigator */}
+        {location.pathname !== "/login" && <DashboardNavigater />}
 
-      {/* Main Content */}
-     
+        {/* Main Content */}
+
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/quizzes" element={<Quizzes />} />
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/question" element={<Questions />} />
           <Route path="/allmarks" element={<Marks />} />
-          
+
         </Routes>
-     
-    </div>
+
+      </div>
     </QuizProvider>
   );
 }
