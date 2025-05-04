@@ -102,7 +102,7 @@ const Header = () => {
               >
                 <li>
                   <a
-                    href="#home"
+                    href="/"
                     className="hover:text-[#FFD448] transition-colors"
                   >
                     {content[language].home}
@@ -119,7 +119,7 @@ const Header = () => {
 
                 <li>
                   <a
-                    href="#services"
+                    href="/services"
                     className="hover:text-[#FFD448] transition-colors pl-20"
                   >
                     {content[language].services}
