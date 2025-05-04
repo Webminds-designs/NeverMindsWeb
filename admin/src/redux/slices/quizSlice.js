@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const quizApi = createApi({
     reducerPath: 'quizApi',
     baseQuery: fetchBaseQuery({ 
-        baseUrl: 'https://localhost:5001/api/quizzes',
+        baseUrl: 'http://localhost:5001/api/quizzes',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem('token');
             if (token) {
