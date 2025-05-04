@@ -1,6 +1,7 @@
 import app from "./app.js";
 import dotenv from "dotenv";
 import connectDB from "./config/dbConfig.js";
+import { cloudinaryConnection } from "./config/cloudinary.js";
 
 dotenv.config(); // Load environment variables
 
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 5001;
 
 // Connect to the database
 connectDB();
+cloudinaryConnection(); // Connect to Cloudinary
 
 // Start the server
 const server = app.listen(PORT, () => {

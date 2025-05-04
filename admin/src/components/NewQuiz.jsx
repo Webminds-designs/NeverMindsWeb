@@ -3,12 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import pen from '../assets/pen.svg';
 import close from '../assets/close.png';
 import toast from 'react-hot-toast';
-import { useCreateQuizMutation, useGetAllQuizzesQuery } from '../redux/slices/quizSlice';
+import { useCreateQuizMutation } from '../redux/slices/quizSlice';
 
 const NewQuiz = ({ closeModal }) => {
 
     const [createQuiz] = useCreateQuizMutation();
-    const { data: quizzes } = useGetAllQuizzesQuery();
     
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
@@ -23,6 +22,7 @@ const NewQuiz = ({ closeModal }) => {
     const [filteredSubjects, setFilteredSubjects] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [image, setImage] = useState(null);
+    const [imageFile, setImageFile] = useState(null); // Add this state
     const [loading, setLoading] = useState(false);
     const [passedMarks, setPassedMarks] = useState('')
 
@@ -35,26 +35,25 @@ const NewQuiz = ({ closeModal }) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
         if (file && file.type.startsWith("image/")) {
+            setImageFile(file); // Store the actual file
             const reader = new FileReader();
             setLoading(true);
             reader.onload = () => {
-                setImage(reader.result);
+                setImage(reader.result); // Store the preview URL
                 setLoading(false);
             };
             reader.readAsDataURL(file);
         }
     };
+    
     // image handle
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file && file.type.startsWith("image/")) {
+            setImageFile(file); // Store the actual file
             const reader = new FileReader();
             reader.onload = () => {
-                setImage({
-                    url: reader.result,
-                    type: file.type,
-                    name: file.name
-                });
+                setImage(reader.result); // Store the preview URL
             };
             reader.readAsDataURL(file);
         }
@@ -122,32 +121,35 @@ const NewQuiz = ({ closeModal }) => {
     };
 
     const handleSave = async () => {
-        // Format timer to HH:MM:SS
         const formattedTimer = `${String(timer.hours).padStart(2, '0')}:${String(timer.minutes).padStart(2, '0')}:00`;
 
-        const quizDetails = {
-            title,
-            description,
-            guidlines: instructions, // Match the schema field name
-            type: isPrivate ? 'private' : 'public',
-            banner: image, // Will be handled by backend
-            imageVector: subject.toLowerCase().replace(' ', '_') + '_vector.png',
-            quizTags: tags,
-            timeDuration: formattedTimer,
-            passedMarks: parseInt(passedMarks),
-            isPrivate // Additional frontend field
-        };
+        // Create FormData to handle file upload
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('guidlines', JSON.stringify(instructions));
+        formData.append('type', isPrivate ? 'private' : 'public');
+        formData.append('imageVector', subject.toLowerCase().replace(' ', '_') + '_vector.png');
+        formData.append('tutor', 'current-user-id'); // Replace with actual user ID from auth
+        formData.append('quizTags', JSON.stringify(tags));
+        formData.append('timeDuration', formattedTimer);
+        
+        // Add empty questions array as required by backend
+        formData.append('questions', JSON.stringify([]));
 
-        console.log('Quiz Details:', quizDetails);
+        // Append image file if exists
+        if (imageFile) {
+            formData.append('file', imageFile);
+        }
 
         // Validate required fields
         if (!title || !subject || !timer || !passedMarks) {
-            alert('Please fill in all required fields');
+            toast.error('Please fill in all required fields');
             return;
         }
 
         try {
-            const result = await createQuiz(quizDetails).unwrap();
+            const result = await createQuiz(formData).unwrap();
             if (result) {
                 toast.success('Quiz created successfully!');
                 closeModal();

@@ -18,8 +18,8 @@ export const createQuiz = async (req, res) => {
             uploadedBanner = await cloudinary.uploader.upload(
                 req.file.path,
                 { 
-                    public_id: req.file.filename,
                     folder: "quiz-banners",
+                    resource_type: "auto",
                 }
             );
 
