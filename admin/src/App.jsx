@@ -1,9 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import { QuizProvider } from './context/context';
-
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DashboardNavigater from "./components/DashboardNavigater";
+import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Quizzes from "./pages/Quizzes";
@@ -14,39 +12,26 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 function App() {
-  const location = useLocation();
 
   return (
-    <QuizProvider>
-      <div>
-        {/* Conditionally render the navigator */}
-        {location.pathname !== "/login" && <DashboardNavigater />}
+    <BrowserRouter>
+      <Routes>
 
-        {/* Main Content */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/quizzes" element={<Quizzes />} />
-          <Route path="/statistics" element={<Statistics />} />
-          <Route path="/question" element={<Questions />} />
-          <Route path="/allmarks" element={<Marks />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="users" element={<Users />} />
+          <Route path="quizzes" element={<Quizzes />} />
+          <Route path="statistics" element={<Statistics />} />
+          <Route path="question" element={<Questions />} />
+          <Route path="allmarks" element={<Marks />} />
+        </Route>
 
-        </Routes>
-
-      </div>
-    </QuizProvider>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-function AppWrapper() {
-  return (
-    <Router>
-      <App />
-    </Router>
-  );
-}
-
-export default AppWrapper;
+export default App;
