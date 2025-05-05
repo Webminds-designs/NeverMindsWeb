@@ -4,13 +4,6 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5001/api/v1/", // Changed from https to http and port 5000 to 5001
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
   }),
   endpoints: (builder) => ({
     login: builder.mutation({
