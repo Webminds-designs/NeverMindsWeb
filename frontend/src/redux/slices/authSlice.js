@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5001/api/v1/", // Changed from https to http and port 5000 to 5001
+    // Make sure this URL matches your backend server address and port
+    baseUrl: "http://localhost:5001/api/v1/",
   }),
   endpoints: (builder) => ({
     login: builder.mutation({

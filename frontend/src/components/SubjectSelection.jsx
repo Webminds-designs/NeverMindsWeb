@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUpdateStudentProfileMutation } from "../redux/slices/userSlice";
 import { toast } from "react-hot-toast";
 import nlogo from "../assets/nlogo.png";
+import { useSignupMutation } from "../redux/slices/authSlice";
 
 const SubjectSelection = () => {
   const [selectedSubjects, setSelectedSubjects] = useState([]);
@@ -10,10 +11,17 @@ const SubjectSelection = () => {
   const [showGradeDropdown, setShowGradeDropdown] = useState(false);
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
+  const [registrationStatus, setRegistrationStatus] = useState({
+    success: false,
+    message: "",
+    attempted: false,
+  });
 
   // RTK Query hook for updating student profile
   const [updateStudentProfile, { isLoading }] =
     useUpdateStudentProfileMutation();
+
+  const [signup, { isLoading: isSigningUp }] = useSignupMutation();
 
   // Get user data from local storage
   useEffect(() => {
@@ -26,7 +34,7 @@ const SubjectSelection = () => {
     }
   }, [navigate]);
 
-  // Grades list
+  // Grades list - matches backend validation
   const grades = [
     "Grade 6",
     "Grade 7",
@@ -38,7 +46,7 @@ const SubjectSelection = () => {
     "Grade 13",
   ];
 
-  // List of available subjects
+  // List of available subjects - matches backend validation
   const subjects = [
     "Science",
     "Mathematics",
@@ -60,53 +68,129 @@ const SubjectSelection = () => {
   };
 
   const handleGetStarted = async () => {
-    if (!userData?.email) {
-      toast.error("Missing user data. Please register again.");
+    if (selectedSubjects.length === 0) {
+      toast.error("Please select at least one subject");
+      return;
+    }
+
+    // Get stored registration data
+    const registrationData = JSON.parse(localStorage.getItem("registerData"));
+
+    if (!registrationData) {
+      toast.error("Missing registration data. Please register again.");
       navigate("/register");
       return;
     }
 
-    // Get the user ID from localStorage
-    const user = JSON.parse(localStorage.getItem("user"));
-    const userId = user?.id;
-
-    if (!userId) {
-      toast.error("You need to be logged in to continue.");
-      navigate("/login");
-      return;
-    }
-
     try {
-      // Update student profile with selected subjects and grade
-      await updateStudentProfile({
-        id: userId,
+      // Create the complete user data with subjects
+      const userData = {
+        name: registrationData.name,
+        email: registrationData.email,
+        password: registrationData.password,
+        role: "student",
         studentDetails: {
+          guardianContact: registrationData.mobile || "", // Ensure it's not undefined
           interestTags: selectedSubjects,
           grade: selectedGrade,
         },
-      }).unwrap();
+      };
 
-      // Save selected subjects locally as well
-      localStorage.setItem(
-        "selectedSubjects",
-        JSON.stringify(selectedSubjects)
-      );
-      localStorage.setItem("grade", selectedGrade);
+      console.log("Submitting user data:", JSON.stringify(userData));
 
-      toast.success("Profile updated successfully!");
+      // Call the signup mutation with complete data
+      const response = await signup(userData).unwrap();
 
-      // Navigate to dashboard
-      navigate("/dashboard");
+      // Set success status
+      setRegistrationStatus({
+        success: true,
+        message: "You are Successfully Registered, Now you can Login",
+        attempted: true,
+      });
+
+      // Store token and user data
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("user", JSON.stringify(response.user));
+      localStorage.removeItem("registerData");
+
+      toast.success("Registration complete! Welcome to nevermind.");
+
     } catch (err) {
-      console.error("Failed to update profile:", err);
-      toast.error(err?.data?.message || "Failed to update profile");
+      console.error("Registration failed:", err);
+      // Add more detailed logging to help diagnose the issue
+      console.error("Error details:", JSON.stringify(err));
+
+      // Set error status
+      setRegistrationStatus({
+        success: false,
+        message: "Registration Unsuccessful",
+        attempted: true,
+      });
+
+      // Show more detailed error information
+      if (err.data?.message) {
+        toast.error(`Registration failed: ${err.data.message}`);
+      } else if (err.message) {
+        toast.error(`Error: ${err.message}`);
+      } else {
+        toast.error("Registration failed. Please try again.");
+      }
     }
+  };
+
+  // Skip subject selection - only for testing/development
+  const handleSkip = () => {
+    const registrationData = JSON.parse(localStorage.getItem("registerData"));
+
+    if (!registrationData) {
+      toast.error("Missing registration data. Please register again.");
+      navigate("/register");
+      return;
+    }
+
+    // Just add default selections
+    const userData = {
+      name: registrationData.name,
+      email: registrationData.email,
+      password: registrationData.password,
+      role: "student",
+      studentDetails: {
+        guardianContact: registrationData.mobile || "", // Ensure it's not undefined
+        interestTags: ["Mathematics"], // Default subject
+        grade: "Grade 10", // Default grade
+      },
+    };
+
+    // Register with default selections
+    signup(userData)
+      .unwrap()
+      .then((response) => {
+        if (!response || !response.token) {
+          throw new Error("Invalid response format from server");
+        }
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("user", JSON.stringify(response.user));
+        localStorage.removeItem("registerData");
+        toast.success("Registration complete! Welcome to nevermind.");
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        console.error("Registration failed:", err);
+        if (err.data?.message) {
+          toast.error(`Registration failed: ${err.data.message}`);
+        } else if (err.message) {
+          toast.error(`Error: ${err.message}`);
+        } else {
+          toast.error("Registration failed during skip. Please try again.");
+        }
+      });
   };
 
   return (
     <div className="w-screen h-screen flex justify-between items-center bg-[#FFD448] p-10">
-      {/* Content part - same style as register page */}
+      {/* Content part remains unchanged */}
       <div className="flex flex-col items-center justify-center bg-[#FFFEF6] w-1/2 h-full rounded-2xl shadow-lg p-8 overflow-y-auto">
+        {/* Your existing JSX remains the same */}
         {/* Logo and brand */}
         <div className="w-16 h-16 rounded-full flex items-center justify-center mb-2">
           <span>
@@ -217,7 +301,7 @@ const SubjectSelection = () => {
 
         <div className="flex flex-col items-end justify-center w-full mb-8 mr-[10rem]">
           <button
-            onClick={() => navigate("/dashboard")}
+            onClick={handleSkip}
             className="text-gray-500 text-lg hover:underline"
           >
             skip
@@ -228,13 +312,24 @@ const SubjectSelection = () => {
         <div className="flex flex-col items-center w-full gap-4">
           <button
             onClick={handleGetStarted}
-            disabled={isLoading}
+            disabled={isLoading || isSigningUp}
             className={`bg-[#1B191C] text-white text-[22px] py-3 px-10 rounded-2xl hover:bg-gray-800 transition ${
-              isLoading ? "opacity-70 cursor-not-allowed" : ""
+              isLoading || isSigningUp ? "opacity-70 cursor-not-allowed" : ""
             }`}
           >
-            {isLoading ? "Saving..." : "Get Started"}
+            {isLoading || isSigningUp ? "Processing..." : "Get Started"}
           </button>
+
+          {/* Registration Status Message */}
+          {registrationStatus.attempted && (
+            <p
+              className={`mt-4 text-lg font-medium ${
+                registrationStatus.success ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {registrationStatus.message}
+            </p>
+          )}
         </div>
 
         {/* Sign In Link */}
@@ -248,7 +343,6 @@ const SubjectSelection = () => {
           </Link>
         </div>
       </div>
-
       {/* Image part */}
       <div className="w-1/2 h-full flex items-center justify-center">
         <img

@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useLoginMutation } from "../redux/slices/authSlice";
 import { toast } from "react-hot-toast";
 import nlogo from "../assets/nlogo.png";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -57,13 +58,46 @@ const Login = () => {
     }
   }, [navigate]);
 
-  return (
-    <div className="w-screen h-screen flex justify-between items-center bg-[#FFD448] p-10">
-      {/* image part */}
-      <div>Image</div>
+  // Animation handler
+  const handleRegisterClick = () => {
+    // Use localStorage to set animation direction
+    localStorage.setItem("authDirection", "login-to-register");
+    navigate("/register");
+  };
 
-      {/* login part */}
-      <div className="flex flex-col items-center justify-center bg-[#FFFEF6] w-1/2 h-full rounded-2xl shadow-lg p-8">
+  return (
+    <div className="w-screen h-screen flex justify-between items-center bg-[#FFD448] p-10 overflow-hidden">
+      {/* Image part - animate from right to left */}
+      <motion.div
+        className="w-1/2 h-full flex items-center justify-center"
+        initial={{
+          x:
+            localStorage.getItem("authDirection") === "register-to-login"
+              ? "100%"
+              : 0,
+        }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      >
+        <img
+          src="https://via.placeholder.com/500x600?text=Learning+Illustration"
+          alt="Learning Illustration"
+          className="max-h-full object-contain"
+        />
+      </motion.div>
+
+      {/* Login part - animate from left to right */}
+      <motion.div
+        className="flex flex-col items-center justify-center bg-[#FFFEF6] w-1/2 h-full rounded-2xl shadow-lg p-8"
+        initial={{
+          x:
+            localStorage.getItem("authDirection") === "register-to-login"
+              ? "-100%"
+              : 0,
+        }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      >
         {/* Logo and brand */}
         <div className="w-16 h-16 rounded-full flex items-center justify-center mb-2">
           <span>
@@ -152,14 +186,14 @@ const Login = () => {
         {/* Sign Up Link */}
         <div className="text-[22px] mt-10">
           Don't have an account?{" "}
-          <Link
-            to="/register"
+          <button
+            onClick={handleRegisterClick}
             className="text-yellow-600 font-medium hover:underline"
           >
             Sign up
-          </Link>
+          </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

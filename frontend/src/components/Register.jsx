@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   FaUser,
   FaLock,
@@ -12,6 +12,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useSignupMutation } from "../redux/slices/authSlice";
 import { toast } from "react-hot-toast";
 import nlogo from "../assets/nlogo.png";
+import { motion } from "framer-motion";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -42,31 +43,21 @@ const Register = () => {
     }
 
     try {
-      // Prepare user data for registration with default student role
-      const userData = {
-        name,
-        email,
-        password,
-        role: "student", // Fixed as student
-        studentDetails: {
-          guardianContact: mobile,
-        },
-      };
-
-      // Store basic info for subject selection page
+      // Store complete registration data for subject selection page
       localStorage.setItem(
         "registerData",
         JSON.stringify({
           name,
           email,
+          password,
+          mobile,
           role: "student", // Always student
         })
       );
 
-      // Call the signup mutation
-      await signup(userData).unwrap();
-
-      toast.success("Registration successful! Please select your subjects.");
+      // Call the signup mutation but wait for subject selection before creating account
+      // Just navigate to subject selection without creating the account yet
+      navigate("/subject-selection");
     } catch (err) {
       console.error("Registration failed:", err);
       toast.error(
@@ -75,10 +66,27 @@ const Register = () => {
     }
   };
 
+  // Animation handler
+  const handleLoginClick = () => {
+    // Use localStorage to set animation direction
+    localStorage.setItem("authDirection", "register-to-login");
+    navigate("/login");
+  };
+
   return (
-    <div className="w-screen h-screen flex justify-between items-center bg-[#FFD448] p-10">
-      {/* login part */}
-      <div className="flex flex-col items-center justify-center bg-[#FFFEF6] w-1/2 h-full rounded-2xl shadow-lg p-8 overflow-y-auto">
+    <div className="w-screen h-screen flex justify-between items-center bg-[#FFD448] p-10 overflow-hidden">
+      {/* Register part - animate from right to left */}
+      <motion.div
+        className="flex flex-col items-center justify-center bg-[#FFFEF6] w-1/2 h-full rounded-2xl shadow-lg p-8 overflow-y-auto"
+        initial={{
+          x:
+            localStorage.getItem("authDirection") === "login-to-register"
+              ? "100%"
+              : 0,
+        }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      >
         {/* Logo and brand */}
         <div className="w-16 h-16 rounded-full flex items-center justify-center mb-2">
           <span>
@@ -199,22 +207,33 @@ const Register = () => {
         {/* Login Link */}
         <div className="text-[22px] mt-5">
           Already have an account?{" "}
-          <Link
-            to="/login"
+          <button
+            onClick={handleLoginClick}
             className="text-yellow-600 font-medium hover:underline"
           >
             Log in
-          </Link>
+          </button>
         </div>
-      </div>
-      {/* image part */}
-      <div className="w-1/2 h-full flex items-center justify-center">
+      </motion.div>
+
+      {/* Image part - animate from left to right */}
+      <motion.div
+        className="w-1/2 h-full flex items-center justify-center"
+        initial={{
+          x:
+            localStorage.getItem("authDirection") === "login-to-register"
+              ? "-100%"
+              : 0,
+        }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      >
         <img
           src="https://via.placeholder.com/500x600?text=Learning+Illustration"
           alt="Learning Illustration"
           className="max-h-full object-contain"
         />
-      </div>
+      </motion.div>
     </div>
   );
 };
