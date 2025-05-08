@@ -13,6 +13,7 @@ import { useSignupMutation } from "../redux/slices/authSlice";
 import { toast } from "react-hot-toast";
 import nlogo from "../assets/nlogo.png";
 import { motion } from "framer-motion";
+import buwa from "../assets/buwa.png";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -229,9 +230,9 @@ const Register = () => {
         transition={{ duration: 0.6, ease: "easeInOut" }}
       >
         <img
-          src="https://via.placeholder.com/500x600?text=Learning+Illustration"
+          src={buwa}
           alt="Learning Illustration"
-          className="max-h-full object-contain"
+          className="w-full h-full object-contain transform scale-x-[-1]" // Added transform scale-y-[-1]
         />
       </motion.div>
     </div>
