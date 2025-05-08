@@ -3,28 +3,50 @@ import { useNavigate } from 'react-router-dom';
 import pen from '../assets/pen.svg';
 import close from '../assets/close.png';
 import toast from 'react-hot-toast';
-import { useCreateQuizMutation } from '../redux/slices/quizSlice';
+import { useCreateQuizMutation, useUpdateQuizMutation } from '../redux/slices/quizSlice';
 
-const NewQuiz = ({ closeModal }) => {
+const NewQuiz = ({ closeModal, refetch, quizToEdit }) => {
 
     const [createQuiz] = useCreateQuizMutation();
-    
+    const [updateQuiz] = useUpdateQuizMutation();
+
     const navigate = useNavigate();
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [subject, setSubject] = useState('');
-    const [timer, setTimer] = useState({ hours: 0, minutes: 0 });
-    const [isPrivate, setIsPrivate] = useState(false);
-    const [instructions, setInstructions] = useState([]);
+    const [title, setTitle] = useState(quizToEdit?.title || '');
+    const [description, setDescription] = useState(quizToEdit?.description || '');
+    const [subject, setSubject] = useState(quizToEdit?.subject || '');
+    const [timer, setTimer] = useState(() => {
+        if (quizToEdit?.timeDuration) {
+            const [hours, minutes] = quizToEdit.timeDuration.split(':');
+            return { hours: parseInt(hours), minutes: parseInt(minutes) };
+        }
+        return { hours: 0, minutes: 0 };
+    });
+    const [instructions, setInstructions] = useState(() => {
+        try {
+            return quizToEdit?.guidlines ? JSON.parse(quizToEdit.guidlines) : [];
+        } catch (error) {
+            return [];
+        }
+    });
+
+    const [tags, setTags] = useState(() => {
+        try {
+            return quizToEdit?.quizTags ? JSON.parse(quizToEdit.quizTags) : [];
+        } catch (error) {
+            return [];
+        }
+    });
+    const [isPrivate, setIsPrivate] = useState(quizToEdit?.type === 'private');
     const [instructionsInput, setInstructionsInput] = useState('');
-    const [tags, setTags] = useState([]);
     const [tagInput, setTagInput] = useState('');
     const [filteredSubjects, setFilteredSubjects] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
-    const [image, setImage] = useState(null);
-    const [imageFile, setImageFile] = useState(null); // Add this state
+    const [image, setImage] = useState(quizToEdit?.banner?.url || null);
+    const [imageFile, setImageFile] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [passedMarks, setPassedMarks] = useState('')
+    const [passedMarks, setPassedMarks] = useState(quizToEdit?.passMark || '');
+
+    const user = JSON.parse(localStorage.getItem('user'));
 
     // drag and drop 
     const handleDragOver = (e) => {
@@ -35,25 +57,25 @@ const NewQuiz = ({ closeModal }) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
         if (file && file.type.startsWith("image/")) {
-            setImageFile(file); // Store the actual file
+            setImageFile(file);
             const reader = new FileReader();
             setLoading(true);
             reader.onload = () => {
-                setImage(reader.result); // Store the preview URL
+                setImage(reader.result);
                 setLoading(false);
             };
             reader.readAsDataURL(file);
         }
     };
-    
+
     // image handle
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file && file.type.startsWith("image/")) {
-            setImageFile(file); // Store the actual file
+            setImageFile(file);
             const reader = new FileReader();
             reader.onload = () => {
-                setImage(reader.result); // Store the preview URL
+                setImage(reader.result);
             };
             reader.readAsDataURL(file);
         }
@@ -62,7 +84,6 @@ const NewQuiz = ({ closeModal }) => {
     //instructions add
     const handleInstructionsAdd = () => {
         if (instructionsInput && !instructions.includes(instructionsInput)) {
-            // Ensure we don't exceed a reasonable number of instructions
             if (instructions.length < 5) {
                 setInstructions([...instructions, instructionsInput]);
                 setInstructionsInput('');
@@ -123,40 +144,47 @@ const NewQuiz = ({ closeModal }) => {
     const handleSave = async () => {
         const formattedTimer = `${String(timer.hours).padStart(2, '0')}:${String(timer.minutes).padStart(2, '0')}:00`;
 
-        // Create FormData to handle file upload
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
         formData.append('guidlines', JSON.stringify(instructions));
         formData.append('type', isPrivate ? 'private' : 'public');
         formData.append('imageVector', subject.toLowerCase().replace(' ', '_') + '_vector.png');
-        formData.append('tutor', 'current-user-id'); // Replace with actual user ID from auth
+        formData.append('tutor', user.id);
         formData.append('quizTags', JSON.stringify(tags));
         formData.append('timeDuration', formattedTimer);
-        
+        formData.append('subject', subject);
+        formData.append('passMark', passedMarks);
+
         // Add empty questions array as required by backend
         formData.append('questions', JSON.stringify([]));
 
-        // Append image file if exists
         if (imageFile) {
-            formData.append('file', imageFile);
+            formData.append('banner', imageFile);
         }
 
-        // Validate required fields
         if (!title || !subject || !timer || !passedMarks) {
             toast.error('Please fill in all required fields');
             return;
         }
 
         try {
-            const result = await createQuiz(formData).unwrap();
-            if (result) {
-                toast.success('Quiz created successfully!');
-                closeModal();
+            if (quizToEdit) {
+                const result = await updateQuiz({ id: quizToEdit._id, data: formData }).unwrap();
+                if (result) {
+                    toast.success('Quiz updated successfully!');
+                }
+            } else {
+                const result = await createQuiz(formData).unwrap();
+                if (result) {
+                    toast.success('Quiz created successfully!');
+                }
             }
+            closeModal();
+            refetch();
         } catch (error) {
-            console.error('Error creating quiz:', error);
-            toast.error('Failed to create quiz. Please try again.');
+            console.error('Error saving quiz:', error);
+            toast.error(`Failed to ${quizToEdit ? 'update' : 'create'} quiz. Please try again.`);
         }
     };
 
@@ -295,7 +323,7 @@ const NewQuiz = ({ closeModal }) => {
                             </button>
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            {(instructions.length > 0 ? instructions :  []).map((instruction, index) => (
+                            {(instructions.length > 0 ? instructions : []).map((instruction, index) => (
                                 <div
                                     key={index}
                                     className="bg-yellow-200 px-1 text-gray-700 rounded-full flex items-center space-x-2"
@@ -436,7 +464,7 @@ const NewQuiz = ({ closeModal }) => {
                             onClick={handleSave}
                             className="bg-yellow-300 mr-3 text-lg font-semibold  rounded-lg px-6  "
                         >
-                            Create
+                            {quizToEdit ? 'Edit' : 'Create'}
                         </button>
                         <button
                             onClick={handleCancel}

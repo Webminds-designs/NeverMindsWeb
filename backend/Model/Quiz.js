@@ -109,6 +109,21 @@ const quizSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Question',
     }],
+    subject: {
+        type: String,
+        required: true,
+    },
+    passMark: {
+        type: Number,
+        required: true,
+        validate: {
+            validator: function(value) {
+                // Validate that passMark is less than or equal to 100
+                return value <= 100;
+            },
+            message: 'Pass mark must be less than or equal to 100.',
+        },
+    }
 }, {timestamps: true});
 
 

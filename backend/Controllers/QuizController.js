@@ -9,7 +9,7 @@ import fs from "fs";
 
 export const createQuiz = async (req, res) => {
     try {
-        const { title, description, guidlines, type, imageVector, tutor, verificationCode, quizTags, timeDuration, questions } = req.body;
+        const { title, description, guidlines, type, imageVector, tutor, verificationCode, quizTags, timeDuration, questions, subject, passMark } = req.body;
 
         let uploadedBanner;
 
@@ -60,6 +60,8 @@ export const createQuiz = async (req, res) => {
                 quizTags,
                 timeDuration,
                 questions: createdQuestions,
+                subject,
+                passMark,
             });
 
             await newQuiz.save();
