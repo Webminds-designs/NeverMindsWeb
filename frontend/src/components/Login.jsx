@@ -75,6 +75,8 @@ const Login = () => {
           x:
             localStorage.getItem("authDirection") === "register-to-login"
               ? "100%"
+              : localStorage.getItem("authDirection") === "subject-to-login"
+              ? "100%"
               : 0,
         }}
         animate={{ x: 0 }}
@@ -93,6 +95,8 @@ const Login = () => {
         initial={{
           x:
             localStorage.getItem("authDirection") === "register-to-login"
+              ? "-100%"
+              : localStorage.getItem("authDirection") === "subject-to-login"
               ? "-100%"
               : 0,
         }}

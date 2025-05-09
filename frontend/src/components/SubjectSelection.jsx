@@ -4,6 +4,8 @@ import { useUpdateStudentProfileMutation } from "../redux/slices/userSlice";
 import { toast } from "react-hot-toast";
 import nlogo from "../assets/nlogo.png";
 import { useSignupMutation } from "../redux/slices/authSlice";
+import buwa from "../assets/buwa.png";
+import { motion } from "framer-motion";
 
 const SubjectSelection = () => {
   const [selectedSubjects, setSelectedSubjects] = useState([]);
@@ -114,7 +116,6 @@ const SubjectSelection = () => {
       localStorage.removeItem("registerData");
 
       toast.success("Registration complete! Welcome to nevermind.");
-
     } catch (err) {
       console.error("Registration failed:", err);
       // Add more detailed logging to help diagnose the issue
@@ -186,11 +187,22 @@ const SubjectSelection = () => {
       });
   };
 
+  // Animation handler
+  const handleLoginClick = () => {
+    // Use localStorage to set animation direction
+    localStorage.setItem("authDirection", "subject-to-login");
+    navigate("/login");
+  };
+
   return (
     <div className="w-screen h-screen flex justify-between items-center bg-[#FFD448] p-10">
-      {/* Content part remains unchanged */}
-      <div className="flex flex-col items-center justify-center bg-[#FFFEF6] w-1/2 h-full rounded-2xl shadow-lg p-8 overflow-y-auto">
-        {/* Your existing JSX remains the same */}
+      {/* Content part with motion */}
+      <motion.div
+        className="flex flex-col items-center justify-center bg-[#FFFEF6] w-1/2 h-full rounded-2xl shadow-lg p-8 overflow-y-auto"
+        initial={{ x: 0 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      >
         {/* Logo and brand */}
         <div className="w-16 h-16 rounded-full flex items-center justify-center mb-2">
           <span>
@@ -332,25 +344,31 @@ const SubjectSelection = () => {
           )}
         </div>
 
-        {/* Sign In Link */}
+        {/* Sign In Link - Modified to use the animation handler */}
         <div className="text-[22px] mt-8">
           Already have an account?{" "}
-          <Link
-            to="/login"
+          <button
+            onClick={handleLoginClick}
             className="text-yellow-600 font-medium hover:underline"
           >
             Log in
-          </Link>
+          </button>
         </div>
-      </div>
-      {/* Image part */}
-      <div className="w-1/2 h-full flex items-center justify-center">
+      </motion.div>
+
+      {/* Image part with motion */}
+      <motion.div
+        className="w-1/2 h-full flex items-center justify-center"
+        initial={{ x: 0 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      >
         <img
-          src="https://via.placeholder.com/500x600?text=Learning+Illustration"
+          src={buwa}
           alt="Learning Illustration"
-          className="max-h-full object-contain"
+          className="w-full h-full object-contain transform scale-x-[-1]"
         />
-      </div>
+      </motion.div>
     </div>
   );
 };
