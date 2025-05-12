@@ -25,9 +25,9 @@ function App() {
           <Route path="users" element={<Users />} />
           <Route path="quizzes" element={<Quizzes />} />
           <Route path="statistics" element={<Statistics />} />
-          <Route path="question" element={<Questions />} />
           <Route path="allmarks" element={<Marks />} />
         </Route>
+        <Route path="/question" element={<Questions />} />
 
       </Routes>
     </BrowserRouter>

@@ -4,6 +4,7 @@ import pen from '../assets/pen.svg';
 import close from '../assets/close.png';
 import toast from 'react-hot-toast';
 import { useCreateQuizMutation, useUpdateQuizMutation } from '../redux/slices/quizSlice';
+import Questions from './Questions';
 
 const NewQuiz = ({ closeModal, refetch, quizToEdit }) => {
 
@@ -169,19 +170,25 @@ const NewQuiz = ({ closeModal, refetch, quizToEdit }) => {
         }
 
         try {
+            let quizId;
+            
             if (quizToEdit) {
-                const result = await updateQuiz({ id: quizToEdit._id, data: formData }).unwrap();
+                const result = await updateQuiz({ id: quizToEdit._id, quizData: formData }).unwrap();
                 if (result) {
                     toast.success('Quiz updated successfully!');
+                    quizId = quizToEdit._id;
                 }
             } else {
                 const result = await createQuiz(formData).unwrap();
                 if (result) {
                     toast.success('Quiz created successfully!');
+                    quizId = result._id;
                 }
             }
             closeModal();
             refetch();
+            // Pass the quizId as state when navigating to the questions page
+            navigate('/question', { state: { quizId } });
         } catch (error) {
             console.error('Error saving quiz:', error);
             toast.error(`Failed to ${quizToEdit ? 'update' : 'create'} quiz. Please try again.`);
