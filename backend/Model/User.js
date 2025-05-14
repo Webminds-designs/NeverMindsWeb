@@ -1,11 +1,54 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
+// Available grades and subjects
+const availableGrades = [
+  "Grade 6",
+  "Grade 7",
+  "Grade 8",
+  "Grade 9",
+  "Grade 10",
+  "Grade 11",
+  "Grade 12",
+  "Grade 13",
+];
+
+const availableSubjects = [
+  "Science",
+  "Mathematics",
+  "Sinhala",
+  "History",
+  "English Literature",
+  "ICT",
+  "English",
+  "Buddhism",
+  "Business studies & Accounting",
+];
+
 // Subdocument schema for students
 const studentSchema = new mongoose.Schema(
   {
-    interestTags: [String],
-    grade: { type: String, trim: true },
+    interestTags: {
+      type: [String],
+      validate: {
+        validator: function (tags) {
+          // Validate that all provided subjects are from the available list
+          return tags.every((tag) => availableSubjects.includes(tag));
+        },
+        message: (props) =>
+          `${props.value} contains invalid subject selections!`,
+      },
+    },
+    grade: {
+      type: String,
+      trim: true,
+      validate: {
+        validator: function (grade) {
+          return availableGrades.includes(grade);
+        },
+        message: (props) => `${props.value} is not a valid grade!`,
+      },
+    },
     guardianName: { type: String, trim: true },
     guardianContact: {
       type: String,
@@ -15,6 +58,18 @@ const studentSchema = new mongoose.Schema(
       },
     },
     description: { type: String, trim: true },
+    quizAttempts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "StudentAnswer",
+      },
+    ],
+    favouriteQuizzes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Quiz",
+      },
+    ],
   },
   { _id: false }
 );
