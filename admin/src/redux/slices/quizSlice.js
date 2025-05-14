@@ -12,6 +12,7 @@ export const quizApi = createApi({
             return headers;
         }
     }),
+    tagTypes: ['Quiz'],
     endpoints: (builder) => ({
         createQuiz: builder.mutation({
             query: (quizData) => ({
@@ -19,18 +20,21 @@ export const quizApi = createApi({
                 method: 'POST',
                 body: quizData,
             }),
+            invalidatesTags: ['Quiz'],
         }),
         getAllQuizzes: builder.query({
             query: () => ({
                 url: '/',
                 method: 'GET',
             }),
+            providesTags: ['Quiz'],
         }),
         getQuizById: builder.query({
             query: (id) => ({
                 url: `/${id}`,
                 method: 'GET',
             }),
+            providesTags: (result, error, id) => [{ type: 'Quiz', id }],
         }),
         updateQuiz: builder.mutation({
             query: ({ id, quizData }) => ({
@@ -38,6 +42,7 @@ export const quizApi = createApi({
                 method: 'PUT',
                 body: quizData,
             }),
+            invalidatesTags: (result, error, { id }) => [{ type: 'Quiz', id }],
         }),
         deleteQuiz: builder.mutation({
             query: (id) => ({

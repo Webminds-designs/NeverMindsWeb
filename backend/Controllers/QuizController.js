@@ -9,7 +9,7 @@ import fs from "fs";
 
 export const createQuiz = async (req, res) => {
     try {
-        const { title, description, guidlines, type, imageVector, tutor, verificationCode, quizTags, timeDuration, questions } = req.body;
+        const { title, description, guidlines, type, imageVector, tutor, verificationCode, quizTags, timeDuration, questions, subject, passMark } = req.body;
 
         let uploadedBanner;
 
@@ -60,6 +60,8 @@ export const createQuiz = async (req, res) => {
                 quizTags,
                 timeDuration,
                 questions: createdQuestions,
+                subject,
+                passMark,
             });
 
             await newQuiz.save();
@@ -131,7 +133,7 @@ export const getQuizById = async (req, res) => {
 
 export const updateQuiz = async (req, res) => {
     const { id } = req.params;
-    const { title, description, guidlines, type, imageVector, tutor, verificationCode, quizTags, timeDuration, questions } = req.body;
+    const { title, description, guidlines, type, imageVector, tutor, verificationCode, quizTags, timeDuration, questions, subject, passMark } = req.body;
 
     try {
         const quiz = await Quiz.findById(id);
@@ -175,7 +177,7 @@ export const updateQuiz = async (req, res) => {
 
         try {
             // Update questions and answers
-            const updatedQuestions = await Promise.all(JSON.parse(questions).map(async (question) => {
+            const updatedQuestionIds = await Promise.all(JSON.parse(questions).map(async (question) => {
                 if (question._id) {
                     const existingQuestion = await Question.findById(question._id);
                     if (!existingQuestion) {
@@ -221,15 +223,17 @@ export const updateQuiz = async (req, res) => {
             // Update the quiz fields
             quiz.title = title || quiz.title;
             quiz.description = description || quiz.description;
-            quiz.guidlines = guidlines || quiz.guidlines;
+            quiz.guidlines = guidlines ? JSON.parse(guidlines) : quiz.guidlines; // Assuming guidlines is a JSON string
             quiz.type = type || quiz.type;
             quiz.banner = newBanner; // Use the new or existing banner
             quiz.imageVector = imageVector || quiz.imageVector;
             quiz.tutor = tutor || quiz.tutor;
-            quiz.verificationCode = verificationCode || quiz.verificationCode;
-            quiz.quizTags = quizTags || quiz.quizTags;
+            quiz.verificationCode = verificationCode !== undefined ? verificationCode : quiz.verificationCode;
+            quiz.quizTags = quizTags ? JSON.parse(quizTags) : quiz.quizTags; // Assuming quizTags is a JSON string
             quiz.timeDuration = timeDuration || quiz.timeDuration;
-            quiz.questions = updatedQuestions;
+            quiz.subject = subject || quiz.subject; // Add subject update
+            quiz.passMark = passMark !== undefined ? Number(passMark) : quiz.passMark; // Add passMark update, ensure it's a number
+            quiz.questions = updatedQuestionIds; // This should be the array of question ObjectIds
 
             await quiz.save();
 

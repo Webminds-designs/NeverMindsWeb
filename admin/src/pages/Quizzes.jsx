@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import Search from '../assets/magnifier.png';
-import edit from '../assets/edit.svg';
-import { Link } from 'react-router-dom';
+import { TbTrashXFilled, TbEdit, TbSearch } from 'react-icons/tb';
 import NewQuiz from '../components/NewQuiz';
-import { useGetAllQuizzesQuery } from '../redux/slices/quizSlice';
+import { useGetAllQuizzesQuery, useDeleteQuizMutation } from '../redux/slices/quizSlice';
+import toast from 'react-hot-toast';
 
 const Quizzes = () => {
+  const [deleteQuiz] = useDeleteQuizMutation();
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedQuiz, setSelectedQuiz] = useState(null);
 
   // Using RTK Query hook to fetch quizzes
-  const { data: quizzes, isLoading, error } = useGetAllQuizzesQuery();
+  const { data: quizzes, isLoading, error, refetch } = useGetAllQuizzesQuery();
 
   // Filter quizzes based on search term
   const filteredQuizzes = quizzes?.filter((quiz) =>
@@ -77,7 +79,7 @@ const Quizzes = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <div className="absolute inset-y-0 left-52 flex items-center pr-3">
-              <img src={Search} alt="Search" width="15" height="15" />
+              <TbSearch color='gray' width="15" height="15" />
             </div>
           </div>
 
@@ -118,12 +120,25 @@ const Quizzes = () => {
                       <h3 className="text-lg font-semibold text-gray-800">{quiz.title}</h3>
                       <p className="text-sm text-gray-500">{quiz.subject}</p>
                     </div>
-                    <img
+                    <TbEdit
                       className="cursor-pointer hover:opacity-80"
-                      src={edit}
-                      alt="edit"
-                      width="25"
-                      height="25"
+                      color='gray'
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering the parent div's onClick
+                        setSelectedQuiz(quiz);
+                        setIsModalOpen(true);
+                      }}
+                    />
+                    <TbTrashXFilled
+                      className="cursor-pointer hover:opacity-80 text-red-500"
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering the parent div's onClick
+                        deleteQuiz(quiz._id)
+                          .then(() => toast.success('Quiz deleted successfully!'))
+                          .catch((err) => toast.error('Error deleting quiz: ' + err.message))
+                          .finally(() => refetch());
+
+                      }}
                     />
                   </div>
                   <div className="flex justify-between items-end mt-4">
@@ -141,7 +156,14 @@ const Quizzes = () => {
       {/* New Quiz Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
-          <NewQuiz closeModal={() => setIsModalOpen(false)} />
+          <NewQuiz 
+            closeModal={() => {
+              setIsModalOpen(false); 
+              setSelectedQuiz(null)
+            }} 
+            refetch={refetch} 
+            quizToEdit={selectedQuiz}
+          />
         </div>
       )}
     </div>

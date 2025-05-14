@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Search from '../assets/magnifier.png';
-import edit from '../assets/edit.svg';
+import { TbSearch, TbEdit } from 'react-icons/tb';
 import pen from '../assets/pen.svg';
 
 const Users = () => {
@@ -59,7 +58,7 @@ const Users = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <img src={Search} alt="Search" className="absolute left-4 top-2.5 w-5 h-5" />
+                <TbSearch className="absolute left-4 top-2.5 w-5 h-5" color='gray' />
             </div>
 
             {/* All Users */}
@@ -78,12 +77,9 @@ const Users = () => {
                                     <div className="text-gray-500 mr-6">{user.date}</div>
                                 </div>
                                 <div className="flex items-center">
-                                    <img
-                                    className='cursor-pointer'
-                                        src={edit}
-                                        alt="edit"
-                                        width="25"
-                                        height="25"
+                                    <TbEdit
+                                        className='cursor-pointer'
+                                        color='gray'
                                         onClick={() => handleOpenModal(user)} // Open the model
                                     />
                                 </div>
