@@ -17,6 +17,7 @@ import { LanguageProvider } from "./context/LanguageContext";
 import QuizOTPVerification from "./components/QuizOTPVerification";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import SubjectSelection from "./components/SubjectSelection";
 
 function App() {
   return (
@@ -25,7 +26,9 @@ function App() {
         {/* Auth Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        
+        <Route path="/subject-selection" element={<SubjectSelection />} />
+
+
         <Route path="/" element={<Dashboard />}>
           <Route index element={<Home />} />
           <Route path="/badges" element={<Badges />} />
