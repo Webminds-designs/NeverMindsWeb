@@ -173,11 +173,12 @@ const NewQuiz = ({ closeModal, refetch, quizToEdit }) => {
             let quizId;
             
             if (quizToEdit) {
-                const result = await updateQuiz({ id: quizToEdit._id, quizData: formData }).unwrap();
+                /*const result = await updateQuiz({ id: quizToEdit._id, quizData: formData }).unwrap();  
                 if (result) {
                     toast.success('Quiz updated successfully!');
-                    quizId = quizToEdit._id;
-                }
+                   
+                }  */
+                 quizId = quizToEdit._id;
             } else {
                 const result = await createQuiz(formData).unwrap();
                 if (result) {
@@ -188,7 +189,7 @@ const NewQuiz = ({ closeModal, refetch, quizToEdit }) => {
             closeModal();
             refetch();
             // Pass the quizId as state when navigating to the questions page
-            navigate('/question', { state: { quizId } });
+            navigate('/question', { state: { quizId , quiz: formData  } });
         } catch (error) {
             console.error('Error saving quiz:', error);
             toast.error(`Failed to ${quizToEdit ? 'update' : 'create'} quiz. Please try again.`);

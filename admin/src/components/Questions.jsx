@@ -254,7 +254,7 @@ const Questions = () => {
     console.log("quizDetails", quizDetails);
     console.log(questions)
   };
-
+console.log(quizDetails);
   const handleCopy = () => {
     if (!quizDetails?.verificationCode) {
       toast.error("No verification code available");
