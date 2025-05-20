@@ -224,12 +224,22 @@ const Questions = () => {
       const formData = new FormData();
       formData.append('title', quizDetails.title);
       formData.append('description', quizDetails.description);
-      formData.append('guidlines', quizDetails.guidlines);
+      
+      // Properly stringify arrays and objects
+      formData.append('guidlines', Array.isArray(quizDetails.guidlines) || typeof quizDetails.guidlines === 'object' 
+        ? JSON.stringify(quizDetails.guidlines) 
+        : quizDetails.guidlines || '');
+        
       formData.append('type', quizDetails.type);
-      formData.append('imageVector', quizDetails.imageVector);
+      formData.append('imageVector', quizDetails.imageVector || '');
       formData.append('tutor', quizDetails.tutor);
       formData.append('verificationCode', quizDetails.type == 'public' ? '' : quizDetails.verificationCode);
-      formData.append('quizTags', quizDetails.quizTags);
+      
+      // Properly stringify quizTags if it's an array or object
+      formData.append('quizTags', Array.isArray(quizDetails.quizTags) || typeof quizDetails.quizTags === 'object'
+        ? JSON.stringify(quizDetails.quizTags)
+        : quizDetails.quizTags || '');
+        
       formData.append('timeDuration', quizDetails.timeDuration);
       formData.append('subject', quizDetails.subject);
       formData.append('passMark', quizDetails.passMark);
@@ -248,13 +258,10 @@ const Questions = () => {
       setIsPublished(true);
     } catch (error) {
       console.error("Error saving quiz questions:", error);
-      toast.error("Failed to save questions. Please try again.");
+      toast.error(`Failed to save questions: ${error?.data?.message || "Please try again."}`);
     }
-
-    console.log("quizDetails", quizDetails);
-    console.log(questions)
   };
-console.log(quizDetails);
+
   const handleCopy = () => {
     if (!quizDetails?.verificationCode) {
       toast.error("No verification code available");
