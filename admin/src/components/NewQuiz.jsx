@@ -189,7 +189,7 @@ const NewQuiz = ({ closeModal, refetch, quizToEdit }) => {
             closeModal();
             refetch();
             // Pass the quizId as state when navigating to the questions page
-            navigate('/question', { state: { quizId , quiz: formData  } });
+            navigate('/question', { state: { quizId } });
         } catch (error) {
             console.error('Error saving quiz:', error);
             toast.error(`Failed to ${quizToEdit ? 'update' : 'create'} quiz. Please try again.`);
