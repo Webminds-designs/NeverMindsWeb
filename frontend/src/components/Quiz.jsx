@@ -8,36 +8,80 @@ const Quiz = () => {
   const location = useLocation();
   const quiz = location.state?.quiz;
 
+  // Initialize states after ensuring quiz data exists
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Setup effect to initialize quiz data
   useEffect(() => {
     console.log("✅ Received Quiz Data in Quiz Page:", quiz);
 
-    if (!quiz || !quiz.questions || quiz.questions.length === 0) {
+    if (!quiz) {
       console.error("❌ No quiz data found! Redirecting to quizzes...");
       setTimeout(() => navigate("/quizzes"), 500);
+      return;
     }
-  }, [quiz, navigate]);
 
-  if (!quiz || !quiz.questions) {
-    return (
-      <div className="text-center text-lg font-semibold">
-        Loading quiz data...
-      </div>
-    );
-  }
+    // Check if the quiz has valid questions
+    if (
+      !quiz.questions ||
+      !Array.isArray(quiz.questions) ||
+      quiz.questions.length === 0
+    ) {
+      console.error("❌ No questions in quiz data! Redirecting to quizzes...");
+      setTimeout(() => navigate("/quizzes"), 500);
+      return;
+    }
 
-  // ✅ FIX: Ensure timer starts correctly
-  const totalSeconds = isNaN(parseInt(quiz.duration))
-    ? 1200
-    : parseInt(quiz.duration) * 60;
+    // More flexible question validation - check if it has text/options or question/answers format
+    const hasValidQuestions = quiz.questions.every((question) => {
+      // Check if it follows frontend format with text and options
+      const frontendFormatValid =
+        question &&
+        typeof question.text === "string" &&
+        Array.isArray(question.options) &&
+        question.options.length > 0;
 
-  const [timeLeft, setTimeLeft] = useState(totalSeconds);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState(
-    Array(quiz.questions.length).fill([])
-  );
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+      // Check if it follows backend format with question and answers
+      const backendFormatValid =
+        question &&
+        typeof question.question === "string" &&
+        Array.isArray(question.answers) &&
+        question.answers.length > 0;
 
-  // ✅ Start Timer when Quiz Loads
+      return frontendFormatValid || backendFormatValid;
+    });
+
+    if (!hasValidQuestions) {
+      console.error("❌ Invalid question format in quiz data!", quiz.questions);
+      // Try to transform the data if possible instead of redirecting
+      try {
+        // Add data transformation logic here if needed in the future
+        console.warn("Attempting to continue with possibly invalid quiz data");
+      } catch (e) {
+        console.error("Could not transform quiz data:", e);
+        setTimeout(() => navigate("/quizzes"), 500);
+        return;
+      }
+    }
+
+    // Initialize states only once when quiz data is available
+    if (!isInitialized) {
+      // Calculate total seconds for the timer
+      const totalSeconds = isNaN(parseInt(quiz.duration))
+        ? 1200
+        : parseInt(quiz.duration) * 60;
+
+      setTimeLeft(totalSeconds);
+      setSelectedAnswers(Array(quiz.questions.length).fill([]));
+      setIsInitialized(true);
+    }
+  }, [quiz, navigate, isInitialized]);
+
+  // Timer effect
   useEffect(() => {
     if (timeLeft > 0) {
       const timer = setInterval(() => {
@@ -54,6 +98,60 @@ const Quiz = () => {
     }
   }, [timeLeft]);
 
+  // If quiz data isn't loaded yet, show loading
+  if (
+    !quiz ||
+    !quiz.questions ||
+    !isInitialized ||
+    !Array.isArray(quiz.questions)
+  ) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-center text-lg font-semibold">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500 mx-auto mb-4"></div>
+          Loading quiz data...
+        </div>
+      </div>
+    );
+  }
+
+  // Ensure current question is valid and normalize format
+  let currentQuestionData = quiz.questions[currentQuestion];
+  if (!currentQuestionData) {
+    console.error("❌ Invalid question index! Redirecting to quizzes...");
+    setTimeout(() => navigate("/quizzes"), 500);
+    return null;
+  }
+
+  // Normalize question data format (handle both frontend and backend formats)
+  const normalizedQuestion = {
+    text:
+      currentQuestionData.text ||
+      currentQuestionData.question ||
+      "Question not available",
+    options:
+      currentQuestionData.options ||
+      (Array.isArray(currentQuestionData.answers)
+        ? currentQuestionData.answers.map((a) => {
+            // Handle different answer formats
+            if (typeof a === "string") return a;
+            if (a.text) return a.text;
+            if (a.answer) {
+              // If the answer is a nested object or has a mixed type
+              return typeof a.answer === "string"
+                ? a.answer
+                : a.answer.text || JSON.stringify(a.answer);
+            }
+            return JSON.stringify(a);
+          })
+        : ["No options available"]),
+    correctAnswers: currentQuestionData.correctAnswers || [],
+    hasIcon: currentQuestionData.hasIcon || false,
+  };
+
+  // Use normalized data
+  currentQuestionData = normalizedQuestion;
+
   // ✅ Timer Format Function
   const formatTime = (seconds) => {
     if (isNaN(seconds)) return "00 : 00";
@@ -65,7 +163,8 @@ const Quiz = () => {
   };
 
   const isMultipleAnswer =
-    quiz.questions[currentQuestion].correctAnswers.length > 1;
+    Array.isArray(currentQuestionData.correctAnswers) &&
+    currentQuestionData.correctAnswers.length > 1;
 
   const handleAnswerSelect = (index) => {
     const updatedAnswers = [...selectedAnswers];
@@ -84,6 +183,10 @@ const Quiz = () => {
   };
 
   const handleFinishQuiz = () => {
+    const totalSeconds = isNaN(parseInt(quiz.duration))
+      ? 1200
+      : parseInt(quiz.duration) * 60;
+
     navigate("/quizresult", {
       state: {
         quiz,
@@ -195,7 +298,7 @@ const Quiz = () => {
         {/* Question Card */}
         <div className="mt-6 bg-white p-4 lg:p-6 rounded-lg flex flex-col relative">
           <p className="text-lg lg:text-[24px] font-semibold mt-6 lg:mt-10">
-            {quiz.questions[currentQuestion].text}
+            {currentQuestionData.text}
           </p>
 
           <hr className="my-5 h-1 border-t border-black" />
@@ -205,16 +308,16 @@ const Quiz = () => {
             {/* Answer Options */}
             <div
               className={`w-full ${
-                quiz.questions[currentQuestion].hasIcon ? "md:w-3/4" : "w-full"
+                currentQuestionData.hasIcon ? "md:w-3/4" : "w-full"
               }`}
             >
-              {quiz.questions[currentQuestion].options.map((option, index) => (
+              {currentQuestionData.options.map((option, index) => (
                 <label key={index} className="block mt-3 cursor-pointer">
                   <div className="flex items-center p-3 w-full rounded-md transition bg-[#fffcf2] hover:bg-gray-200">
                     {/* Custom Square Checkbox */}
                     <div
                       className={`w-5 h-5 border-2 flex items-center justify-center rounded-sm mr-3 ${
-                        selectedAnswers[currentQuestion].includes(index)
+                        selectedAnswers[currentQuestion]?.includes(index)
                           ? "bg-[#ffe132] border-[#ffe132]"
                           : "bg-white border-gray-400"
                       }`}
@@ -224,7 +327,9 @@ const Quiz = () => {
                   <input
                     type={isMultipleAnswer ? "checkbox" : "radio"}
                     name={`question-${currentQuestion}`}
-                    checked={selectedAnswers[currentQuestion].includes(index)}
+                    checked={
+                      selectedAnswers[currentQuestion]?.includes(index) || false
+                    }
                     onChange={() => handleAnswerSelect(index)}
                     className="hidden"
                   />
@@ -233,12 +338,16 @@ const Quiz = () => {
             </div>
 
             {/* Show quiz icon for specific questions */}
-            {quiz.questions[currentQuestion].hasIcon && (
+            {currentQuestionData.hasIcon && (
               <div className="flex justify-center items-center mt-4 md:mt-0 w-full md:w-1/4">
                 <img
-                  src={quiz.icon}
+                  src={quiz.icon || ""}
                   alt="Question Icon"
                   className="w-28 h-28 md:w-36 md:h-36 lg:w-44 lg:h-44 border border-gray-300 rounded-lg p-2"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/path/to/default/image.jpg";
+                  }}
                 />
               </div>
             )}

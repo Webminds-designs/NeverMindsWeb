@@ -13,6 +13,8 @@ const QuizCard = ({
   tutorIcon,
   showScore,
   isPrivate,
+  quizData, // Full quiz data from backend
+  onTry, // Function passed from parent
 }) => {
   const navigate = useNavigate();
 
@@ -22,27 +24,40 @@ const QuizCard = ({
   };
 
   const handleTryClick = () => {
-    const fullQuizData = [...quizCardData, ...recommendedQuizzes].find(
-      (q) => q.title === title
-    );
-
-    if (!fullQuizData) {
-      console.error(`❌ No matching quiz found for title: ${title}`);
+    // If onTry prop is provided, use it (parent component handles navigation)
+    if (onTry) {
+      onTry();
       return;
     }
 
+    if (quizData) {
+      // Use the quiz data directly from the backend
+      navigate(
+        quizData.type === "private"
+          ? "/quizotpverification"
+          : "/quizguidelines",
+        {
+          state: { quiz: quizData },
+        }
+      );
+      return;
+    }
+
+    // Fallback with minimal data if needed
+    console.log("Warning: No quiz data available, using minimal data");
     const quiz = {
-      ...fullQuizData, // Ensure all quiz properties are included
+      title,
+      subject,
+      description: "Quiz description",
       icon: image || "https://via.placeholder.com/150",
+      duration: "20 Min",
+      numQuestions: 10,
+      isPrivate: isPrivate,
     };
 
-    console.log("Navigating with Quiz Data:", quiz); // Debug log before navigation
-
-    if (quiz.isPrivate) {
-      navigate("/quizotpverification", { state: { quiz } });
-    } else {
-      navigate("/quizguidelines", { state: { quiz } });
-    }
+    navigate(isPrivate ? "/quizotpverification" : "/quizguidelines", {
+      state: { quiz },
+    });
   };
 
   return (
