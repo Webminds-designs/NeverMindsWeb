@@ -1,17 +1,24 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import {homeOutline,heartOutline,trophyOutline,barChartOutline,personOutline,settingsOutline,logOutOutline} from "ionicons/icons";
+import {
+  homeOutline,
+  heartOutline,
+  trophyOutline,
+  barChartOutline,
+  personOutline,
+  settingsOutline,
+  logOutOutline,
+} from "ionicons/icons";
 import { FaBars } from "react-icons/fa";
+import { IoHomeOutline } from "react-icons/io5"; // Import home icon from react-icons
 import logo from "../assets/nlogo2.png";
 import { LanguageContext } from "../context/LanguageContext";
-import content from '../components/content/SlideBarContent.json'
-
-
+import content from "../components/content/SlideBarContent.json";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
-   const { language, toggleLanguage } = useContext(LanguageContext); 
-  
+  const { language, toggleLanguage } = useContext(LanguageContext);
+
   return (
     <div className="fixed top-0 left-0 h-screen z-50">
       <div
@@ -35,9 +42,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     fontFamily: "'Courgette', cursive",
                     fontSize: "24px",
                   }}
-                >
-                  
-                </span>
+                ></span>
               </div>
             </div>
 
@@ -52,27 +57,49 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             {/* Overview Section */}
             <ul className="mt-4 px-6 space-y-4 sm:mt-12">
               <li className="text-gray-500 text-sm uppercase font-bold tracking-wide">
-              {content[language].overview}
+                {content[language].overview}
               </li>
+              {/* Add Home link here */}
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={homeOutline} size="large" />
-                <Link to="/dashboard"className="text-lg font-medium"> {content[language].dashboard}</Link>
-              </li>
-              <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
-                <IonIcon icon={heartOutline} size="large" />
-                <Link to="/favourites"className="text-lg font-medium"> {content[language].favourites}</Link>
-              </li>
-              <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
-                <IonIcon icon={trophyOutline} size="large" />
-                <Link to="/badges"className="text-lg font-medium"> {content[language].badges}</Link>
+                <Link to="/" className="text-lg font-medium">
+                  Home
+                </Link>
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={barChartOutline} size="large" />
-                <Link to="/progress"className="text-lg font-medium"> {content[language].progress}</Link>
+                <Link to="/dashboard" className="text-lg font-medium">
+                  {" "}
+                  {content[language].dashboard}
+                </Link>
+              </li>
+              <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
+                <IonIcon icon={heartOutline} size="large" />
+                <Link to="/favourites" className="text-lg font-medium">
+                  {" "}
+                  {content[language].favourites}
+                </Link>
+              </li>
+              <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
+                <IonIcon icon={trophyOutline} size="large" />
+                <Link to="/badges" className="text-lg font-medium">
+                  {" "}
+                  {content[language].badges}
+                </Link>
+              </li>
+              <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
+                <IonIcon icon={barChartOutline} size="large" />
+                <Link to="/progress" className="text-lg font-medium">
+                  {" "}
+                  {content[language].progress}
+                </Link>
               </li>
               <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                 <IonIcon icon={personOutline} size="large" />
-                <Link to="/account"className="text-lg font-medium"> {content[language].account}</Link> 
+                <Link to="/account" className="text-lg font-medium">
+                  {" "}
+                  {content[language].account}
+                </Link>
               </li>
             </ul>
 
@@ -81,11 +108,14 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               {/* Settings Section */}
               <ul className="mt-6 space-y-4">
                 <li className="text-gray-500 text-sm uppercase font-bold tracking-wide">
-                   {content[language].settings}
+                  {content[language].settings}
                 </li>
                 <li className="flex items-center gap-4 py-3 px-3 hover:bg-yellow-500 hover:text-black rounded-lg cursor-pointer transition-all duration-300">
                   <IonIcon icon={settingsOutline} size="large" />
-                  <span className="text-lg font-medium"> {content[language].settings}</span>
+                  <span className="text-lg font-medium">
+                    {" "}
+                    {content[language].settings}
+                  </span>
                 </li>
               </ul>
               <button className="flex items-center gap-4 w-full text-lg font-medium text-red-600 hover:text-red-800 hover:bg-gray-100 rounded-lg py-3 px-3 transition-all duration-300">
@@ -103,9 +133,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         onClick={toggleSidebar}
       >
         {!isOpen && (
-          <FaBars
-            className="w-10 h-10 hover:rotate-12 transition-transform"
-          />
+          <FaBars className="w-10 h-10 hover:rotate-12 transition-transform" />
         )}
       </div>
     </div>
