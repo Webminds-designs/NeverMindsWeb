@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
 import { TbSearch, TbEdit } from 'react-icons/tb';
 import pen from '../assets/pen.svg';
+import {
+    useGetAllTeachersQuery,
+    useGetAllStudentsQuery,
+    useUpdateStudentProfileMutation,
+    useUpdateTeacherProfileMutation,
+} from '../redux/slices/userSlice';
+
 
 const Users = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
-   
 
-    const users = [
-        { name: "Jananga Yasith", date: "Feb 9", email: "jananga@.com", age: 22, gender: "Male", phone: "0771234567", address: "Colombo" },
-        { name: "Deneth Kavindu", date: "Feb 9", email: "deneth@.com", age: 21, gender: "Male", phone: "0772345678", address: "Galle" },
-        { name: "Pawara Hasamal", date: "Feb 9", email: "pawara@.com", age: 22, gender: "Male", phone: "0773456789", address: "Kandy" },
-        { name: "Jananga Yasith", date: "Feb 9", email: "jananga@.com", age: 22, gender: "Male", phone: "0771234567", address: "Colombo" },
-        { name: "Deneth Kavindu", date: "Feb 9", email: "deneth@.com", age: 21, gender: "Male", phone: "0772345678", address: "Galle" },
-        { name: "Pawara Hasamal", date: "Feb 9", email: "pawara@.com", age: 22, gender: "Male", phone: "0773456789", address: "Kandy" },
-    ];
+    const { data: teachers = [], isLoading: loadingTeachers } = useGetAllTeachersQuery();
+    const { data: students = [], isLoading: loadingStudents } = useGetAllStudentsQuery();
+
+    const [updateStudentProfile] = useUpdateStudentProfileMutation();
+    const [updateTeacherProfile] = useUpdateTeacherProfileMutation();
+
+    const users = [...teachers, ...students];
+
+
+
     //search users
     const filteredUsers = users.filter((user) =>
         user.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -64,42 +72,42 @@ const Users = () => {
             {/* All Users */}
             <h2 className="text-xl font-semibold mb-4">All Users</h2>
             <div className="bg-white p-4 rounded-lg shadow-md">
-            {filteredUsers.length > 0 ? (
-                            filteredUsers.map((user, idx) => (
-                    <div key={idx}>
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                                <div className="bg-yellow-400 w-8 h-8 rounded-lg mr-3"></div>
-                                <div>{user.name}</div>
+                {filteredUsers.length > 0 ? (
+                    filteredUsers.map((user, idx) => (
+                        <div key={idx}>
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center">
+                                    <div className="bg-yellow-400 w-8 h-8 rounded-lg mr-3"></div>
+                                    <div>{user.name}</div>
+                                </div>
+                                <div className="flex space-x-40">
+                                    <div className="flex items-center">
+                                        <div className="text-gray-500 mr-6">{user.role}</div>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <TbEdit
+                                            className='cursor-pointer'
+                                            color='gray'
+                                            onClick={() => handleOpenModal(user)} // Open the model
+                                        />
+                                    </div>
+                                    <div className="flex items-center">
+                                        <button onClick={() => handleOpenModal(user)} className="text-gray-600 px-2 py-1 rounded-md border border-gray-600">
+                                            Details
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex space-x-40">
-                                <div className="flex items-center">
-                                    <div className="text-gray-500 mr-6">{user.date}</div>
-                                </div>
-                                <div className="flex items-center">
-                                    <TbEdit
-                                        className='cursor-pointer'
-                                        color='gray'
-                                        onClick={() => handleOpenModal(user)} // Open the model
-                                    />
-                                </div>
-                                <div className="flex items-center">
-                                    <button  onClick={() => handleOpenModal(user)}  className="text-gray-600 px-2 py-1 rounded-md border border-gray-600">
-                                        Details
-                                    </button>
-                                </div>
-                            </div>
+                            <hr className="h-px my-8 bg-gray-200 border-2 dark:bg-gray-400" />
                         </div>
-                        <hr className="h-px my-8 bg-gray-200 border-2 dark:bg-gray-400" />
-                    </div>
-                ))
-            ) : (
-                <tr>
-                    <td colSpan="6" className="text-center py-4 text-gray-500">
-                        No users found.
-                    </td>
-                </tr>
-            )}
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan="6" className="text-center py-4 text-gray-500">
+                            No users found.
+                        </td>
+                    </tr>
+                )}
             </div>
 
             {/* Modal for editing user details */}
