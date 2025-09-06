@@ -173,11 +173,12 @@ const NewQuiz = ({ closeModal, refetch, quizToEdit }) => {
             let quizId;
             
             if (quizToEdit) {
-                const result = await updateQuiz({ id: quizToEdit._id, quizData: formData }).unwrap();
+                /*const result = await updateQuiz({ id: quizToEdit._id, quizData: formData }).unwrap();  
                 if (result) {
                     toast.success('Quiz updated successfully!');
-                    quizId = quizToEdit._id;
-                }
+                   
+                }  */
+                 quizId = quizToEdit._id;
             } else {
                 const result = await createQuiz(formData).unwrap();
                 if (result) {
